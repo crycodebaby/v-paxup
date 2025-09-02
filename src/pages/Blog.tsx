@@ -56,7 +56,7 @@ const Blog = () => {
       author: "Dr. Sarah Weber",
       date: "15. März 2024",
       readTime: "8 Min.",
-      image: "/lovable-uploads/f972f7e7-b6c7-47b8-861d-aadaae465c6b.png",
+      image: "/src/assets/ki-prozessoptimierung-blog.jpg",
       featured: true
     },
     {
@@ -68,7 +68,7 @@ const Blog = () => {
       author: "Marcus Klein",
       date: "12. März 2024",
       readTime: "6 Min.",
-      image: "/lovable-uploads/0f034a48-ad79-4548-99b9-fe42330d0806.png"
+      image: "/src/assets/handwerk-digitalisierung-blog.jpg"
     },
     {
       id: 3,
@@ -79,7 +79,7 @@ const Blog = () => {
       author: "Lisa Müller",
       date: "10. März 2024",
       readTime: "12 Min.",
-      image: "/lovable-uploads/f972f7e7-b6c7-47b8-861d-aadaae465c6b.png"
+      image: "/src/assets/foerdermittel-blog.jpg"
     },
     {
       id: 4,
@@ -90,7 +90,7 @@ const Blog = () => {
       author: "Thomas Berg",
       date: "8. März 2024",
       readTime: "10 Min.",
-      image: "/lovable-uploads/0f034a48-ad79-4548-99b9-fe42330d0806.png"
+      image: "/src/assets/immobilien-digitalisierung-hero.jpg"
     },
     {
       id: 5,
@@ -101,7 +101,7 @@ const Blog = () => {
       author: "Dr. Anna Fischer",
       date: "5. März 2024",
       readTime: "9 Min.",
-      image: "/lovable-uploads/f972f7e7-b6c7-47b8-861d-aadaae465c6b.png"
+      image: "/src/assets/cloud-onpremise-blog.jpg"
     },
     {
       id: 6,
@@ -112,7 +112,7 @@ const Blog = () => {
       author: "Michael Hoffmann",
       date: "2. März 2024",
       readTime: "7 Min.",
-      image: "/lovable-uploads/0f034a48-ad79-4548-99b9-fe42330d0806.png"
+      image: "/src/assets/workflow-automatisierung-blog.jpg"
     }
   ];
 
