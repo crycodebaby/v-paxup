@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Calendar, Clock, User, Search, Tag } from "lucide-react";
+import { Calendar, Clock, User, Search, Tag, TrendingUp, BookOpen } from "lucide-react";
 
 const Blog = () => {
   // Updated category system - two-level categories
@@ -133,247 +133,308 @@ const Blog = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-subtle py-20">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-                PAXUP <span className="bg-gradient-primary bg-clip-text text-transparent">Blog</span>
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Entdecken Sie die neuesten Trends in Digitalisierung und KI. 
-                Praktische Insights für erfolgreiche Transformation im Mittelstand.
-              </p>
-              
-              {/* Search Bar */}
-              <div className="max-w-md mx-auto relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input 
-                  type="text"
-                  placeholder="Blog durchsuchen..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-background/80 backdrop-blur-sm"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Category Filter */}
-        <section className="py-8 bg-background border-b border-border">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="space-y-6">
-              {/* General Categories */}
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-3">Allgemein</h3>
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {generalCategories.map((category) => (
-                    <Button
-                      key={category}
-                      variant={selectedGeneralCategory === category ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedGeneralCategory(category)}
-                      className="rounded-full"
-                    >
-                      <Tag className="w-4 h-4 mr-2" />
-                      {category}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Industry Categories */}
-              <div>
-                <h3 className="text-sm font-medium text-muted-foreground mb-3">Branchenspezifisch</h3>
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {industryCategories.map((category) => (
-                    <Button
-                      key={category}
-                      variant={selectedIndustryCategory === category ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedIndustryCategory(category)}
-                      className="rounded-full"
-                    >
-                      <Tag className="w-4 h-4 mr-2" />
-                      {category}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Post */}
-        {featuredPost && selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && (
-          <section className="py-16">
-            <div className="container mx-auto px-4 lg:px-8">
-              <div className="max-w-6xl mx-auto">
-                <div className="mb-8">
-                  <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">
-                    ⭐ Featured
-                  </Badge>
-                  <h2 className="text-2xl font-bold text-foreground mb-4">Highlights</h2>
-                </div>
-                
-                <Card className="overflow-hidden hover:shadow-card transition-all duration-300 border-primary/20">
-                  <div className="grid lg:grid-cols-2 gap-0">
-                    <div className="relative h-64 lg:h-auto">
-                      <img 
-                        src={featuredPost.image} 
-                        alt={featuredPost.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
-                      <Badge variant="outline" className="mb-4 w-fit">
-                        {featuredPost.generalCategory}
-                      </Badge>
-                      <CardTitle className="text-2xl lg:text-3xl font-bold mb-4 text-foreground leading-tight">
-                        {featuredPost.title}
-                      </CardTitle>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
-                        {featuredPost.excerpt}
-                      </p>
-                      <div className="flex items-center gap-6 text-sm text-muted-foreground mb-6">
-                        <div className="flex items-center gap-2">
-                          <User className="w-4 h-4" />
-                          {featuredPost.author}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          {featuredPost.date}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4" />
-                          {featuredPost.readTime}
-                        </div>
-                      </div>
-                      <Button variant="cta" className="w-fit">
-                        <Link to="/blog/ki-prozessoptimierung">
-                          Artikel lesen →
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </div>
-                </Card>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Blog Posts Grid */}
-        <section className="py-16">
+        <section className="bg-gradient-subtle py-16 border-b border-border">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-6xl mx-auto">
-              <div className="mb-12">
-                <h2 className="text-2xl font-bold text-foreground mb-4">
-                  {searchTerm ? `Suchergebnisse für "${searchTerm}"` : 
-                   (selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle") ? "Alle Artikel" : 
-                   `${selectedGeneralCategory !== "Alle" ? selectedGeneralCategory : ""} ${selectedIndustryCategory !== "Alle" ? `- ${selectedIndustryCategory}` : ""}`}
-                </h2>
-                <p className="text-muted-foreground">
-                  {filteredPosts.length} {filteredPosts.length === 1 ? 'Artikel gefunden' : 'Artikel gefunden'}
+              <div className="text-center mb-12">
+                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+                  PAXUP <span className="bg-gradient-primary bg-clip-text text-transparent">Blog</span>
+                </h1>
+                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                  Erstklassige Inhalte, die Ihnen helfen, Ihre Digitalisierungsbemühungen zu verbessern
                 </p>
-              </div>
-
-              {filteredPosts.length === 0 ? (
-                <div className="text-center py-12">
-                  <div className="text-6xl mb-4">🔍</div>
+                
+                {/* Newsletter Signup */}
+                <div className="bg-background/80 backdrop-blur-sm border border-border rounded-xl p-8 max-w-2xl mx-auto">
                   <h3 className="text-xl font-semibold text-foreground mb-2">
-                    Keine Artikel gefunden
+                    Weltweit anerkannte Digitalisierungs-Inhalte, die Ihnen helfen, Ihre Zielgruppe zu vergrößern.
                   </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Versuchen Sie einen anderen Suchbegriff oder wählen Sie eine andere Kategorie.
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => {
-                      setSearchTerm("");
-                      setSelectedGeneralCategory("Alle");
-                      setSelectedIndustryCategory("Alle");
-                    }}
-                  >
-                    Filter zurücksetzen
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                    <Input 
+                      type="email" 
+                      placeholder="Ihre E-Mail-Adresse"
+                      className="flex-1 bg-background"
+                    />
+                    <Button variant="cta" size="lg">
+                      Abonnieren
+                    </Button>
+                  </div>
                 </div>
-              ) : (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {regularPosts.map((post) => (
-                    <Card key={post.id} className="group overflow-hidden hover:shadow-card transition-all duration-300 hover:-translate-y-1">
-                      <div className="relative h-48 overflow-hidden">
-                        <img 
-                          src={post.image} 
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="absolute inset-0 bg-gradient-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                      <CardContent className="p-6">
-                        <Badge variant="outline" className="mb-3">
-                          {post.generalCategory}
-                        </Badge>
-                        <CardTitle className="text-lg font-bold mb-3 text-foreground line-clamp-2 group-hover:text-primary transition-colors">
-                          {post.title}
-                        </CardTitle>
-                        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-                          {post.excerpt}
-                        </p>
-                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                          <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-1">
-                              <User className="w-3 h-3" />
-                              {post.author}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              {post.readTime}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-muted-foreground flex items-center gap-1">
-                            <Calendar className="w-3 h-3" />
-                            {post.date}
-                          </span>
-                          <Link to={getPostUrl(post.id)}>
-                            <Button variant="ghost" size="sm" className="text-primary hover:text-primary-hover">
-                              Lesen →
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Content Layout */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid lg:grid-cols-4 gap-12">
+                
+                {/* Main Content Area */}
+                <div className="lg:col-span-3">
+                  
+                  {/* Category Filter */}
+                  <div className="mb-12">
+                    <div className="space-y-6">
+                      {/* General Categories */}
+                      <div>
+                        <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">Allgemein</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {generalCategories.map((category) => (
+                            <Button
+                              key={category}
+                              variant={selectedGeneralCategory === category ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => setSelectedGeneralCategory(category)}
+                              className="rounded-full text-xs"
+                            >
+                              {category}
                             </Button>
-                          </Link>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {/* Industry Categories */}
+                      <div>
+                        <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">Branchenspezifisch</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {industryCategories.map((category) => (
+                            <Button
+                              key={category}
+                              variant={selectedIndustryCategory === category ? "default" : "outline"}
+                              size="sm"
+                              onClick={() => setSelectedIndustryCategory(category)}
+                              className="rounded-full text-xs"
+                            >
+                              {category}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <Separator className="mt-8" />
+                  </div>
+
+                  {/* Featured Post */}
+                  {featuredPost && selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && (
+                    <div className="mb-16">
+                      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-0 bg-gradient-subtle">
+                        <div className="grid md:grid-cols-2 gap-0">
+                          <div className="relative h-64 md:h-80">
+                            <img 
+                              src={featuredPost.image} 
+                              alt={featuredPost.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <CardContent className="p-8 flex flex-col justify-center">
+                            <Badge variant="secondary" className="mb-4 w-fit bg-primary/10 text-primary border-primary/20">
+                              {featuredPost.generalCategory}
+                            </Badge>
+                            <CardTitle className="text-2xl font-bold mb-4 text-foreground leading-tight hover:text-primary transition-colors">
+                              <Link to="/blog/ki-prozessoptimierung">
+                                {featuredPost.title}
+                              </Link>
+                            </CardTitle>
+                            <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
+                              {featuredPost.excerpt}
+                            </p>
+                            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                              <div className="flex items-center gap-1">
+                                <User className="w-3 h-3" />
+                                {featuredPost.author}
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                {featuredPost.date}
+                              </div>
+                            </div>
+                          </CardContent>
+                        </div>
+                      </Card>
+                    </div>
+                  )}
+
+                  {/* Latest Articles */}
+                  <div>
+                    <div className="flex items-center justify-between mb-8">
+                      <div className="flex items-center gap-3">
+                        <BookOpen className="w-6 h-6 text-primary" />
+                        <h2 className="text-2xl font-bold text-foreground">
+                          {searchTerm ? `Suchergebnisse für "${searchTerm}"` : "Latest articles"}
+                        </h2>
+                      </div>
+                      <div className="relative max-w-xs">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <Input 
+                          type="text"
+                          placeholder="Suchen..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="pl-9 text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    {filteredPosts.length === 0 ? (
+                      <div className="text-center py-12">
+                        <div className="text-4xl mb-4">🔍</div>
+                        <h3 className="text-lg font-semibold text-foreground mb-2">
+                          Keine Artikel gefunden
+                        </h3>
+                        <p className="text-muted-foreground mb-6">
+                          Versuchen Sie einen anderen Suchbegriff oder wählen Sie eine andere Kategorie.
+                        </p>
+                        <Button 
+                          variant="outline" 
+                          onClick={() => {
+                            setSearchTerm("");
+                            setSelectedGeneralCategory("Alle");
+                            setSelectedIndustryCategory("Alle");
+                          }}
+                        >
+                          Filter zurücksetzen
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="space-y-6">
+                        {regularPosts.map((post, index) => (
+                          <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300 border-border/50">
+                            <div className="grid md:grid-cols-4 gap-6 p-6">
+                              <div className="md:col-span-1">
+                                <div className="relative h-24 md:h-20 overflow-hidden rounded-lg">
+                                  <img 
+                                    src={post.image} 
+                                    alt={post.title}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  />
+                                </div>
+                              </div>
+                              <div className="md:col-span-3">
+                                <div className="flex items-start justify-between gap-4">
+                                  <div className="flex-1">
+                                    <Link to={getPostUrl(post.id)} className="group-hover:text-primary transition-colors">
+                                      <h3 className="font-semibold text-foreground mb-2 leading-tight">
+                                        {post.title}
+                                      </h3>
+                                    </Link>
+                                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                                      {post.excerpt}
+                                    </p>
+                                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                      <div className="flex items-center gap-1">
+                                        <User className="w-3 h-3" />
+                                        {post.author}
+                                      </div>
+                                      <div className="flex items-center gap-1">
+                                        <Calendar className="w-3 h-3" />
+                                        {post.date}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <Badge variant="outline" className="text-xs">
+                                    {post.generalCategory}
+                                  </Badge>
+                                </div>
+                              </div>
+                            </div>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Sidebar */}
+                <div className="lg:col-span-1">
+                  <div className="sticky top-8 space-y-8">
+                    
+                    {/* Von PAXUP empfohlen */}
+                    <Card className="border-primary/20">
+                      <CardHeader className="pb-4">
+                        <div className="flex items-center gap-2">
+                          <TrendingUp className="w-5 h-5 text-primary" />
+                          <CardTitle className="text-lg">Von PAXUP empfohlen</CardTitle>
+                        </div>
+                        <Separator className="mt-2" />
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {blogPosts.slice(0, 3).map((post) => (
+                          <div key={post.id} className="group">
+                            <Link to={getPostUrl(post.id)} className="block">
+                              <div className="flex gap-3">
+                                <div className="w-16 h-12 flex-shrink-0 overflow-hidden rounded">
+                                  <img 
+                                    src={post.image} 
+                                    alt={post.title}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <h4 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                                    {post.title}
+                                  </h4>
+                                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                    <span>{post.author}</span>
+                                    <span>•</span>
+                                    <span>{post.date}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </Link>
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+
+                    {/* Categories Quick Access */}
+                    <Card>
+                      <CardHeader className="pb-4">
+                        <CardTitle className="text-lg">Kategorien</CardTitle>
+                        <Separator />
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        {generalCategories.slice(1).map((category) => (
+                          <Button
+                            key={category}
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setSelectedGeneralCategory(category)}
+                            className="w-full justify-start text-left h-auto p-2"
+                          >
+                            <Tag className="w-4 h-4 mr-2 text-primary" />
+                            <span className="text-sm">{category}</span>
+                          </Button>
+                        ))}
+                      </CardContent>
+                    </Card>
+
+                    {/* Newsletter CTA */}
+                    <Card className="bg-gradient-subtle border-primary/20">
+                      <CardContent className="p-6">
+                        <h3 className="font-semibold text-foreground mb-2">
+                          Newsletter abonnieren
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Erhalten Sie die neuesten Artikel direkt in Ihr Postfach.
+                        </p>
+                        <div className="space-y-3">
+                          <Input 
+                            type="email" 
+                            placeholder="E-Mail-Adresse"
+                            className="text-sm"
+                          />
+                          <Button variant="cta" size="sm" className="w-full">
+                            Abonnieren
+                          </Button>
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
 
-        {/* Newsletter CTA */}
-        <section className="py-16 bg-gradient-subtle">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                Bleiben Sie auf dem Laufenden
-              </h2>
-              <p className="text-xl text-muted-foreground mb-8">
-                Erhalten Sie die neuesten Artikel und Insights direkt in Ihr Postfach.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <Input 
-                  type="email" 
-                  placeholder="Ihre E-Mail-Adresse"
-                  className="flex-1"
-                />
-                <Button variant="cta">
-                  Newsletter abonnieren
-                </Button>
+                  </div>
+                </div>
               </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                Kostenlos, jederzeit kündbar. Ihre Daten sind bei uns sicher.
-              </p>
             </div>
           </div>
         </section>
