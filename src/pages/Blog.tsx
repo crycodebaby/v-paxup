@@ -62,14 +62,14 @@ const Blog = () => {
     image: "/src/assets/foerdermittel-blog.jpg"
   }, {
     id: 4,
-    title: "KI & Digitalisierung für Immobilienverwaltung",
+    title: "Digitalisierung & KI in der Immobilienverwaltung: 5 Probleme, die du heute lösen kannst",
     excerpt: "Entdecke, wie du 5 akute Herausforderungen meistern und nachhaltig wachsen kannst. Von der Strategie bis zur Umsetzung - Dein Digitalisierungs- und KI Berater.",
     generalCategory: "Prozessautomatisierung",
     industryCategory: "Immobilienverwaltung",
     author: "PAXUP Team",
     date: "22. März 2024",
     readTime: "10 Min.",
-    image: "/lovable-uploads/4c73ffa8-1fdc-4aef-b240-c35a7f7fe1e7.png",
+    image: "/lovable-uploads/2cf5ab73-e5b6-402e-8b8f-3ad767612622.png",
     featured: true
   }, {
     id: 5,
