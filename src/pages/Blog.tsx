@@ -246,8 +246,8 @@ const Blog = () => {
                       
                       <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-0 bg-gradient-subtle">
                         <div className="grid md:grid-cols-2 gap-0">
-                          <div className="relative h-80 md:h-auto">
-                            <img src={featuredPost.image} alt={featuredPost.title} className="w-full h-full object-contain md:object-cover" />
+                          <div className="relative h-80 md:h-auto bg-muted/20 flex items-center justify-center">
+                            <img src={featuredPost.image} alt={featuredPost.title} className="w-full h-full object-contain p-4" />
                           </div>
                           <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
                             <Badge variant="secondary" className="mb-4 w-fit bg-primary/10 text-primary border-primary/20">
