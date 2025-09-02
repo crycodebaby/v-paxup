@@ -275,6 +275,12 @@ const Blog = () => {
                                 {featuredPost.readTime}
                               </div>
                             </div>
+                            <Separator className="mb-4" />
+                            <Link to={getPostUrl(featuredPost.id)}>
+                              <Button variant="cta" size="lg" className="w-full">
+                                Zum Artikel
+                              </Button>
+                            </Link>
                           </CardContent>
                         </div>
                       </Card>
@@ -329,7 +335,7 @@ const Blog = () => {
                                 <p className="text-muted-foreground text-xs mb-3 line-clamp-2">
                                   {post.excerpt}
                                 </p>
-                                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                                <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
                                   <div className="flex items-center gap-1">
                                     <User className="w-3 h-3" />
                                     {post.author}
@@ -339,6 +345,12 @@ const Blog = () => {
                                     {post.date}
                                   </div>
                                 </div>
+                                <Separator className="mb-3" />
+                                <Link to={getPostUrl(post.id)} className="block">
+                                  <Button variant="outline" size="sm" className="w-full text-xs">
+                                    Zum Artikel
+                                  </Button>
+                                </Link>
                               </div>
                             </div>
                           </Card>)}
@@ -366,7 +378,7 @@ const Blog = () => {
                                 <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
                                   {post.excerpt}
                                 </p>
-                                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                                   <div className="flex items-center gap-3">
                                     <div className="flex items-center gap-1">
                                       <User className="w-3 h-3" />
@@ -379,6 +391,10 @@ const Blog = () => {
                                   </div>
                                   <span>{post.date}</span>
                                 </div>
+                                <Separator className="mb-3" />
+                                <Button variant="outline" size="sm" className="w-full text-xs">
+                                  Zum Artikel
+                                </Button>
                               </CardContent>
                             </Card>)}
                         </div>
@@ -403,7 +419,7 @@ const Blog = () => {
                                 <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
                                   {post.excerpt}
                                 </p>
-                                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                                   <div className="flex items-center gap-3">
                                     <div className="flex items-center gap-1">
                                       <User className="w-3 h-3" />
@@ -416,6 +432,10 @@ const Blog = () => {
                                   </div>
                                   <span>{post.date}</span>
                                 </div>
+                                <Separator className="mb-3" />
+                                <Button variant="outline" size="sm" className="w-full text-xs">
+                                  Zum Artikel
+                                </Button>
                               </CardContent>
                             </Card>)}
                         </div>
