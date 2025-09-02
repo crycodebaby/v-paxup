@@ -69,7 +69,7 @@ const Blog = () => {
     author: "PAXUP Team",
     date: "22. März 2024",
     readTime: "10 Min.",
-    image: "/lovable-uploads/2cf5ab73-e5b6-402e-8b8f-3ad767612622.png",
+    image: "/lovable-uploads/b6154235-92ef-4609-8331-93cbfe6ae4dd.png",
     featured: true
   }, {
     id: 5,
