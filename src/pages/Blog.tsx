@@ -224,7 +224,6 @@ const Blog = () => {
                         alt={featuredPost.title}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-overlay" />
                     </div>
                     <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
                       <Badge variant="outline" className="mb-4 w-fit">
