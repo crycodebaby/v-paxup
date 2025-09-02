@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock, User, Search, Tag } from "lucide-react";
 
 const Blog = () => {
+  // Updated category system - two-level categories
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGeneralCategory, setSelectedGeneralCategory] = useState("Alle");
   const [selectedIndustryCategory, setSelectedIndustryCategory] = useState("Alle");
