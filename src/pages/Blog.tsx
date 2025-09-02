@@ -83,7 +83,7 @@ const Blog = () => {
     },
     {
       id: 4,
-      title: "Automatisierung in der Immobilienverwaltung: 5 Game-Changer",
+      title: "Digitalisierung & KI in der Immobilienverwaltung: 5 Probleme, die du heute lösen kannst",
       excerpt: "Wie moderne Software-Lösungen die Verwaltung von Immobilienportfolios vereinfachen und Kosten senken.",
       generalCategory: "Prozessautomatisierung",
       industryCategory: "Immobilienverwaltung",
@@ -113,6 +113,85 @@ const Blog = () => {
       date: "2. März 2024",
       readTime: "7 Min.",
       image: "/src/assets/workflow-automatisierung-blog.jpg"
+    }
+  ];
+
+  // Placeholder posts for topic categories
+  const kiPraxisPosts = [
+    {
+      id: 101,
+      title: "KI-Chatbots im Kundenservice: Implementierung und Best Practices",
+      excerpt: "Wie Unternehmen intelligente Chatbots erfolgreich einsetzen und dabei die Kundenzufriedenheit steigern.",
+      author: "Sophie Hartmann",
+      date: "18. März 2024",
+      readTime: "7 Min.",
+      image: "/src/assets/ki-prozessoptimierung-blog.jpg"
+    },
+    {
+      id: 102,
+      title: "Predictive Analytics in der Logistik: Effizienz durch Vorhersagen",
+      excerpt: "Datengetriebene Prognosen revolutionieren die Lieferkette und reduzieren Kosten um bis zu 25%.",
+      author: "Robert Fischer",
+      date: "16. März 2024",
+      readTime: "9 Min.",
+      image: "/src/assets/workflow-automatisierung-blog.jpg"
+    },
+    {
+      id: 103,
+      title: "Machine Learning in der Qualitätskontrolle",
+      excerpt: "Automatisierte Fehlererkennung in der Produktion steigert Qualität und senkt Ausschuss.",
+      author: "Maria Gonzalez",
+      date: "14. März 2024",
+      readTime: "6 Min.",
+      image: "/src/assets/ki-prozessoptimierung-blog.jpg"
+    },
+    {
+      id: 104,
+      title: "KI-gestützte Personalauswahl: Objektiver und effizienter rekrutieren",
+      excerpt: "Wie intelligente Systeme bei der Kandidatenauswahl helfen und Bias reduzieren.",
+      author: "Jan Schneider",
+      date: "11. März 2024",
+      readTime: "8 Min.",
+      image: "/src/assets/handwerk-digitalisierung-blog.jpg"
+    }
+  ];
+
+  const allgemeinPosts = [
+    {
+      id: 201,
+      title: "Was ist Künstliche Intelligenz? Ein Leitfaden für Einsteiger",
+      excerpt: "Grundlagen, Begriffe und praktische Anwendungen von KI einfach erklärt.",
+      author: "Dr. Elena Wegner",
+      date: "20. März 2024",
+      readTime: "10 Min.",
+      image: "/src/assets/foerdermittel-blog.jpg"
+    },
+    {
+      id: 202,
+      title: "Digitalisierung vs. Digitale Transformation: Der Unterschied",
+      excerpt: "Warum die Begriffe nicht synonym sind und was das für Ihr Unternehmen bedeutet.",
+      author: "Alexander Kruse",
+      date: "17. März 2024",
+      readTime: "5 Min.",
+      image: "/src/assets/cloud-onpremise-blog.jpg"
+    },
+    {
+      id: 203,
+      title: "Die 5 größten Mythen über KI im Mittelstand",
+      excerpt: "Aufklärung über weit verbreitete Irrtümer und realistische Erwartungen an KI-Technologie.",
+      author: "Christina Weber",
+      date: "13. März 2024",
+      readTime: "7 Min.",
+      image: "/src/assets/workflow-automatisierung-blog.jpg"
+    },
+    {
+      id: 204,
+      title: "Datenschutz und KI: Was Unternehmen beachten müssen",
+      excerpt: "DSGVO-konforme Implementierung von KI-Systemen und rechtliche Fallstricke.",
+      author: "Dr. Michael Richter",
+      date: "9. März 2024",
+      readTime: "11 Min.",
+      image: "/src/assets/foerdermittel-blog.jpg"
     }
   ];
 
@@ -216,38 +295,48 @@ const Blog = () => {
                     <Separator className="mt-8" />
                   </div>
 
-                  {/* Featured Post */}
+                  {/* PAXUP Empfehlung - Featured Article */}
                   {featuredPost && selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && (
                     <div className="mb-16">
+                      <div className="mb-8">
+                        <h2 className="text-3xl font-bold text-foreground mb-2">PAXUP Empfehlung</h2>
+                        <p className="text-muted-foreground">Unser Highlight für Sie – besonders relevant und aktuell</p>
+                        <Separator className="mt-4" />
+                      </div>
+                      
                       <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-0 bg-gradient-subtle">
                         <div className="grid md:grid-cols-2 gap-0">
-                          <div className="relative h-64 md:h-80">
+                          <div className="relative h-80 md:h-96">
                             <img 
                               src={featuredPost.image} 
                               alt={featuredPost.title}
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          <CardContent className="p-8 flex flex-col justify-center">
+                          <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
                             <Badge variant="secondary" className="mb-4 w-fit bg-primary/10 text-primary border-primary/20">
                               {featuredPost.generalCategory}
                             </Badge>
-                            <CardTitle className="text-2xl font-bold mb-4 text-foreground leading-tight hover:text-primary transition-colors">
+                            <CardTitle className="text-2xl lg:text-3xl font-bold mb-4 text-foreground leading-tight hover:text-primary transition-colors">
                               <Link to="/blog/ki-prozessoptimierung">
                                 {featuredPost.title}
                               </Link>
                             </CardTitle>
-                            <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
+                            <p className="text-muted-foreground mb-6 leading-relaxed">
                               {featuredPost.excerpt}
                             </p>
-                            <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
                               <div className="flex items-center gap-1">
-                                <User className="w-3 h-3" />
+                                <User className="w-4 h-4" />
                                 {featuredPost.author}
                               </div>
                               <div className="flex items-center gap-1">
-                                <Calendar className="w-3 h-3" />
+                                <Calendar className="w-4 h-4" />
                                 {featuredPost.date}
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <Clock className="w-4 h-4" />
+                                {featuredPost.readTime}
                               </div>
                             </div>
                           </CardContent>
@@ -257,13 +346,14 @@ const Blog = () => {
                   )}
 
                   {/* Latest Articles */}
-                  <div>
+                  <div className="mb-16">
                     <div className="flex items-center justify-between mb-8">
-                      <div className="flex items-center gap-3">
-                        <BookOpen className="w-6 h-6 text-primary" />
-                        <h2 className="text-2xl font-bold text-foreground">
+                      <div>
+                        <h2 className="text-3xl font-bold text-foreground mb-2">
                           {searchTerm ? `Suchergebnisse für "${searchTerm}"` : "Latest articles"}
                         </h2>
+                        <p className="text-muted-foreground">Die neuesten Beiträge zu Digitalisierung und KI</p>
+                        <Separator className="mt-4" />
                       </div>
                       <div className="relative max-w-xs">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -298,44 +388,38 @@ const Blog = () => {
                         </Button>
                       </div>
                     ) : (
-                      <div className="space-y-6">
-                        {regularPosts.map((post, index) => (
+                      <div className="grid md:grid-cols-2 gap-6">
+                        {regularPosts.map((post) => (
                           <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300 border-border/50">
-                            <div className="grid md:grid-cols-4 gap-6 p-6">
-                              <div className="md:col-span-1">
-                                <div className="relative h-24 md:h-20 overflow-hidden rounded-lg">
-                                  <img 
-                                    src={post.image} 
-                                    alt={post.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                  />
-                                </div>
+                            <div className="flex gap-4 p-4">
+                              <div className="w-32 h-24 flex-shrink-0 overflow-hidden rounded-lg">
+                                <img 
+                                  src={post.image} 
+                                  alt={post.title}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
                               </div>
-                              <div className="md:col-span-3">
-                                <div className="flex items-start justify-between gap-4">
-                                  <div className="flex-1">
-                                    <Link to={getPostUrl(post.id)} className="group-hover:text-primary transition-colors">
-                                      <h3 className="font-semibold text-foreground mb-2 leading-tight">
-                                        {post.title}
-                                      </h3>
-                                    </Link>
-                                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-                                      {post.excerpt}
-                                    </p>
-                                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                                      <div className="flex items-center gap-1">
-                                        <User className="w-3 h-3" />
-                                        {post.author}
-                                      </div>
-                                      <div className="flex items-center gap-1">
-                                        <Calendar className="w-3 h-3" />
-                                        {post.date}
-                                      </div>
-                                    </div>
+                              <div className="flex-1 min-w-0">
+                                <Badge variant="outline" className="mb-2 text-xs">
+                                  {post.generalCategory}
+                                </Badge>
+                                <Link to={getPostUrl(post.id)} className="group-hover:text-primary transition-colors">
+                                  <h3 className="font-semibold text-sm text-foreground mb-2 leading-tight line-clamp-2">
+                                    {post.title}
+                                  </h3>
+                                </Link>
+                                <p className="text-muted-foreground text-xs mb-3 line-clamp-2">
+                                  {post.excerpt}
+                                </p>
+                                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                                  <div className="flex items-center gap-1">
+                                    <User className="w-3 h-3" />
+                                    {post.author}
                                   </div>
-                                  <Badge variant="outline" className="text-xs">
-                                    {post.generalCategory}
-                                  </Badge>
+                                  <div className="flex items-center gap-1">
+                                    <Calendar className="w-3 h-3" />
+                                    {post.date}
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -344,6 +428,97 @@ const Blog = () => {
                       </div>
                     )}
                   </div>
+
+                  {/* Topic Categories */}
+                  {selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && (
+                    <div className="space-y-16">
+                      {/* KI in der Praxis */}
+                      <div>
+                        <div className="mb-8">
+                          <h2 className="text-3xl font-bold text-foreground mb-2">KI in der Praxis</h2>
+                          <p className="text-muted-foreground">Branchenübergreifende Anwendungen und Erfolgsgeschichten</p>
+                          <Separator className="mt-4" />
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          {kiPraxisPosts.map((post) => (
+                            <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300">
+                              <div className="relative h-48 overflow-hidden">
+                                <img 
+                                  src={post.image} 
+                                  alt={post.title}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                              </div>
+                              <CardContent className="p-4">
+                                <h3 className="font-semibold text-foreground mb-2 leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                                  {post.title}
+                                </h3>
+                                <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                                  {post.excerpt}
+                                </p>
+                                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                  <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-1">
+                                      <User className="w-3 h-3" />
+                                      {post.author}
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Clock className="w-3 h-3" />
+                                      {post.readTime}
+                                    </div>
+                                  </div>
+                                  <span>{post.date}</span>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Allgemeines zu KI und Digitalisierung */}
+                      <div>
+                        <div className="mb-8">
+                          <h2 className="text-3xl font-bold text-foreground mb-2">Allgemeines zu KI und Digitalisierung</h2>
+                          <p className="text-muted-foreground">Grundlagen, Trends und Zukunftsperspektiven</p>
+                          <Separator className="mt-4" />
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          {allgemeinPosts.map((post) => (
+                            <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300">
+                              <div className="relative h-48 overflow-hidden">
+                                <img 
+                                  src={post.image} 
+                                  alt={post.title}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                              </div>
+                              <CardContent className="p-4">
+                                <h3 className="font-semibold text-foreground mb-2 leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                                  {post.title}
+                                </h3>
+                                <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                                  {post.excerpt}
+                                </p>
+                                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                                  <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-1">
+                                      <User className="w-3 h-3" />
+                                      {post.author}
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Clock className="w-3 h-3" />
+                                      {post.readTime}
+                                    </div>
+                                  </div>
+                                  <span>{post.date}</span>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Sidebar */}
