@@ -195,7 +195,7 @@ const ImmobilienLandingPage = () => {
                 </h1>
                 <p className="text-lg lg:text-xl text-muted-foreground mb-8 leading-relaxed">
                   Schluss mit Bewerberflut, Terminchaos und endlosen Routineanfragen. 
-                  Entdecken Sie, wie 500+ Hausverwaltungen bereits heute KI nutzen, 
+                  Entdecken Sie, wie Hausverwaltungen bereits heute KI nutzen, 
                   um effizienter zu arbeiten und nachhaltig zu wachsen.
                 </p>
                 
