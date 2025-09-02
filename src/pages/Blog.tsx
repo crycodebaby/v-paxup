@@ -39,8 +39,7 @@ const Blog = () => {
     author: "Dr. Sarah Weber",
     date: "15. März 2024",
     readTime: "8 Min.",
-    image: "/src/assets/ki-prozessoptimierung-blog.jpg",
-    featured: true
+    image: "/src/assets/ki-prozessoptimierung-blog.jpg"
   }, {
     id: 2,
     title: "Digitale Transformation im Handwerk: Erfolgreich in die Zukunft",
@@ -63,14 +62,15 @@ const Blog = () => {
     image: "/src/assets/foerdermittel-blog.jpg"
   }, {
     id: 4,
-    title: "Digitalisierung & KI in der Immobilienverwaltung: 5 Probleme, die du heute lösen kannst",
-    excerpt: "Wie moderne Software-Lösungen die Verwaltung von Immobilienportfolios vereinfachen und Kosten senken.",
+    title: "KI & Digitalisierung für Immobilienverwaltung",
+    excerpt: "Entdecke, wie du 5 akute Herausforderungen meistern und nachhaltig wachsen kannst. Von der Strategie bis zur Umsetzung - Dein Digitalisierungs- und KI Berater.",
     generalCategory: "Prozessautomatisierung",
     industryCategory: "Immobilienverwaltung",
-    author: "Thomas Berg",
-    date: "8. März 2024",
+    author: "PAXUP Team",
+    date: "22. März 2024",
     readTime: "10 Min.",
-    image: "/src/assets/immobilien-digitalisierung-hero.jpg"
+    image: "/lovable-uploads/4c73ffa8-1fdc-4aef-b240-c35a7f7fe1e7.png",
+    featured: true
   }, {
     id: 5,
     title: "Cloud vs. On-Premise: Die richtige IT-Strategie für KMU",
