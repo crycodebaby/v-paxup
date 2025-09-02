@@ -173,25 +173,29 @@ const Blog = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-subtle py-16 border-b border-border">
+        <section className="bg-gradient-subtle py-12 border-b border-border">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
                   PAXUP <span className="bg-gradient-primary bg-clip-text text-transparent">Blog</span>
                 </h1>
-                <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                <p className="text-base text-muted-foreground mb-6 max-w-xl mx-auto">
                   Erstklassige Inhalte, die Ihnen helfen, Ihre Digitalisierungsbemühungen zu verbessern
                 </p>
                 
-                {/* Newsletter Signup */}
-                <div className="bg-background/80 backdrop-blur-sm border border-border rounded-xl p-8 max-w-2xl mx-auto">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
-                    Weltweit anerkannte Digitalisierungs-Inhalte, die Ihnen helfen, Ihre Zielgruppe zu vergrößern.
-                  </h3>
-                  <div className="flex flex-col sm:flex-row gap-3 mt-6">
-                    <Input type="email" placeholder="Ihre E-Mail-Adresse" className="flex-1 bg-background" />
-                    <Button variant="cta" size="lg">
+                {/* Newsletter Signup - Subtle */}
+                <div className="bg-muted/30 border border-border/50 rounded-lg p-4 max-w-lg mx-auto">
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Newsletter abonnieren für die neuesten Updates
+                  </p>
+                  <div className="flex gap-2">
+                    <Input 
+                      type="email" 
+                      placeholder="E-Mail-Adresse" 
+                      className="flex-1 h-8 text-sm bg-background/50" 
+                    />
+                    <Button variant="outline" size="sm" className="h-8 px-3 text-sm">
                       Abonnieren
                     </Button>
                   </div>
