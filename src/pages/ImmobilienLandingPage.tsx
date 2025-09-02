@@ -184,16 +184,16 @@ const ImmobilienLandingPage = () => {
       <section className="relative bg-gradient-subtle py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="container mx-auto px-4 lg:px-8 relative">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-fade-in">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-7 animate-fade-in">
                 <Badge variant="secondary" className="mb-6 bg-primary/10 text-primary border-primary/20">
                   🚀 Digitalisierung & KI für Immobilienverwaltung
                 </Badge>
-                <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
                   Sparen Sie <span className="bg-gradient-primary bg-clip-text text-transparent">täglich 3+ Stunden</span> durch intelligente Automatisierung
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                <p className="text-lg lg:text-xl text-muted-foreground mb-8 leading-relaxed">
                   Schluss mit Bewerberflut, Terminchaos und endlosen Routineanfragen. 
                   Entdecken Sie, wie 500+ Hausverwaltungen bereits heute KI nutzen, 
                   um effizienter zu arbeiten und nachhaltig zu wachsen.
@@ -210,28 +210,31 @@ const ImmobilienLandingPage = () => {
                   </Button>
                 </div>
                 
-                <div className="flex items-center gap-8 text-sm text-muted-foreground">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                     30 Min kostenlose Beratung
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                     Individuelle Lösung
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                     Sofort umsetzbar
                   </div>
                 </div>
               </div>
               
-              <div className="relative animate-fade-in">
-                <img 
-                  src="/lovable-uploads/b6154235-92ef-4609-8331-93cbfe6ae4dd.png"
-                  alt="KI & Digitalisierung für Immobilienverwaltung"
-                  className="w-full max-w-lg mx-auto rounded-2xl shadow-2xl"
-                />
+              <div className="lg:col-span-5 relative animate-fade-in">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur-3xl opacity-20 scale-105"></div>
+                  <img 
+                    src="/lovable-uploads/b6154235-92ef-4609-8331-93cbfe6ae4dd.png"
+                    alt="KI & Digitalisierung für Immobilienverwaltung"
+                    className="relative w-full h-auto rounded-2xl shadow-2xl border border-border/10"
+                  />
+                </div>
               </div>
             </div>
           </div>
