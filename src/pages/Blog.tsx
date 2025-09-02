@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,19 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGeneralCategory, setSelectedGeneralCategory] = useState("Alle");
   const [selectedIndustryCategory, setSelectedIndustryCategory] = useState("Alle");
+
+  // URL mapping for blog posts
+  const getPostUrl = (id: number) => {
+    const urlMap: { [key: number]: string } = {
+      1: "/blog/ki-prozessoptimierung",
+      2: "/blog/digitale-transformation-handwerk",
+      3: "/blog/foerdermittel-digitalisierung",
+      4: "/blog/automatisierung-immobilienverwaltung",
+      5: "/blog/cloud-vs-onpremise",
+      6: "/blog/workflow-automatisierung"
+    };
+    return urlMap[id] || "/blog";
+  };
 
   const generalCategories = [
     "Alle",
@@ -237,7 +251,9 @@ const Blog = () => {
                         </div>
                       </div>
                       <Button variant="cta" className="w-fit">
-                        Artikel lesen →
+                        <Link to="/blog/ki-prozessoptimierung">
+                          Artikel lesen →
+                        </Link>
                       </Button>
                     </CardContent>
                   </div>
@@ -321,9 +337,11 @@ const Blog = () => {
                             <Calendar className="w-3 h-3" />
                             {post.date}
                           </span>
-                          <Button variant="ghost" size="sm" className="text-primary hover:text-primary-hover">
-                            Lesen →
-                          </Button>
+                          <Link to={getPostUrl(post.id)}>
+                            <Button variant="ghost" size="sm" className="text-primary hover:text-primary-hover">
+                              Lesen →
+                            </Button>
+                          </Link>
                         </div>
                       </CardContent>
                     </Card>
