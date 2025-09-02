@@ -8,7 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock, User, Search, Tag, TrendingUp, BookOpen } from "lucide-react";
-
 const Blog = () => {
   // Updated category system - two-level categories
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +16,9 @@ const Blog = () => {
 
   // URL mapping for blog posts
   const getPostUrl = (id: number) => {
-    const urlMap: { [key: number]: string } = {
+    const urlMap: {
+      [key: number]: string;
+    } = {
       1: "/blog/ki-prozessoptimierung",
       2: "/blog/digitale-transformation-handwerk",
       3: "/blog/foerdermittel-digitalisierung",
@@ -27,187 +28,147 @@ const Blog = () => {
     };
     return urlMap[id] || "/blog";
   };
-
-  const generalCategories = [
-    "Alle",
-    "Digitalisierung im Mittelstand",
-    "Fördermittel", 
-    "Prozessautomatisierung",
-    "Technologie Trends"
-  ];
-
-  const industryCategories = [
-    "Alle",
-    "Immobilienverwaltung",
-    "Pflege",
-    "Industrie", 
-    "Dienstleistung",
-    "Handwerk",
-    "Handel"
-  ];
-
-  const blogPosts = [
-    {
-      id: 1,
-      title: "KI-gestützte Prozessoptimierung: Wie Mittelständler ihre Effizienz steigern",
-      excerpt: "Erfahren Sie, wie künstliche Intelligenz dabei hilft, Geschäftsprozesse zu automatisieren und die Produktivität um bis zu 40% zu steigern.",
-      generalCategory: "Prozessautomatisierung",
-      industryCategory: "Industrie",
-      author: "Dr. Sarah Weber",
-      date: "15. März 2024",
-      readTime: "8 Min.",
-      image: "/src/assets/ki-prozessoptimierung-blog.jpg",
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Digitale Transformation im Handwerk: Erfolgreich in die Zukunft",
-      excerpt: "Von der Terminplanung bis zur Rechnungsstellung - wie digitale Tools Handwerksbetriebe revolutionieren.",
-      generalCategory: "Digitalisierung im Mittelstand",
-      industryCategory: "Handwerk",
-      author: "Marcus Klein",
-      date: "12. März 2024",
-      readTime: "6 Min.",
-      image: "/src/assets/handwerk-digitalisierung-blog.jpg"
-    },
-    {
-      id: 3,
-      title: "Fördermittel für Digitalisierung: Der komplette Leitfaden 2024",
-      excerpt: "Alle wichtigen staatlichen Förderungen für Ihre Digitalisierungsprojekte - mit Antragsstellung und Praxistipps.",
-      generalCategory: "Fördermittel",
-      industryCategory: "Alle",
-      author: "Lisa Müller",
-      date: "10. März 2024",
-      readTime: "12 Min.",
-      image: "/src/assets/foerdermittel-blog.jpg"
-    },
-    {
-      id: 4,
-      title: "Digitalisierung & KI in der Immobilienverwaltung: 5 Probleme, die du heute lösen kannst",
-      excerpt: "Wie moderne Software-Lösungen die Verwaltung von Immobilienportfolios vereinfachen und Kosten senken.",
-      generalCategory: "Prozessautomatisierung",
-      industryCategory: "Immobilienverwaltung",
-      author: "Thomas Berg",
-      date: "8. März 2024",
-      readTime: "10 Min.",
-      image: "/src/assets/immobilien-digitalisierung-hero.jpg"
-    },
-    {
-      id: 5,
-      title: "Cloud vs. On-Premise: Die richtige IT-Strategie für KMU",
-      excerpt: "Vor- und Nachteile verschiedener IT-Infrastrukturen im Vergleich - mit Entscheidungshilfe für Ihr Unternehmen.",
-      generalCategory: "Technologie Trends",
-      industryCategory: "Dienstleistung",
-      author: "Dr. Anna Fischer",
-      date: "5. März 2024",
-      readTime: "9 Min.",
-      image: "/src/assets/cloud-onpremise-blog.jpg"
-    },
-    {
-      id: 6,
-      title: "Workflow-Automatisierung: 10 Prozesse, die Sie sofort optimieren können",
-      excerpt: "Praktische Beispiele für Automatisierung im Büroalltag - von E-Mail-Marketing bis zur Rechnungsverarbeitung.",
-      generalCategory: "Prozessautomatisierung",
-      industryCategory: "Handel",
-      author: "Michael Hoffmann",
-      date: "2. März 2024",
-      readTime: "7 Min.",
-      image: "/src/assets/workflow-automatisierung-blog.jpg"
-    }
-  ];
+  const generalCategories = ["Alle", "Digitalisierung im Mittelstand", "Fördermittel", "Prozessautomatisierung", "Technologie Trends"];
+  const industryCategories = ["Alle", "Immobilienverwaltung", "Pflege", "Industrie", "Dienstleistung", "Handwerk", "Handel"];
+  const blogPosts = [{
+    id: 1,
+    title: "KI-gestützte Prozessoptimierung: Wie Mittelständler ihre Effizienz steigern",
+    excerpt: "Erfahren Sie, wie künstliche Intelligenz dabei hilft, Geschäftsprozesse zu automatisieren und die Produktivität um bis zu 40% zu steigern.",
+    generalCategory: "Prozessautomatisierung",
+    industryCategory: "Industrie",
+    author: "Dr. Sarah Weber",
+    date: "15. März 2024",
+    readTime: "8 Min.",
+    image: "/src/assets/ki-prozessoptimierung-blog.jpg",
+    featured: true
+  }, {
+    id: 2,
+    title: "Digitale Transformation im Handwerk: Erfolgreich in die Zukunft",
+    excerpt: "Von der Terminplanung bis zur Rechnungsstellung - wie digitale Tools Handwerksbetriebe revolutionieren.",
+    generalCategory: "Digitalisierung im Mittelstand",
+    industryCategory: "Handwerk",
+    author: "Marcus Klein",
+    date: "12. März 2024",
+    readTime: "6 Min.",
+    image: "/src/assets/handwerk-digitalisierung-blog.jpg"
+  }, {
+    id: 3,
+    title: "Fördermittel für Digitalisierung: Der komplette Leitfaden 2024",
+    excerpt: "Alle wichtigen staatlichen Förderungen für Ihre Digitalisierungsprojekte - mit Antragsstellung und Praxistipps.",
+    generalCategory: "Fördermittel",
+    industryCategory: "Alle",
+    author: "Lisa Müller",
+    date: "10. März 2024",
+    readTime: "12 Min.",
+    image: "/src/assets/foerdermittel-blog.jpg"
+  }, {
+    id: 4,
+    title: "Digitalisierung & KI in der Immobilienverwaltung: 5 Probleme, die du heute lösen kannst",
+    excerpt: "Wie moderne Software-Lösungen die Verwaltung von Immobilienportfolios vereinfachen und Kosten senken.",
+    generalCategory: "Prozessautomatisierung",
+    industryCategory: "Immobilienverwaltung",
+    author: "Thomas Berg",
+    date: "8. März 2024",
+    readTime: "10 Min.",
+    image: "/src/assets/immobilien-digitalisierung-hero.jpg"
+  }, {
+    id: 5,
+    title: "Cloud vs. On-Premise: Die richtige IT-Strategie für KMU",
+    excerpt: "Vor- und Nachteile verschiedener IT-Infrastrukturen im Vergleich - mit Entscheidungshilfe für Ihr Unternehmen.",
+    generalCategory: "Technologie Trends",
+    industryCategory: "Dienstleistung",
+    author: "Dr. Anna Fischer",
+    date: "5. März 2024",
+    readTime: "9 Min.",
+    image: "/src/assets/cloud-onpremise-blog.jpg"
+  }, {
+    id: 6,
+    title: "Workflow-Automatisierung: 10 Prozesse, die Sie sofort optimieren können",
+    excerpt: "Praktische Beispiele für Automatisierung im Büroalltag - von E-Mail-Marketing bis zur Rechnungsverarbeitung.",
+    generalCategory: "Prozessautomatisierung",
+    industryCategory: "Handel",
+    author: "Michael Hoffmann",
+    date: "2. März 2024",
+    readTime: "7 Min.",
+    image: "/src/assets/workflow-automatisierung-blog.jpg"
+  }];
 
   // Placeholder posts for topic categories
-  const kiPraxisPosts = [
-    {
-      id: 101,
-      title: "KI-Chatbots im Kundenservice: Implementierung und Best Practices",
-      excerpt: "Wie Unternehmen intelligente Chatbots erfolgreich einsetzen und dabei die Kundenzufriedenheit steigern.",
-      author: "Sophie Hartmann",
-      date: "18. März 2024",
-      readTime: "7 Min.",
-      image: "/src/assets/ki-prozessoptimierung-blog.jpg"
-    },
-    {
-      id: 102,
-      title: "Predictive Analytics in der Logistik: Effizienz durch Vorhersagen",
-      excerpt: "Datengetriebene Prognosen revolutionieren die Lieferkette und reduzieren Kosten um bis zu 25%.",
-      author: "Robert Fischer",
-      date: "16. März 2024",
-      readTime: "9 Min.",
-      image: "/src/assets/workflow-automatisierung-blog.jpg"
-    },
-    {
-      id: 103,
-      title: "Machine Learning in der Qualitätskontrolle",
-      excerpt: "Automatisierte Fehlererkennung in der Produktion steigert Qualität und senkt Ausschuss.",
-      author: "Maria Gonzalez",
-      date: "14. März 2024",
-      readTime: "6 Min.",
-      image: "/src/assets/ki-prozessoptimierung-blog.jpg"
-    },
-    {
-      id: 104,
-      title: "KI-gestützte Personalauswahl: Objektiver und effizienter rekrutieren",
-      excerpt: "Wie intelligente Systeme bei der Kandidatenauswahl helfen und Bias reduzieren.",
-      author: "Jan Schneider",
-      date: "11. März 2024",
-      readTime: "8 Min.",
-      image: "/src/assets/handwerk-digitalisierung-blog.jpg"
-    }
-  ];
-
-  const allgemeinPosts = [
-    {
-      id: 201,
-      title: "Was ist Künstliche Intelligenz? Ein Leitfaden für Einsteiger",
-      excerpt: "Grundlagen, Begriffe und praktische Anwendungen von KI einfach erklärt.",
-      author: "Dr. Elena Wegner",
-      date: "20. März 2024",
-      readTime: "10 Min.",
-      image: "/src/assets/foerdermittel-blog.jpg"
-    },
-    {
-      id: 202,
-      title: "Digitalisierung vs. Digitale Transformation: Der Unterschied",
-      excerpt: "Warum die Begriffe nicht synonym sind und was das für Ihr Unternehmen bedeutet.",
-      author: "Alexander Kruse",
-      date: "17. März 2024",
-      readTime: "5 Min.",
-      image: "/src/assets/cloud-onpremise-blog.jpg"
-    },
-    {
-      id: 203,
-      title: "Die 5 größten Mythen über KI im Mittelstand",
-      excerpt: "Aufklärung über weit verbreitete Irrtümer und realistische Erwartungen an KI-Technologie.",
-      author: "Christina Weber",
-      date: "13. März 2024",
-      readTime: "7 Min.",
-      image: "/src/assets/workflow-automatisierung-blog.jpg"
-    },
-    {
-      id: 204,
-      title: "Datenschutz und KI: Was Unternehmen beachten müssen",
-      excerpt: "DSGVO-konforme Implementierung von KI-Systemen und rechtliche Fallstricke.",
-      author: "Dr. Michael Richter",
-      date: "9. März 2024",
-      readTime: "11 Min.",
-      image: "/src/assets/foerdermittel-blog.jpg"
-    }
-  ];
-
+  const kiPraxisPosts = [{
+    id: 101,
+    title: "KI-Chatbots im Kundenservice: Implementierung und Best Practices",
+    excerpt: "Wie Unternehmen intelligente Chatbots erfolgreich einsetzen und dabei die Kundenzufriedenheit steigern.",
+    author: "Sophie Hartmann",
+    date: "18. März 2024",
+    readTime: "7 Min.",
+    image: "/src/assets/ki-prozessoptimierung-blog.jpg"
+  }, {
+    id: 102,
+    title: "Predictive Analytics in der Logistik: Effizienz durch Vorhersagen",
+    excerpt: "Datengetriebene Prognosen revolutionieren die Lieferkette und reduzieren Kosten um bis zu 25%.",
+    author: "Robert Fischer",
+    date: "16. März 2024",
+    readTime: "9 Min.",
+    image: "/src/assets/workflow-automatisierung-blog.jpg"
+  }, {
+    id: 103,
+    title: "Machine Learning in der Qualitätskontrolle",
+    excerpt: "Automatisierte Fehlererkennung in der Produktion steigert Qualität und senkt Ausschuss.",
+    author: "Maria Gonzalez",
+    date: "14. März 2024",
+    readTime: "6 Min.",
+    image: "/src/assets/ki-prozessoptimierung-blog.jpg"
+  }, {
+    id: 104,
+    title: "KI-gestützte Personalauswahl: Objektiver und effizienter rekrutieren",
+    excerpt: "Wie intelligente Systeme bei der Kandidatenauswahl helfen und Bias reduzieren.",
+    author: "Jan Schneider",
+    date: "11. März 2024",
+    readTime: "8 Min.",
+    image: "/src/assets/handwerk-digitalisierung-blog.jpg"
+  }];
+  const allgemeinPosts = [{
+    id: 201,
+    title: "Was ist Künstliche Intelligenz? Ein Leitfaden für Einsteiger",
+    excerpt: "Grundlagen, Begriffe und praktische Anwendungen von KI einfach erklärt.",
+    author: "Dr. Elena Wegner",
+    date: "20. März 2024",
+    readTime: "10 Min.",
+    image: "/src/assets/foerdermittel-blog.jpg"
+  }, {
+    id: 202,
+    title: "Digitalisierung vs. Digitale Transformation: Der Unterschied",
+    excerpt: "Warum die Begriffe nicht synonym sind und was das für Ihr Unternehmen bedeutet.",
+    author: "Alexander Kruse",
+    date: "17. März 2024",
+    readTime: "5 Min.",
+    image: "/src/assets/cloud-onpremise-blog.jpg"
+  }, {
+    id: 203,
+    title: "Die 5 größten Mythen über KI im Mittelstand",
+    excerpt: "Aufklärung über weit verbreitete Irrtümer und realistische Erwartungen an KI-Technologie.",
+    author: "Christina Weber",
+    date: "13. März 2024",
+    readTime: "7 Min.",
+    image: "/src/assets/workflow-automatisierung-blog.jpg"
+  }, {
+    id: 204,
+    title: "Datenschutz und KI: Was Unternehmen beachten müssen",
+    excerpt: "DSGVO-konforme Implementierung von KI-Systemen und rechtliche Fallstricke.",
+    author: "Dr. Michael Richter",
+    date: "9. März 2024",
+    readTime: "11 Min.",
+    image: "/src/assets/foerdermittel-blog.jpg"
+  }];
   const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesGeneralCategory = selectedGeneralCategory === "Alle" || post.generalCategory === selectedGeneralCategory;
     const matchesIndustryCategory = selectedIndustryCategory === "Alle" || post.industryCategory === selectedIndustryCategory;
     return matchesSearch && matchesGeneralCategory && matchesIndustryCategory;
   });
-
   const featuredPost = blogPosts.find(post => post.featured);
   const regularPosts = filteredPosts.filter(post => !post.featured);
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Header />
       
       <main>
@@ -229,11 +190,7 @@ const Blog = () => {
                     Weltweit anerkannte Digitalisierungs-Inhalte, die Ihnen helfen, Ihre Zielgruppe zu vergrößern.
                   </h3>
                   <div className="flex flex-col sm:flex-row gap-3 mt-6">
-                    <Input 
-                      type="email" 
-                      placeholder="Ihre E-Mail-Adresse"
-                      className="flex-1 bg-background"
-                    />
+                    <Input type="email" placeholder="Ihre E-Mail-Adresse" className="flex-1 bg-background" />
                     <Button variant="cta" size="lg">
                       Abonnieren
                     </Button>
@@ -260,17 +217,9 @@ const Blog = () => {
                       <div>
                         <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">Allgemein</h3>
                         <div className="flex flex-wrap gap-2">
-                          {generalCategories.map((category) => (
-                            <Button
-                              key={category}
-                              variant={selectedGeneralCategory === category ? "default" : "outline"}
-                              size="sm"
-                              onClick={() => setSelectedGeneralCategory(category)}
-                              className="rounded-full text-xs"
-                            >
+                          {generalCategories.map(category => <Button key={category} variant={selectedGeneralCategory === category ? "default" : "outline"} size="sm" onClick={() => setSelectedGeneralCategory(category)} className="rounded-full text-xs">
                               {category}
-                            </Button>
-                          ))}
+                            </Button>)}
                         </div>
                       </div>
                       
@@ -278,17 +227,9 @@ const Blog = () => {
                       <div>
                         <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">Branchenspezifisch</h3>
                         <div className="flex flex-wrap gap-2">
-                          {industryCategories.map((category) => (
-                            <Button
-                              key={category}
-                              variant={selectedIndustryCategory === category ? "default" : "outline"}
-                              size="sm"
-                              onClick={() => setSelectedIndustryCategory(category)}
-                              className="rounded-full text-xs"
-                            >
+                          {industryCategories.map(category => <Button key={category} variant={selectedIndustryCategory === category ? "default" : "outline"} size="sm" onClick={() => setSelectedIndustryCategory(category)} className="rounded-full text-xs">
                               {category}
-                            </Button>
-                          ))}
+                            </Button>)}
                         </div>
                       </div>
                     </div>
@@ -296,8 +237,7 @@ const Blog = () => {
                   </div>
 
                   {/* PAXUP Empfehlung - Featured Article */}
-                  {featuredPost && selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && (
-                    <div className="mb-16">
+                  {featuredPost && selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && <div className="mb-16">
                       <div className="mb-8">
                         <h2 className="text-3xl font-bold text-foreground mb-2">PAXUP Empfehlung</h2>
                         <p className="text-muted-foreground">Unser Highlight für Sie – besonders relevant und aktuell</p>
@@ -307,11 +247,7 @@ const Blog = () => {
                       <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 border-0 bg-gradient-subtle">
                         <div className="grid md:grid-cols-2 gap-0">
                           <div className="relative h-80 md:h-96">
-                            <img 
-                              src={featuredPost.image} 
-                              alt={featuredPost.title}
-                              className="w-full h-full object-cover"
-                            />
+                            <img src={featuredPost.image} alt={featuredPost.title} className="w-full h-full object-cover" />
                           </div>
                           <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
                             <Badge variant="secondary" className="mb-4 w-fit bg-primary/10 text-primary border-primary/20">
@@ -342,8 +278,7 @@ const Blog = () => {
                           </CardContent>
                         </div>
                       </Card>
-                    </div>
-                  )}
+                    </div>}
 
                   {/* Latest Articles */}
                   <div className="mb-16">
@@ -357,18 +292,11 @@ const Blog = () => {
                       </div>
                       <div className="relative max-w-xs">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                        <Input 
-                          type="text"
-                          placeholder="Suchen..."
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                          className="pl-9 text-sm"
-                        />
+                        <Input type="text" placeholder="Suchen..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9 text-sm" />
                       </div>
                     </div>
 
-                    {filteredPosts.length === 0 ? (
-                      <div className="text-center py-12">
+                    {filteredPosts.length === 0 ? <div className="text-center py-12">
                         <div className="text-4xl mb-4">🔍</div>
                         <h3 className="text-lg font-semibold text-foreground mb-2">
                           Keine Artikel gefunden
@@ -376,28 +304,18 @@ const Blog = () => {
                         <p className="text-muted-foreground mb-6">
                           Versuchen Sie einen anderen Suchbegriff oder wählen Sie eine andere Kategorie.
                         </p>
-                        <Button 
-                          variant="outline" 
-                          onClick={() => {
-                            setSearchTerm("");
-                            setSelectedGeneralCategory("Alle");
-                            setSelectedIndustryCategory("Alle");
-                          }}
-                        >
+                        <Button variant="outline" onClick={() => {
+                      setSearchTerm("");
+                      setSelectedGeneralCategory("Alle");
+                      setSelectedIndustryCategory("Alle");
+                    }}>
                           Filter zurücksetzen
                         </Button>
-                      </div>
-                    ) : (
-                      <div className="grid md:grid-cols-2 gap-6">
-                        {regularPosts.map((post) => (
-                          <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300 border-border/50">
+                      </div> : <div className="grid md:grid-cols-2 gap-6">
+                        {regularPosts.map(post => <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300 border-border/50">
                             <div className="flex gap-4 p-4">
                               <div className="w-32 h-24 flex-shrink-0 overflow-hidden rounded-lg">
-                                <img 
-                                  src={post.image} 
-                                  alt={post.title}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
+                                <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <Badge variant="outline" className="mb-2 text-xs">
@@ -423,15 +341,12 @@ const Blog = () => {
                                 </div>
                               </div>
                             </div>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
+                          </Card>)}
+                      </div>}
                   </div>
 
                   {/* Topic Categories */}
-                  {selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && (
-                    <div className="space-y-16">
+                  {selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && <div className="space-y-16">
                       {/* KI in der Praxis */}
                       <div>
                         <div className="mb-8">
@@ -440,14 +355,9 @@ const Blog = () => {
                           <Separator className="mt-4" />
                         </div>
                         <div className="grid md:grid-cols-2 gap-6">
-                          {kiPraxisPosts.map((post) => (
-                            <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300">
+                          {kiPraxisPosts.map(post => <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300">
                               <div className="relative h-48 overflow-hidden">
-                                <img 
-                                  src={post.image} 
-                                  alt={post.title}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
+                                <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                               </div>
                               <CardContent className="p-4">
                                 <h3 className="font-semibold text-foreground mb-2 leading-tight group-hover:text-primary transition-colors line-clamp-2">
@@ -470,27 +380,21 @@ const Blog = () => {
                                   <span>{post.date}</span>
                                 </div>
                               </CardContent>
-                            </Card>
-                          ))}
+                            </Card>)}
                         </div>
                       </div>
 
                       {/* Allgemeines zu KI und Digitalisierung */}
                       <div>
                         <div className="mb-8">
-                          <h2 className="text-3xl font-bold text-foreground mb-2">Allgemeines zu KI und Digitalisierung</h2>
+                          <h2 className="text-3xl font-bold text-foreground mb-2">Allgemeines zu KI & Digitalisierung im Mittelstand</h2>
                           <p className="text-muted-foreground">Grundlagen, Trends und Zukunftsperspektiven</p>
                           <Separator className="mt-4" />
                         </div>
                         <div className="grid md:grid-cols-2 gap-6">
-                          {allgemeinPosts.map((post) => (
-                            <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300">
+                          {allgemeinPosts.map(post => <Card key={post.id} className="group overflow-hidden hover:shadow-md transition-all duration-300">
                               <div className="relative h-48 overflow-hidden">
-                                <img 
-                                  src={post.image} 
-                                  alt={post.title}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
+                                <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                               </div>
                               <CardContent className="p-4">
                                 <h3 className="font-semibold text-foreground mb-2 leading-tight group-hover:text-primary transition-colors line-clamp-2">
@@ -513,12 +417,10 @@ const Blog = () => {
                                   <span>{post.date}</span>
                                 </div>
                               </CardContent>
-                            </Card>
-                          ))}
+                            </Card>)}
                         </div>
                       </div>
-                    </div>
-                  )}
+                    </div>}
                 </div>
 
                 {/* Sidebar */}
@@ -535,16 +437,11 @@ const Blog = () => {
                         <Separator className="mt-2" />
                       </CardHeader>
                       <CardContent className="space-y-6 p-4">
-                        {blogPosts.slice(0, 3).map((post) => (
-                          <div key={post.id} className="group">
+                        {blogPosts.slice(0, 3).map(post => <div key={post.id} className="group">
                             <Link to={getPostUrl(post.id)} className="block">
                               <div className="space-y-3">
                                 <div className="relative h-24 w-full overflow-hidden rounded-lg">
-                                  <img 
-                                    src={post.image} 
-                                    alt={post.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                  />
+                                  <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                                   <div className="absolute top-2 right-2">
                                     <Badge variant="secondary" className="text-xs bg-background/90 backdrop-blur-sm">
                                       {post.readTime}
@@ -568,8 +465,7 @@ const Blog = () => {
                                 </div>
                               </div>
                             </Link>
-                          </div>
-                        ))}
+                          </div>)}
                         
                         <div className="pt-2 border-t border-border">
                           <Button variant="outline" size="sm" className="w-full text-xs">
@@ -586,18 +482,10 @@ const Blog = () => {
                         <Separator />
                       </CardHeader>
                       <CardContent className="space-y-2">
-                        {generalCategories.slice(1).map((category) => (
-                          <Button
-                            key={category}
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setSelectedGeneralCategory(category)}
-                            className="w-full justify-start text-left h-auto p-2"
-                          >
+                        {generalCategories.slice(1).map(category => <Button key={category} variant="ghost" size="sm" onClick={() => setSelectedGeneralCategory(category)} className="w-full justify-start text-left h-auto p-2">
                             <Tag className="w-4 h-4 mr-2 text-primary" />
                             <span className="text-sm">{category}</span>
-                          </Button>
-                        ))}
+                          </Button>)}
                       </CardContent>
                     </Card>
 
@@ -611,11 +499,7 @@ const Blog = () => {
                           Erhalten Sie die neuesten Artikel direkt in Ihr Postfach.
                         </p>
                         <div className="space-y-3">
-                          <Input 
-                            type="email" 
-                            placeholder="E-Mail-Adresse"
-                            className="text-sm"
-                          />
+                          <Input type="email" placeholder="E-Mail-Adresse" className="text-sm" />
                           <Button variant="cta" size="sm" className="w-full">
                             Abonnieren
                           </Button>
@@ -632,8 +516,6 @@ const Blog = () => {
       </main>
 
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Blog;
