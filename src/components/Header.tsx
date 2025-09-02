@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ArrowUp } from "lucide-react";
+import { Menu, X, ArrowUp, Phone, Calendar } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
     { name: "Leistungen", href: "#services" },
-    { name: "Anwendungsfälle", href: "#use-cases" },
+    { name: "Lösungen", href: "#solutions" },
     { name: "Blog", href: "/blog" },
     { name: "Über uns", href: "#about" },
-    { name: "Förderung", href: "#funding" },
-    { name: "Kontakt", href: "#contact" }
+    { name: "Referenzen", href: "#testimonials" }
   ];
 
   return (
@@ -46,12 +45,14 @@ const Header = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              Erstberatung
-            </Button>
-            <Button variant="cta" size="sm">
-              👉 Jetzt starten
+          <div className="hidden md:flex items-center space-x-6">
+            <div className="text-sm text-muted-foreground hidden lg:flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              <span>+49 (0) 123 456 789</span>
+            </div>
+            <Button variant="outline" size="sm" className="text-sm px-4">
+              <Calendar className="w-4 h-4 mr-2" />
+              Beratungstermin
             </Button>
           </div>
 
@@ -83,12 +84,14 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
-              <div className="pt-4 space-y-2">
+              <div className="pt-4 space-y-3">
+                <div className="text-sm text-muted-foreground flex items-center gap-2 px-3">
+                  <Phone className="w-4 h-4" />
+                  <span>+49 (0) 123 456 789</span>
+                </div>
                 <Button variant="outline" className="w-full">
-                  Erstberatung
-                </Button>
-                <Button variant="cta" className="w-full">
-                  👉 Jetzt starten
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Kostenloses Beratungsgespräch
                 </Button>
               </div>
             </div>
