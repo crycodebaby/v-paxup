@@ -10,16 +10,25 @@ import { Calendar, Clock, User, Search, Tag } from "lucide-react";
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Alle");
+  const [selectedGeneralCategory, setSelectedGeneralCategory] = useState("Alle");
+  const [selectedIndustryCategory, setSelectedIndustryCategory] = useState("Alle");
 
-  const categories = [
+  const generalCategories = [
     "Alle",
-    "Digitalisierung",
-    "KI & Machine Learning",
+    "Digitalisierung im Mittelstand",
+    "Fördermittel", 
     "Prozessautomatisierung",
-    "Fördermittel",
-    "Branchenlösungen",
-    "Technologie-Trends"
+    "Technologie Trends"
+  ];
+
+  const industryCategories = [
+    "Alle",
+    "Immobilienverwaltung",
+    "Pflege",
+    "Industrie", 
+    "Dienstleistung",
+    "Handwerk",
+    "Handel"
   ];
 
   const blogPosts = [
@@ -27,7 +36,8 @@ const Blog = () => {
       id: 1,
       title: "KI-gestützte Prozessoptimierung: Wie Mittelständler ihre Effizienz steigern",
       excerpt: "Erfahren Sie, wie künstliche Intelligenz dabei hilft, Geschäftsprozesse zu automatisieren und die Produktivität um bis zu 40% zu steigern.",
-      category: "KI & Machine Learning",
+      generalCategory: "Prozessautomatisierung",
+      industryCategory: "Industrie",
       author: "Dr. Sarah Weber",
       date: "15. März 2024",
       readTime: "8 Min.",
@@ -38,7 +48,8 @@ const Blog = () => {
       id: 2,
       title: "Digitale Transformation im Handwerk: Erfolgreich in die Zukunft",
       excerpt: "Von der Terminplanung bis zur Rechnungsstellung - wie digitale Tools Handwerksbetriebe revolutionieren.",
-      category: "Digitalisierung",
+      generalCategory: "Digitalisierung im Mittelstand",
+      industryCategory: "Handwerk",
       author: "Marcus Klein",
       date: "12. März 2024",
       readTime: "6 Min.",
@@ -48,7 +59,8 @@ const Blog = () => {
       id: 3,
       title: "Fördermittel für Digitalisierung: Der komplette Leitfaden 2024",
       excerpt: "Alle wichtigen staatlichen Förderungen für Ihre Digitalisierungsprojekte - mit Antragsstellung und Praxistipps.",
-      category: "Fördermittel",
+      generalCategory: "Fördermittel",
+      industryCategory: "Alle",
       author: "Lisa Müller",
       date: "10. März 2024",
       readTime: "12 Min.",
@@ -58,7 +70,8 @@ const Blog = () => {
       id: 4,
       title: "Automatisierung in der Immobilienverwaltung: 5 Game-Changer",
       excerpt: "Wie moderne Software-Lösungen die Verwaltung von Immobilienportfolios vereinfachen und Kosten senken.",
-      category: "Branchenlösungen",
+      generalCategory: "Prozessautomatisierung",
+      industryCategory: "Immobilienverwaltung",
       author: "Thomas Berg",
       date: "8. März 2024",
       readTime: "10 Min.",
@@ -68,7 +81,8 @@ const Blog = () => {
       id: 5,
       title: "Cloud vs. On-Premise: Die richtige IT-Strategie für KMU",
       excerpt: "Vor- und Nachteile verschiedener IT-Infrastrukturen im Vergleich - mit Entscheidungshilfe für Ihr Unternehmen.",
-      category: "Technologie-Trends",
+      generalCategory: "Technologie Trends",
+      industryCategory: "Dienstleistung",
       author: "Dr. Anna Fischer",
       date: "5. März 2024",
       readTime: "9 Min.",
@@ -78,7 +92,8 @@ const Blog = () => {
       id: 6,
       title: "Workflow-Automatisierung: 10 Prozesse, die Sie sofort optimieren können",
       excerpt: "Praktische Beispiele für Automatisierung im Büroalltag - von E-Mail-Marketing bis zur Rechnungsverarbeitung.",
-      category: "Prozessautomatisierung",
+      generalCategory: "Prozessautomatisierung",
+      industryCategory: "Handel",
       author: "Michael Hoffmann",
       date: "2. März 2024",
       readTime: "7 Min.",
@@ -89,8 +104,9 @@ const Blog = () => {
   const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "Alle" || post.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesGeneralCategory = selectedGeneralCategory === "Alle" || post.generalCategory === selectedGeneralCategory;
+    const matchesIndustryCategory = selectedIndustryCategory === "Alle" || post.industryCategory === selectedIndustryCategory;
+    return matchesSearch && matchesGeneralCategory && matchesIndustryCategory;
   });
 
   const featuredPost = blogPosts.find(post => post.featured);
@@ -131,25 +147,50 @@ const Blog = () => {
         {/* Category Filter */}
         <section className="py-8 bg-background border-b border-border">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={selectedCategory === category ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCategory(category)}
-                  className="rounded-full"
-                >
-                  <Tag className="w-4 h-4 mr-2" />
-                  {category}
-                </Button>
-              ))}
+            <div className="space-y-6">
+              {/* General Categories */}
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground mb-3">Allgemein</h3>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  {generalCategories.map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedGeneralCategory === category ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedGeneralCategory(category)}
+                      className="rounded-full"
+                    >
+                      <Tag className="w-4 h-4 mr-2" />
+                      {category}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Industry Categories */}
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground mb-3">Branchenspezifisch</h3>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  {industryCategories.map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedIndustryCategory === category ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedIndustryCategory(category)}
+                      className="rounded-full"
+                    >
+                      <Tag className="w-4 h-4 mr-2" />
+                      {category}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Featured Post */}
-        {featuredPost && selectedCategory === "Alle" && !searchTerm && (
+        {featuredPost && selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle" && !searchTerm && (
           <section className="py-16">
             <div className="container mx-auto px-4 lg:px-8">
               <div className="max-w-6xl mx-auto">
@@ -172,7 +213,7 @@ const Blog = () => {
                     </div>
                     <CardContent className="p-8 lg:p-12 flex flex-col justify-center">
                       <Badge variant="outline" className="mb-4 w-fit">
-                        {featuredPost.category}
+                        {featuredPost.generalCategory}
                       </Badge>
                       <CardTitle className="text-2xl lg:text-3xl font-bold mb-4 text-foreground leading-tight">
                         {featuredPost.title}
@@ -212,7 +253,8 @@ const Blog = () => {
               <div className="mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-4">
                   {searchTerm ? `Suchergebnisse für "${searchTerm}"` : 
-                   selectedCategory === "Alle" ? "Alle Artikel" : selectedCategory}
+                   (selectedGeneralCategory === "Alle" && selectedIndustryCategory === "Alle") ? "Alle Artikel" : 
+                   `${selectedGeneralCategory !== "Alle" ? selectedGeneralCategory : ""} ${selectedIndustryCategory !== "Alle" ? `- ${selectedIndustryCategory}` : ""}`}
                 </h2>
                 <p className="text-muted-foreground">
                   {filteredPosts.length} {filteredPosts.length === 1 ? 'Artikel gefunden' : 'Artikel gefunden'}
@@ -232,7 +274,8 @@ const Blog = () => {
                     variant="outline" 
                     onClick={() => {
                       setSearchTerm("");
-                      setSelectedCategory("Alle");
+                      setSelectedGeneralCategory("Alle");
+                      setSelectedIndustryCategory("Alle");
                     }}
                   >
                     Filter zurücksetzen
@@ -252,7 +295,7 @@ const Blog = () => {
                       </div>
                       <CardContent className="p-6">
                         <Badge variant="outline" className="mb-3">
-                          {post.category}
+                          {post.generalCategory}
                         </Badge>
                         <CardTitle className="text-lg font-bold mb-3 text-foreground line-clamp-2 group-hover:text-primary transition-colors">
                           {post.title}
