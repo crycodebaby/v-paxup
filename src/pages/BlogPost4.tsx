@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Calendar, Clock, User, ArrowLeft, Share2 } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft, Share2, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/immobilien-digitalisierung-hero.jpg";
 
@@ -139,6 +139,43 @@ const BlogPost4 = () => {
                 </div>
 
                 <Separator className="my-12" />
+
+                {/* PDF Download Section */}
+                <div className="bg-gradient-subtle border border-border rounded-xl p-8 mb-12">
+                  <div className="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                      <h3 className="text-2xl font-bold text-foreground mb-4">📄 Leitfaden als PDF herunterladen</h3>
+                      <p className="text-muted-foreground mb-6 leading-relaxed">
+                        Lade dir den kompletten Leitfaden "5 Probleme, die du heute lösen kannst" als PDF herunter. Perfekt zum Ausdrucken, Weiterleiten oder als Nachschlagewerk für dein Team.
+                      </p>
+                      <ul className="text-muted-foreground space-y-2 mb-6">
+                        <li className="flex items-center gap-2">
+                          <span className="text-primary">✓</span>
+                          Alle 5 Lösungen im Überblick
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="text-primary">✓</span>
+                          Praktische Umsetzungstipps
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="text-primary">✓</span>
+                          Kostenloser Bonus: Checkliste für den ersten Schritt
+                        </li>
+                      </ul>
+                      <Button variant="cta" size="lg" className="w-full md:w-auto">
+                        <Download className="w-5 h-5 mr-2" />
+                        PDF kostenlos herunterladen
+                      </Button>
+                    </div>
+                    <div className="relative">
+                      <img 
+                        src="/lovable-uploads/b6154235-92ef-4609-8331-93cbfe6ae4dd.png"
+                        alt="Digitalisierung & KI in der Immobilienverwaltung - PDF Vorschau"
+                        className="w-full max-w-sm mx-auto rounded-lg shadow-card border border-border"
+                      />
+                    </div>
+                  </div>
+                </div>
 
                 <div className="text-center mb-12">
                   <h2 className="text-3xl font-bold text-foreground mb-6">Warum jetzt handeln?</h2>
