@@ -359,25 +359,35 @@ const Blog = () => {
                         </div>
                         <Separator className="mt-2" />
                       </CardHeader>
-                      <CardContent className="space-y-4">
+                      <CardContent className="space-y-6 p-4">
                         {blogPosts.slice(0, 3).map((post) => (
                           <div key={post.id} className="group">
                             <Link to={getPostUrl(post.id)} className="block">
-                              <div className="flex gap-3">
-                                <div className="w-16 h-12 flex-shrink-0 overflow-hidden rounded">
+                              <div className="space-y-3">
+                                <div className="relative h-24 w-full overflow-hidden rounded-lg">
                                   <img 
                                     src={post.image} 
                                     alt={post.title}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                   />
+                                  <div className="absolute top-2 right-2">
+                                    <Badge variant="secondary" className="text-xs bg-background/90 backdrop-blur-sm">
+                                      {post.readTime}
+                                    </Badge>
+                                  </div>
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                  <h4 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                                <div className="space-y-2">
+                                  <h4 className="font-semibold text-sm text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight">
                                     {post.title}
                                   </h4>
-                                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                    <span>{post.author}</span>
-                                    <span>•</span>
+                                  <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                                    {post.excerpt}
+                                  </p>
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground pt-1">
+                                    <div className="flex items-center gap-1">
+                                      <User className="w-3 h-3" />
+                                      <span className="truncate">{post.author}</span>
+                                    </div>
                                     <span>{post.date}</span>
                                   </div>
                                 </div>
@@ -385,6 +395,12 @@ const Blog = () => {
                             </Link>
                           </div>
                         ))}
+                        
+                        <div className="pt-2 border-t border-border">
+                          <Button variant="outline" size="sm" className="w-full text-xs">
+                            Alle Artikel ansehen
+                          </Button>
+                        </div>
                       </CardContent>
                     </Card>
 
