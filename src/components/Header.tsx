@@ -8,6 +8,7 @@ const Header = () => {
   const menuItems = [
     { name: "Leistungen", href: "/leistungen" },
     { name: "Anwendungsfälle", href: "/anwendungsfaelle" },
+    { name: "Immobilienverwaltung", href: "/immobilienverwaltung" },
     { name: "Blog", href: "/blog" },
     { name: "Über uns", href: "/ueber-uns" },
     { name: "Förderung", href: "/foerderung" },
