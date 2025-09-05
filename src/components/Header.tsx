@@ -9,7 +9,7 @@ const Header = () => {
     { name: "Leistungen", href: "#services" },
     { name: "Anwendungsfälle", href: "#use-cases" },
     { name: "Blog", href: "/blog" },
-    { name: "Über uns", href: "#about" },
+    { name: "Über uns", href: "/ueber-uns" },
     { name: "Förderung", href: "#funding" },
     { name: "Kontakt", href: "#contact" }
   ];
