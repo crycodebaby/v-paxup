@@ -94,7 +94,7 @@ const Footer = () => {
                 placeholder="Ihre E-Mail-Adresse"
                 className="bg-muted/30"
               />
-              <Button variant="cta" className="w-full">
+              <Button variant="cta" className="w-full" onClick={() => window.open('http://eepurl.com/jlQLmA', '_blank')}>
                 Anmelden
               </Button>
             </div>

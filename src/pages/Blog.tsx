@@ -195,7 +195,7 @@ const Blog = () => {
                       placeholder="E-Mail-Adresse" 
                       className="flex-1 h-8 text-sm bg-background/50" 
                     />
-                    <Button variant="outline" size="sm" className="h-8 px-3 text-sm">
+                    <Button variant="outline" size="sm" className="h-8 px-3 text-sm" onClick={() => window.open('http://eepurl.com/jlQLmA', '_blank')}>
                       Abonnieren
                     </Button>
                   </div>
@@ -524,7 +524,7 @@ const Blog = () => {
                         </p>
                         <div className="space-y-3">
                           <Input type="email" placeholder="E-Mail-Adresse" className="text-sm" />
-                          <Button variant="cta" size="sm" className="w-full">
+                          <Button variant="cta" size="sm" className="w-full" onClick={() => window.open('http://eepurl.com/jlQLmA', '_blank')}>
                             Abonnieren
                           </Button>
                         </div>

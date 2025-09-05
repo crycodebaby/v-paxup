@@ -207,7 +207,7 @@ const BlogPost4 = () => {
                       placeholder="Deine E-Mail-Adresse"
                       className="flex-1 px-4 py-2 border border-border rounded-lg"
                     />
-                    <Button variant="cta">
+                    <Button variant="cta" onClick={() => window.open('http://eepurl.com/jlQLmA', '_blank')}>
                       👉 Zum Newsletter anmelden
                     </Button>
                   </div>
