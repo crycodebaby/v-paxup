@@ -172,7 +172,7 @@ const ProcessSection = () => {
         </div>
         
         <div className="text-center">
-          <Button variant="cta" size="lg">
+          <Button variant="cta" size="lg" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
             Jetzt mit KI in deinem Unternehmen starten
           </Button>
         </div>

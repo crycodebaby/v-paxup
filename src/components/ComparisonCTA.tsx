@@ -18,6 +18,7 @@ const ComparisonCTA = () => {
             variant="default" 
             size="lg" 
             className="text-lg px-8 py-6 shadow-button hover:-translate-y-1 transition-smooth"
+            onClick={() => window.open('https://calendly.com/paxup', '_blank')}
           >
             🚀 Jetzt kostenlose Strategieberatung sichern
           </Button>

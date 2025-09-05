@@ -139,7 +139,7 @@ const LeadPopup = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button type="submit" variant="cta" size="lg" className="w-full h-12">
+                <Button type="button" variant="cta" size="lg" className="w-full h-12" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                   📅 Termin vereinbaren
                 </Button>
               </form>

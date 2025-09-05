@@ -60,7 +60,7 @@ const AboutSection = () => {
               </div>
             </div>
             
-            <Button variant="cta" size="lg">
+            <Button variant="cta" size="lg" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
               👉 Jetzt Team kennenlernen & Beratung buchen
             </Button>
           </div>

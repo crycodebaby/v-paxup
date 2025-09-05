@@ -47,10 +47,10 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
               Erstberatung
             </Button>
-            <Button variant="cta" size="sm">
+            <Button variant="cta" size="sm" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
               👉 Jetzt starten
             </Button>
           </div>
@@ -84,10 +84,10 @@ const Header = () => {
                 </a>
               ))}
               <div className="pt-4 space-y-2">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                   Erstberatung
                 </Button>
-                <Button variant="cta" className="w-full">
+                <Button variant="cta" className="w-full" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                   👉 Jetzt starten
                 </Button>
               </div>

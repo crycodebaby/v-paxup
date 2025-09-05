@@ -51,7 +51,7 @@ const HeroSection = () => {
                 
                 {/* CTA Button */}
                 <div className="pt-4">
-                  <Button variant="cta" size="lg" className="text-lg px-10 py-6 shadow-button hover:shadow-elegant transition-all duration-300 hover:scale-105">
+                  <Button variant="cta" size="lg" className="text-lg px-10 py-6 shadow-button hover:shadow-elegant transition-all duration-300 hover:scale-105" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                     Kostenloses Beratungsgespräch →
                   </Button>
                 </div>

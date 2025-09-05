@@ -66,7 +66,7 @@ const ProblemSolutionSection = () => {
               Prozessautomatisierung, KI-Beratung und Fördermittelberatung – speziell für 
               den Mittelstand. DSGVO-konform, praxisnah und sofort spürbar.
             </p>
-            <Button variant="cta" size="lg">
+            <Button variant="cta" size="lg" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
               👉 Digitalisierung starten
             </Button>
           </div>

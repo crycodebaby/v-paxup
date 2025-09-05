@@ -163,7 +163,7 @@ const BlogPost1 = () => {
                       Zurück zum Blog
                     </Button>
                   </Link>
-                  <Button variant="cta">
+                  <Button variant="cta" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                     Kostenlose Beratung anfragen
                   </Button>
                 </div>

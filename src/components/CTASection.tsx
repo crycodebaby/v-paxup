@@ -25,6 +25,7 @@ const CTASection = () => {
               variant="secondary" 
               size="lg" 
               className="text-xl px-12 py-6 bg-white text-primary hover:bg-white/90 shadow-button transform hover:-translate-y-1 transition-smooth font-bold"
+              onClick={() => window.open('https://calendly.com/paxup', '_blank')}
             >
               👉 Kostenloses 30-Minuten-Erstgespräch buchen
             </Button>

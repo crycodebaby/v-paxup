@@ -282,7 +282,7 @@ const UseCasesSection = () => {
               Wir entwickeln maßgeschneiderte Digitalisierungslösungen für jede Branche. 
               Lassen Sie uns über Ihre spezifischen Anforderungen sprechen.
             </p>
-            <Button variant="cta" size="lg">
+            <Button variant="cta" size="lg" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
               👉 Individuelle Beratung anfragen
             </Button>
           </div>

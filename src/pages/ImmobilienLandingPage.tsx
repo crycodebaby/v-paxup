@@ -200,7 +200,7 @@ const ImmobilienLandingPage = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                  <Button variant="cta" size="lg" className="text-lg px-8 py-6">
+                  <Button variant="cta" size="lg" className="text-lg px-8 py-6" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                     <Phone className="w-5 h-5 mr-2" />
                     Kostenloses Erstgespräch (30 Min)
                   </Button>
@@ -383,7 +383,7 @@ const ImmobilienLandingPage = () => {
                                   Roadmap für Ihre digitale Transformation
                                 </li>
                               </ul>
-                              <Button variant="cta" size="lg" className="w-full">
+                              <Button variant="cta" size="lg" className="w-full" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                                 <Calendar className="w-5 h-5 mr-2" />
                                 Kostenloses Erstgespräch vereinbaren
                               </Button>
@@ -520,7 +520,7 @@ const ImmobilienLandingPage = () => {
                   </div>
 
                   <div className="text-center">
-                    <Button type="submit" variant="cta" size="lg" className="text-lg px-12 py-6">
+                    <Button type="button" variant="cta" size="lg" className="text-lg px-12 py-6" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                       <Calendar className="w-5 h-5 mr-2" />
                       Kostenloses Erstgespräch vereinbaren
                     </Button>
@@ -546,7 +546,7 @@ const ImmobilienLandingPage = () => {
               Schließen Sie sich 500+ Hausverwaltungen an, die bereits täglich Zeit und Kosten durch intelligente Automatisierung sparen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="cta" size="lg" className="text-lg px-8 py-6">
+              <Button variant="cta" size="lg" className="text-lg px-8 py-6" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
                 <Phone className="w-5 h-5 mr-2" />
                 Jetzt kostenloses Gespräch buchen
               </Button>
