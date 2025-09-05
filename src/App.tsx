@@ -15,6 +15,7 @@ import BlogPost6 from "./pages/BlogPost6";
 import ImmobilienLandingPage from "./pages/ImmobilienLandingPage";
 import Funding from "./pages/Funding";
 import Services from "./pages/Services";
+import UseCases from "./pages/UseCases";
 import ImageGenerator from "./components/ImageGenerator";
 import NotFound from "./pages/NotFound";
 
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/immobilienverwaltung" element={<ImmobilienLandingPage />} />
           <Route path="/foerderung" element={<Funding />} />
           <Route path="/leistungen" element={<Services />} />
+          <Route path="/anwendungsfaelle" element={<UseCases />} />
           <Route path="/generate-images" element={<ImageGenerator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

@@ -7,7 +7,7 @@ const Header = () => {
 
   const menuItems = [
     { name: "Leistungen", href: "/leistungen" },
-    { name: "Anwendungsfälle", href: "#use-cases" },
+    { name: "Anwendungsfälle", href: "/anwendungsfaelle" },
     { name: "Blog", href: "/blog" },
     { name: "Über uns", href: "/ueber-uns" },
     { name: "Förderung", href: "/foerderung" },
