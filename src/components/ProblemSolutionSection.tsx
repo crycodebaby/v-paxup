@@ -63,7 +63,7 @@ const ProblemSolutionSection = () => {
             </h3>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               Mit PAXUP erhält Ihr Unternehmen eine klare Digitalstrategie. Wir verbinden 
-              Prozessautomatisierung, KI-Beratung und Fördermittelberatung – speziell für 
+              Prozessautomatisierung, KI-Beratung und Umsetzung – speziell für 
               den Mittelstand. DSGVO-konform, praxisnah und sofort spürbar.
             </p>
             <Button variant="cta" size="lg" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
