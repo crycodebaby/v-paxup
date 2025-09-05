@@ -13,6 +13,7 @@ import BlogPost4 from "./pages/BlogPost4";
 import BlogPost5 from "./pages/BlogPost5";
 import BlogPost6 from "./pages/BlogPost6";
 import ImmobilienLandingPage from "./pages/ImmobilienLandingPage";
+import Funding from "./pages/Funding";
 import ImageGenerator from "./components/ImageGenerator";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/blog/cloud-vs-onpremise" element={<BlogPost5 />} />
           <Route path="/blog/workflow-automatisierung" element={<BlogPost6 />} />
           <Route path="/immobilienverwaltung" element={<ImmobilienLandingPage />} />
+          <Route path="/foerderung" element={<Funding />} />
           <Route path="/generate-images" element={<ImageGenerator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

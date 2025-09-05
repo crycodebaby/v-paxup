@@ -10,7 +10,7 @@ const Header = () => {
     { name: "Anwendungsfälle", href: "#use-cases" },
     { name: "Blog", href: "/blog" },
     { name: "Über uns", href: "/ueber-uns" },
-    { name: "Förderung", href: "#funding" },
+    { name: "Förderung", href: "/foerderung" },
     { name: "Kontakt", href: "#contact" }
   ];
 
