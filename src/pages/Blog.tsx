@@ -8,6 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, Clock, User, Search, Tag, TrendingUp, BookOpen } from "lucide-react";
+
+// Import blog images
+import kiProzessoptimierungImage from "@/assets/ki-prozessoptimierung-blog.jpg";
+import handwerkDigitalisierungImage from "@/assets/handwerk-digitalisierung-blog.jpg";
+import foerdermittelImage from "@/assets/foerdermittel-blog.jpg";
+import cloudOnpremiseImage from "@/assets/cloud-onpremise-blog.jpg";
+import workflowAutomatisierungImage from "@/assets/workflow-automatisierung-blog.jpg";
 const Blog = () => {
   // Updated category system - two-level categories
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,7 +46,7 @@ const Blog = () => {
     author: "Dr. Sarah Weber",
     date: "15. März 2024",
     readTime: "8 Min.",
-    image: "/src/assets/ki-prozessoptimierung-blog.jpg"
+    image: kiProzessoptimierungImage
   }, {
     id: 2,
     title: "Digitale Transformation im Handwerk: Erfolgreich in die Zukunft",
@@ -49,7 +56,7 @@ const Blog = () => {
     author: "Marcus Klein",
     date: "12. März 2024",
     readTime: "6 Min.",
-    image: "/src/assets/handwerk-digitalisierung-blog.jpg"
+    image: handwerkDigitalisierungImage
   }, {
     id: 3,
     title: "Fördermittel für Digitalisierung: Der komplette Leitfaden 2024",
@@ -59,7 +66,7 @@ const Blog = () => {
     author: "Lisa Müller",
     date: "10. März 2024",
     readTime: "12 Min.",
-    image: "/src/assets/foerdermittel-blog.jpg"
+    image: foerdermittelImage
   }, {
     id: 4,
     title: "Digitalisierung & KI in der Immobilienverwaltung: 5 Probleme, die du heute lösen kannst",
@@ -80,7 +87,7 @@ const Blog = () => {
     author: "Dr. Anna Fischer",
     date: "5. März 2024",
     readTime: "9 Min.",
-    image: "/src/assets/cloud-onpremise-blog.jpg"
+    image: cloudOnpremiseImage
   }, {
     id: 6,
     title: "Workflow-Automatisierung: 10 Prozesse, die Sie sofort optimieren können",
@@ -90,7 +97,7 @@ const Blog = () => {
     author: "Michael Hoffmann",
     date: "2. März 2024",
     readTime: "7 Min.",
-    image: "/src/assets/workflow-automatisierung-blog.jpg"
+    image: workflowAutomatisierungImage
   }];
 
   // Placeholder posts for topic categories
@@ -101,7 +108,7 @@ const Blog = () => {
     author: "Sophie Hartmann",
     date: "18. März 2024",
     readTime: "7 Min.",
-    image: "/src/assets/ki-prozessoptimierung-blog.jpg"
+    image: kiProzessoptimierungImage
   }, {
     id: 102,
     title: "Predictive Analytics in der Logistik: Effizienz durch Vorhersagen",
@@ -109,7 +116,7 @@ const Blog = () => {
     author: "Robert Fischer",
     date: "16. März 2024",
     readTime: "9 Min.",
-    image: "/src/assets/workflow-automatisierung-blog.jpg"
+    image: workflowAutomatisierungImage
   }, {
     id: 103,
     title: "Machine Learning in der Qualitätskontrolle",
@@ -117,7 +124,7 @@ const Blog = () => {
     author: "Maria Gonzalez",
     date: "14. März 2024",
     readTime: "6 Min.",
-    image: "/src/assets/ki-prozessoptimierung-blog.jpg"
+    image: kiProzessoptimierungImage
   }, {
     id: 104,
     title: "KI-gestützte Personalauswahl: Objektiver und effizienter rekrutieren",
@@ -125,7 +132,7 @@ const Blog = () => {
     author: "Jan Schneider",
     date: "11. März 2024",
     readTime: "8 Min.",
-    image: "/src/assets/handwerk-digitalisierung-blog.jpg"
+    image: handwerkDigitalisierungImage
   }];
   const allgemeinPosts = [{
     id: 201,
@@ -134,7 +141,7 @@ const Blog = () => {
     author: "Dr. Elena Wegner",
     date: "20. März 2024",
     readTime: "10 Min.",
-    image: "/src/assets/foerdermittel-blog.jpg"
+    image: foerdermittelImage
   }, {
     id: 202,
     title: "Digitalisierung vs. Digitale Transformation: Der Unterschied",
@@ -142,7 +149,7 @@ const Blog = () => {
     author: "Alexander Kruse",
     date: "17. März 2024",
     readTime: "5 Min.",
-    image: "/src/assets/cloud-onpremise-blog.jpg"
+    image: cloudOnpremiseImage
   }, {
     id: 203,
     title: "Die 5 größten Mythen über KI im Mittelstand",
@@ -150,7 +157,7 @@ const Blog = () => {
     author: "Christina Weber",
     date: "13. März 2024",
     readTime: "7 Min.",
-    image: "/src/assets/workflow-automatisierung-blog.jpg"
+    image: workflowAutomatisierungImage
   }, {
     id: 204,
     title: "Datenschutz und KI: Was Unternehmen beachten müssen",
@@ -158,7 +165,7 @@ const Blog = () => {
     author: "Dr. Michael Richter",
     date: "9. März 2024",
     readTime: "11 Min.",
-    image: "/src/assets/foerdermittel-blog.jpg"
+    image: foerdermittelImage
   }];
   const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
