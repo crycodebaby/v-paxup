@@ -1,122 +1,224 @@
+import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Target, Bot, Shield, DollarSign } from "lucide-react";
-// Using uploaded network background image
+import heroBg from "@/assets/paxup-hero-bg.png";
 
-const HeroSection = () => {
+const CALENDLY_URL = "https://calendly.com/paxup";
+
+type Service = {
+  icon: JSX.Element;
+  title: string;
+  description: string;
+};
+
+const SERVICES: Service[] = [
+  {
+    icon: <Target className="h-6 w-6" aria-hidden="true" />,
+    title: "Strategie-Entwicklung",
+    description:
+      "Schritt für Schritt zum Einsatz von KI in deinem Unternehmen.",
+  },
+  {
+    icon: <Bot className="h-6 w-6" aria-hidden="true" />,
+    title: "Automatisierung durch KI",
+    description: "Die KI übernimmt Prozesse und spart dir Kosten und Zeit.",
+  },
+  {
+    icon: <Shield className="h-6 w-6" aria-hidden="true" />,
+    title: "DSGVO-konform in DE",
+    description:
+      "Sensible Daten bleiben in Deutschland – rechtssicher umgesetzt.",
+  },
+  {
+    icon: <DollarSign className="h-6 w-6" aria-hidden="true" />,
+    title: "Staatliche Förderung",
+    description: "Zuschüsse vom Bund für Digitalisierung gezielt nutzen.",
+  },
+];
+
+function HeroSectionBase() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Full-screen background image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(/lovable-uploads/0f034a48-ad79-4548-99b9-fe42330d0806.png)` }}
+    <section
+      className="relative flex min-h-[calc(100svh-80px)] flex-col overflow-hidden"
+      aria-label="PAXUP – Digitalisierung & KI für den Mittelstand"
+    >
+      {/* Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat will-change-transform"
+        style={{ backgroundImage: `url(${heroBg})` }}
+        aria-hidden="true"
       />
-      {/* Professional overlay for better readability */}
-      <div className="absolute inset-0 bg-gradient-overlay/30 backdrop-blur-[0.5px]" />
-      
-      {/* Main content container */}
-      <div className="relative container mx-auto px-4 lg:px-8 py-20 z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-12 gap-12 items-center min-h-[80vh]">
-            
-            {/* Left column - Main content */}
-            <div className="lg:col-span-7 space-y-10">
-              {/* Hero text section */}
-              <div className="space-y-8 animate-fade-in">
-                <div className="space-y-6">
-                  <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
-                    <span className="block text-white mb-4">
-                      Dein Unternehmen,
-                    </span>
-                    <span className="block text-white mb-6">
-                      erfolgreich durch:
-                    </span>
-                    <span className="inline-block bg-gradient-primary bg-clip-text text-transparent border-2 border-white/30 px-8 py-4 rounded-2xl backdrop-blur-sm bg-white/10 shadow-glow">
-                      Digitalisierung & KI
-                    </span>
-                  </h1>
-                  
-                  <div className="space-y-6 max-w-3xl">
-                    <p className="text-xl md:text-2xl font-semibold text-white leading-relaxed">
-                      KI und Digitalisierung fühlen sich kompliziert an? 
-                      <span className="text-primary"> Wir machen es dir einfach.</span>
-                    </p>
-                    
-                    <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-                      Wir krempeln die Ärmel hoch: Als dein Partner für KI, Digitalisierung und Automatisierung bekommst 
-                      du bei uns <strong className="text-primary">Strategie & Umsetzung</strong> aus einer Hand. So bringst du dein Unternehmen effizient und 
-                      zukunftsfähig voran.
-                    </p>
-                  </div>
-                </div>
-                
-                {/* CTA Button */}
-                <div className="pt-4">
-                  <Button variant="cta" size="lg" className="text-lg px-10 py-6 shadow-button hover:shadow-elegant transition-all duration-300 hover:scale-105" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
-                    Kostenloses Beratungsgespräch →
-                  </Button>
-                </div>
-              </div>
+      {/* Dark vignette + left scrim for contrast */}
+      <div
+        className="absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_20%,hsl(0_0%_0%/_0.35)_0%,transparent_40%),linear-gradient(to_bottom,hsl(0_0%_0%/_0.25),hsl(0_0%_0%/_0.35))]"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-[linear-gradient(90deg,hsl(0_0%_100%/_0.18)_0%,hsl(0_0%_100%/_0.12)_22%,transparent_52%)]"
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto flex-1 px-4 py-14 md:py-20 lg:px-8">
+        <div className="mx-auto flex h-full max-w-6xl flex-1 flex-col gap-8 md:gap-12">
+          {/* Text */}
+          <div className="max-w-3xl animate-fade-in [animation-fill-mode:both] [animation-delay:60ms]">
+            <h1
+              className="
+                text-white drop-shadow-[0_3px_14px_rgba(0,0,0,0.55)]
+                font-bold tracking-tight leading-[1.15]
+                text-[clamp(2rem,5vw,3.75rem)]  /* ~32–60px */
+              "
+            >
+              <span className="block">Dein Unternehmen,</span>
+              <span className="block">erfolgreich durch:</span>
+              <span
+                className="
+                  mt-4 inline-block rounded-2xl border-2 px-5 py-2.5
+                  bg-secondary/15 border-secondary/40 text-secondary
+                  backdrop-blur-[2px] shadow-[0_10px_30px_-10px_hsl(var(--secondary)/0.45)]
+                "
+              >
+                Digitalisierung &amp; KI
+              </span>
+            </h1>
+
+            <div className="mt-5 space-y-4 md:mt-7 md:space-y-5">
+              <p
+                className="
+                  text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]
+                  leading-[1.5]
+                  text-[clamp(1rem,2.8vw,1.25rem)]  /* 16–20px */
+                  break-words break-anywhere [hyphens:auto]
+                "
+              >
+                KI und Digitalisierung fühlen sich kompliziert an?
+                <span className="font-semibold text-secondary">
+                  {" "}
+                  Wir machen es dir einfach.
+                </span>
+              </p>
+
+              <p
+                className="
+                  text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]
+                  leading-[1.55]
+                  text-[clamp(0.95rem,2.6vw,1.125rem)]  /* 15–18px */
+                  break-words break-anywhere [hyphens:auto]
+                "
+              >
+                Als dein Partner für KI, Digitalisierung und Automatisierung
+                bekommst du{" "}
+                <strong className="text-secondary">
+                  Strategie &amp; Umsetzung
+                </strong>{" "}
+                aus einer Hand – damit dein Unternehmen effizient und
+                zukunftsfähig vorankommt.
+              </p>
             </div>
-            
-            {/* Right column - Service cards */}
-            <div className="lg:col-span-5 lg:pl-8">
-              <div className="grid grid-cols-1 gap-6 animate-scale-in" style={{animationDelay: '0.3s'}}>
-                {[
-                  {
-                    icon: <Target className="w-6 h-6" />,
-                    title: "Strategie Entwicklung",
-                    description: "Schritt für Schritt zum Einsatz von KI in deinem Unternehmen"
-                  },
-                  {
-                    icon: <Bot className="w-6 h-6" />,
-                    title: "Automatisierung durch KI",
-                    description: "Die KI übernimmt deine Prozesse und spart dir Kosten und Zeit"
-                  },
-                  {
-                    icon: <Shield className="w-6 h-6" />,
-                    title: "Datenschutz konform in DE",
-                    description: "Sensible Daten bleiben in Deutschland"
-                  },
-                  {
-                    icon: <DollarSign className="w-6 h-6" />,
-                    title: "Staatliche Förderung",
-                    description: "Förderung & Zuschüsse vom Bund für Digitalisierung nutzen"
-                  }
-                ].map((service, index) => (
-                  <div 
-                    key={service.title} 
-                    className="group bg-card/90 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:shadow-card transition-all duration-300 hover:scale-105 hover:border-primary/30"
-                    style={{animationDelay: `${0.1 * index}s`}}
+
+            <div className="mt-7 md:mt-9 animate-fade-in [animation-fill-mode:both] [animation-delay:160ms]">
+              <Button
+                size="lg"
+                className="
+                  bg-secondary text-secondary-foreground hover:bg-secondary/90
+                  px-7 py-5 text-[clamp(1rem,2.8vw,1.125rem)]
+                  shadow-button transition-all duration-300
+                  hover:scale-[1.02] hover:shadow-elegant
+                "
+                onClick={() => window.open(CALENDLY_URL, "_blank")}
+                aria-label="Kostenloses Beratungsgespräch vereinbaren"
+              >
+                Kostenloses Beratungsgespräch →
+              </Button>
+            </div>
+          </div>
+
+          {/* Cards */}
+          <div className="mt-auto animate-fade-in [animation-fill-mode:both] [animation-delay:260ms]">
+            {/* 1 col <380px, 2 cols ab 380px (xs), 4 cols ab md */}
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 sm:gap-6">
+              {SERVICES.map((s, i) => (
+                <article
+                  key={s.title}
+                  className="
+                    group rounded-xl border border-border/50 bg-card/90
+                    p-4 xs:p-5
+                    backdrop-blur-sm transition-all duration-300
+                    hover:-translate-y-1 hover:scale-[1.02]
+                    hover:border-secondary/40 hover:shadow-card
+                    focus-within:-translate-y-1
+                  "
+                  style={{ animationDelay: `${320 + i * 80}ms` }}
+                >
+                  <div
+                    className="
+                      flex items-start gap-3 xs:gap-4
+                      flex-col xs:flex-row
+                    "
                   >
-                    <div className="flex items-start space-x-4">
-                      <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors duration-300">
-                        <div className="text-primary">
-                          {service.icon}
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-foreground mb-2 text-lg group-hover:text-primary transition-colors duration-300">
-                          {service.title}
-                        </h3>
-                        <p className="text-muted-foreground leading-relaxed">
-                          {service.description}
-                        </p>
-                      </div>
+                    <div
+                      className="
+                        rounded-xl bg-secondary/15 p-2.5 xs:p-3 text-secondary
+                        transition-colors duration-300 group-hover:bg-secondary/25
+                        shrink-0
+                      "
+                      aria-hidden="true"
+                    >
+                      {s.icon}
+                    </div>
+
+                    <div className="flex-1">
+                      <h3
+                        className="
+                          text-[clamp(0.95rem,2.6vw,1rem)]  /* 15–16px */
+                          font-semibold text-foreground
+                          transition-colors duration-300 group-hover:text-secondary
+                        "
+                      >
+                        {s.title}
+                      </h3>
+                      <p
+                        className="
+                          mt-1
+                          text-[clamp(0.85rem,2.4vw,0.95rem)]  /* 13.6–15.2px */
+                          leading-[1.55] text-muted-foreground
+                          break-words break-anywhere [hyphens:auto]
+                        "
+                      >
+                        {s.description}
+                      </p>
                     </div>
                   </div>
-                ))}
-              </div>
+                </article>
+              ))}
             </div>
-            
           </div>
         </div>
       </div>
-      
-      {/* Decorative elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-primary rounded-full opacity-10 animate-pulse" />
-      <div className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-hero rounded-full opacity-15 animate-pulse" style={{animationDelay: '1s'}} />
+
+      {/* Decorative blobs (dezent) */}
+      <div
+        className="
+          pointer-events-none absolute right-6 top-16 h-20 w-20
+          rounded-full
+          bg-[radial-gradient(circle_at_30%_30%,hsl(var(--secondary)/0.45)_0%,transparent_60%)]
+          opacity-90 md:right-20 md:top-20 md:h-28 md:w-28
+        "
+        aria-hidden="true"
+      />
+      <div
+        className="
+          pointer-events-none absolute bottom-14 left-6 h-16 w-16
+          rounded-full
+          bg-[radial-gradient(circle_at_60%_40%,hsl(var(--primary)/0.35)_0%,transparent_60%)]
+          opacity-80 md:bottom-20 md:left-20 md:h-20 md:w-20
+        "
+        aria-hidden="true"
+      />
     </section>
   );
-};
+}
 
+const HeroSection = memo(HeroSectionBase);
 export default HeroSection;
