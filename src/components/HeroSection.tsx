@@ -1,82 +1,145 @@
-import { memo } from "react";
+// src/components/HeroSection.tsx
+import { memo, useEffect, useLayoutEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Target, Bot, Shield, DollarSign } from "lucide-react";
-import heroBg from "@/assets/paxup-hero-bg.png";
+
+import heroPng from "@/assets/paxup-hero-bg.jpg";
+import heroWebp from "@/assets/paxup-fallback-hero.webp";
 
 const CALENDLY_URL = "https://calendly.com/paxup";
 
-type Service = {
-  icon: JSX.Element;
-  title: string;
-  description: string;
-};
-
-const SERVICES: Service[] = [
+const SERVICES = [
   {
     icon: <Target className="h-6 w-6" aria-hidden="true" />,
     title: "Strategie-Entwicklung",
     description:
-      "Schritt für Schritt zum Einsatz von KI in deinem Unternehmen.",
+      "Schritt für Schritt zu messbaren KI-Ergebnissen – von Quick Wins bis Roadmap.",
   },
   {
     icon: <Bot className="h-6 w-6" aria-hidden="true" />,
     title: "Automatisierung durch KI",
-    description: "Die KI übernimmt Prozesse und spart dir Kosten und Zeit.",
+    description:
+      "Manuelle Routinearbeiten reduzieren: Tickets, Dokumente, Termine & mehr.",
   },
   {
     icon: <Shield className="h-6 w-6" aria-hidden="true" />,
     title: "DSGVO-konform in DE",
     description:
-      "Sensible Daten bleiben in Deutschland – rechtssicher umgesetzt.",
+      "Hosting & Verarbeitung in Deutschland – mit klaren Richtlinien & Audit-Trails.",
   },
   {
     icon: <DollarSign className="h-6 w-6" aria-hidden="true" />,
     title: "Staatliche Förderung",
-    description: "Zuschüsse vom Bund für Digitalisierung gezielt nutzen.",
+    description:
+      "Wir lotsen durch passende Programme & Anträge – für maximale Zuschüsse.",
   },
-];
+] as const;
+
+/** Setzt CSS-Variablen für 1vh & Header-Höhe (verhindert weiße Balken auf Mobile) */
+function useViewportVars() {
+  useLayoutEffect(() => {
+    const setVars = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+      const header = document.querySelector<HTMLElement>("[data-site-header]");
+      const h = header?.getBoundingClientRect().height ?? 80;
+      document.documentElement.style.setProperty("--header-h", `${h}px`);
+    };
+
+    setVars();
+
+    window.addEventListener("resize", setVars);
+    window.addEventListener("orientationchange", setVars);
+
+    // Kein "any": nutze die echte DOM-Typisierung (ist in lib.dom.d.ts enthalten)
+    if ("visualViewport" in window && window.visualViewport) {
+      window.visualViewport.addEventListener("resize", setVars);
+    }
+
+    return () => {
+      window.removeEventListener("resize", setVars);
+      window.removeEventListener("orientationchange", setVars);
+      if ("visualViewport" in window && window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", setVars);
+      }
+    };
+  }, []);
+}
 
 function HeroSectionBase() {
+  useViewportVars();
+  const picRef = useRef<HTMLPictureElement | null>(null);
+
+  useEffect(() => {
+    const onError = () => picRef.current?.classList.add("opacity-0");
+    const img = picRef.current?.querySelector("img");
+    img?.addEventListener("error", onError);
+    return () => img?.removeEventListener("error", onError);
+  }, []);
+
   return (
     <section
-      className="relative flex min-h-[calc(100svh-80px)] flex-col overflow-hidden"
+      className="
+        relative isolate overflow-hidden
+        bg-[#0E1622] text-white
+        min-h-[calc(var(--vh,1vh)*100-var(--header-h,80px))]
+        supports-[height:100dvh]:min-h-[calc(100dvh-var(--header-h,80px))]
+      "
       aria-label="PAXUP – Digitalisierung & KI für den Mittelstand"
     >
       {/* Background */}
+      <div className="absolute inset-0 -z-20">
+        <picture ref={picRef} className="block h-full w-full">
+          <source srcSet={heroWebp} type="image/webp" />
+          <img
+            src={heroPng}
+            alt=""
+            fetchPriority="high"
+            loading="eager"
+            className="h-full w-full object-cover object-center [image-rendering:-webkit-optimize-contrast]"
+          />
+        </picture>
+      </div>
+
+      {/* Overlays — Kontrast & Rot-Akzent */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat will-change-transform"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        className="
+          absolute inset-0 -z-10
+          bg-[radial-gradient(120%_120%_at_80%_20%,rgba(1,7,14,0.55)_0%,transparent_50%),
+              linear-gradient(180deg,rgba(8,12,20,0.55),rgba(10,15,24,0.65))]
+        "
         aria-hidden="true"
       />
-      {/* Dark vignette + left scrim for contrast */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_20%,hsl(0_0%_0%/_0.35)_0%,transparent_40%),linear-gradient(to_bottom,hsl(0_0%_0%/_0.25),hsl(0_0%_0%/_0.35))]"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 bg-[linear-gradient(90deg,hsl(0_0%_100%/_0.18)_0%,hsl(0_0%_100%/_0.12)_22%,transparent_52%)]"
+        className="
+          absolute inset-0 -z-10
+          bg-[linear-gradient(90deg,rgba(226,63,59,0.11)_0%,rgba(226,63,59,0.07)_24%,transparent_58%)]
+          mix-blend-screen
+        "
         aria-hidden="true"
       />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto flex-1 px-4 py-14 md:py-20 lg:px-8">
-        <div className="mx-auto flex h-full max-w-6xl flex-1 flex-col gap-8 md:gap-12">
-          {/* Text */}
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-8 pb-14 md:pt-10 md:pb-20">
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 md:gap-12">
+          {/* Textblock */}
           <div className="max-w-3xl animate-fade-in [animation-fill-mode:both] [animation-delay:60ms]">
             <h1
               className="
-                text-white drop-shadow-[0_3px_14px_rgba(0,0,0,0.55)]
-                font-bold tracking-tight leading-[1.15]
-                text-[clamp(2rem,5vw,3.75rem)]  /* ~32–60px */
-              "
+                font-bold tracking-tight leading-[1.14]
+                text-[clamp(2.05rem,5vw,3.7rem)]
+                drop-shadow-[0_3px_14px_rgba(0,0,0,0.55)]
+            "
             >
               <span className="block">Dein Unternehmen,</span>
               <span className="block">erfolgreich durch:</span>
               <span
                 className="
-                  mt-4 inline-block rounded-2xl border-2 px-5 py-2.5
-                  bg-secondary/15 border-secondary/40 text-secondary
-                  backdrop-blur-[2px] shadow-[0_10px_30px_-10px_hsl(var(--secondary)/0.45)]
+                  mt-4 inline-block rounded-2xl border px-4 py-2.5
+                  border-[#e23f3b]/50 text-[#e23f3b]
+                  bg-[#e23f3b]/15 backdrop-blur-[2px]
+                  shadow-[0_12px_30px_-10px_rgba(226,63,59,0.45)]
                 "
               >
                 Digitalisierung &amp; KI
@@ -84,32 +147,18 @@ function HeroSectionBase() {
             </h1>
 
             <div className="mt-5 space-y-4 md:mt-7 md:space-y-5">
-              <p
-                className="
-                  text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]
-                  leading-[1.5]
-                  text-[clamp(1rem,2.8vw,1.25rem)]  /* 16–20px */
-                  break-words break-anywhere [hyphens:auto]
-                "
-              >
+              <p className="text-white/95 leading-[1.5] text-[clamp(1rem,2.9vw,1.25rem)] break-words [hyphens:auto] [text-wrap:balance] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                 KI und Digitalisierung fühlen sich kompliziert an?
-                <span className="font-semibold text-secondary">
+                <span className="font-semibold text-[#e23f3b]">
                   {" "}
                   Wir machen es dir einfach.
                 </span>
               </p>
 
-              <p
-                className="
-                  text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]
-                  leading-[1.55]
-                  text-[clamp(0.95rem,2.6vw,1.125rem)]  /* 15–18px */
-                  break-words break-anywhere [hyphens:auto]
-                "
-              >
+              <p className="text-white/90 leading-[1.55] text-[clamp(0.95rem,2.7vw,1.125rem)] break-words [hyphens:auto] [text-wrap:balance] drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
                 Als dein Partner für KI, Digitalisierung und Automatisierung
                 bekommst du{" "}
-                <strong className="text-secondary">
+                <strong className="text-[#e23f3b]">
                   Strategie &amp; Umsetzung
                 </strong>{" "}
                 aus einer Hand – damit dein Unternehmen effizient und
@@ -121,10 +170,11 @@ function HeroSectionBase() {
               <Button
                 size="lg"
                 className="
-                  bg-secondary text-secondary-foreground hover:bg-secondary/90
+                  bg-[#e23f3b] text-white hover:bg-[#d43a36]
                   px-7 py-5 text-[clamp(1rem,2.8vw,1.125rem)]
-                  shadow-button transition-all duration-300
-                  hover:scale-[1.02] hover:shadow-elegant
+                  shadow-[0_12px_28px_-10px_rgba(226,63,59,0.55)]
+                  transition-all duration-300 hover:scale-[1.02]
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#e23f3b]
                 "
                 onClick={() => window.open(CALENDLY_URL, "_blank")}
                 aria-label="Kostenloses Beratungsgespräch vereinbaren"
@@ -136,60 +186,59 @@ function HeroSectionBase() {
 
           {/* Cards */}
           <div className="mt-auto animate-fade-in [animation-fill-mode:both] [animation-delay:260ms]">
-            {/* 1 col <380px, 2 cols ab 380px (xs), 4 cols ab md */}
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 sm:gap-6">
+            {/* 1 col <380px, 2 cols ab 380px, 4 cols ab md */}
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
               {SERVICES.map((s, i) => (
                 <article
                   key={s.title}
                   className="
-                    group rounded-xl border border-border/50 bg-card/90
-                    p-4 xs:p-5
-                    backdrop-blur-sm transition-all duration-300
-                    hover:-translate-y-1 hover:scale-[1.02]
-                    hover:border-secondary/40 hover:shadow-card
-                    focus-within:-translate-y-1
-                  "
+          group flex h-full flex-col
+          rounded-2xl border border-white/10
+          bg-white/10 backdrop-blur-sm
+          p-5 sm:p-6
+          transition-all duration-300
+          hover:-translate-y-1 hover:scale-[1.02]
+          hover:border-white/20 hover:shadow-lg
+          focus-within:ring-2 focus-within:ring-[#e23f3b]/50
+        "
                   style={{ animationDelay: `${320 + i * 80}ms` }}
                 >
-                  <div
-                    className="
-                      flex items-start gap-3 xs:gap-4
-                      flex-col xs:flex-row
-                    "
-                  >
+                  {/* Header */}
+                  <div className="flex items-start gap-4">
                     <div
                       className="
-                        rounded-xl bg-secondary/15 p-2.5 xs:p-3 text-secondary
-                        transition-colors duration-300 group-hover:bg-secondary/25
-                        shrink-0
-                      "
+              shrink-0 rounded-xl bg-[#e23f3b]/20 text-[#e23f3b]
+              p-3 transition-colors duration-300
+              group-hover:bg-[#e23f3b]/25
+            "
                       aria-hidden="true"
                     >
                       {s.icon}
                     </div>
-
-                    <div className="flex-1">
-                      <h3
-                        className="
-                          text-[clamp(0.95rem,2.6vw,1rem)]  /* 15–16px */
-                          font-semibold text-foreground
-                          transition-colors duration-300 group-hover:text-secondary
-                        "
-                      >
-                        {s.title}
-                      </h3>
-                      <p
-                        className="
-                          mt-1
-                          text-[clamp(0.85rem,2.4vw,0.95rem)]  /* 13.6–15.2px */
-                          leading-[1.55] text-muted-foreground
-                          break-words break-anywhere [hyphens:auto]
-                        "
-                      >
-                        {s.description}
-                      </p>
-                    </div>
+                    <h3
+                      className="
+              text-white font-semibold
+              text-[clamp(1rem,2.2vw,1.125rem)]
+              leading-snug tracking-tight
+              break-words [overflow-wrap:anywhere] [hyphens:auto] [text-wrap:balance]
+              group-hover:text-[#e23f3b] transition-colors
+            "
+                    >
+                      {s.title}
+                    </h3>
                   </div>
+
+                  {/* Body */}
+                  <p
+                    className="
+            mt-3 text-white/85
+            text-[clamp(0.9rem,1.8vw,1rem)]
+            leading-relaxed flex-1
+            break-words [overflow-wrap:anywhere] [hyphens:auto] [text-wrap:pretty]
+          "
+                  >
+                    {s.description}
+                  </p>
                 </article>
               ))}
             </div>
@@ -197,22 +246,20 @@ function HeroSectionBase() {
         </div>
       </div>
 
-      {/* Decorative blobs (dezent) */}
+      {/* dezente Glows */}
       <div
         className="
-          pointer-events-none absolute right-6 top-16 h-20 w-20
-          rounded-full
-          bg-[radial-gradient(circle_at_30%_30%,hsl(var(--secondary)/0.45)_0%,transparent_60%)]
-          opacity-90 md:right-20 md:top-20 md:h-28 md:w-28
+          pointer-events-none absolute right-6 top-16 h-20 w-20 md:right-20 md:top-20 md:h-28 md:w-28
+          rounded-full opacity-90
+          bg-[radial-gradient(circle_at_30%_30%,rgba(226,63,59,0.45)_0%,transparent_60%)]
         "
         aria-hidden="true"
       />
       <div
         className="
-          pointer-events-none absolute bottom-14 left-6 h-16 w-16
-          rounded-full
-          bg-[radial-gradient(circle_at_60%_40%,hsl(var(--primary)/0.35)_0%,transparent_60%)]
-          opacity-80 md:bottom-20 md:left-20 md:h-20 md:w-20
+          pointer-events-none absolute left-6 bottom-14 h-16 w-16 md:left-20 md:bottom-20 md:h-20 md:w-20
+          rounded-full opacity-80
+          bg-[radial-gradient(circle_at_60%_40%,rgba(33,49,68,0.45)_0%,transparent_60%)]
         "
         aria-hidden="true"
       />

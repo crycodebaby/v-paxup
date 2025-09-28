@@ -1,75 +1,117 @@
+// src/components/ProblemSolutionSection.tsx
+
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { AlertCircle, Clock, Shield, TrendingDown } from "lucide-react";
+import {
+  CheckCircle2,
+  HelpCircle,
+  Bot,
+  Shield,
+  TrendingUp,
+  Zap,
+  ArrowRight,
+} from "lucide-react";
+
+// 1. Wir definieren Problem-Lösungs-Paare. Das ist die Basis unserer Story.
+const problemSolutionPairs = [
+  {
+    problem: {
+      icon: HelpCircle,
+      text: "Unsicherheit, wo man überhaupt anfangen soll.",
+    },
+    solution: {
+      icon: Zap,
+      text: "Klarer Stufenplan, der sofort umsetzbar ist.",
+    },
+  },
+  {
+    problem: {
+      icon: TrendingUp,
+      text: "Sorge, den Anschluss an den Wettbewerb zu verlieren.",
+    },
+    solution: {
+      icon: Bot,
+      text: "Gezielter KI-Einsatz für messbare Effizienzgewinne.",
+    },
+  },
+  {
+    problem: {
+      icon: Shield,
+      text: "Bedenken wegen Datenschutz und Datensicherheit.",
+    },
+    solution: {
+      icon: CheckCircle2,
+      text: "100% DSGVO-konforme Lösungen, gehostet in DE.",
+    },
+  },
+];
+
+// Ein starkes, visuelles Kernelement
+const CentralVisual = () => (
+  <div className="relative flex items-center justify-center p-8 my-8 md:my-0">
+    <div className="absolute inset-0 bg-gradient-hero rounded-full blur-3xl opacity-20"></div>
+    <img
+      src="/assets/digital-success.png" // Placeholder - hier das Bild der Transformation einfügen
+      alt="Von Komplexität zu Klarheit - PAXUP"
+      className="relative z-10 w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-elegant"
+    />
+  </div>
+);
 
 const ProblemSolutionSection = () => {
-  const problems = [
-    {
-      icon: AlertCircle,
-      title: "Wie kann ich KI sinnvoll einsetzen?",
-      description: ""
-    },
-    {
-      icon: TrendingDown,
-      title: "Ist mein Wettbewerb schon weiter als ich?",
-      description: ""
-    },
-    {
-      icon: Clock,
-      title: "Geht das auch ohne eigene IT-Abteilung?",
-      description: ""
-    },
-    {
-      icon: Shield,
-      title: "Was passiert mit unseren Daten?",
-      description: ""
-    }
-  ];
+  const calendlyUrl = "https://calendly.com/paxup";
 
   return (
-    <section className="py-20 bg-muted/20 border-y border-border/30">
+    <section className="py-20 md:py-32 bg-background border-y border-border">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            Das Hauptproblem im Mittelstand
+        {/* Die zentrale Botschaft */}
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            Vom digitalen Stillstand zum klaren Vorsprung
           </h2>
-          <p className="text-2xl md:text-3xl text-primary font-semibold">
-            "Wo fange ich überhaupt an?"
+          <p className="text-lg md:text-xl text-muted-foreground">
+            Sie kennen die Probleme. Wir liefern die passenden Lösungen –
+            pragmatisch und direkt auf den Mittelstand zugeschnitten.
           </p>
         </div>
-        
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Problems */}
+
+        {/* Das "Brücken"-Layout */}
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
+          {/* Spalte 1: Die Probleme (Das "Vorher") */}
           <div className="space-y-6">
-            {problems.map((problem, index) => (
-              <Card key={index} className="p-6 shadow-soft hover:shadow-card transition-smooth">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-destructive/10 rounded-lg flex items-center justify-center">
-                    <problem.icon className="w-6 h-6 text-destructive" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">{problem.title}</h3>
-                    <p className="text-muted-foreground">{problem.description}</p>
-                  </div>
-                </div>
-              </Card>
+            {problemSolutionPairs.map((pair, index) => (
+              <div key={index} className="flex items-start gap-4">
+                <pair.problem.icon className="w-6 h-6 text-muted-foreground/80 mt-1 flex-shrink-0" />
+                <p className="text-lg text-muted-foreground">
+                  {pair.problem.text}
+                </p>
+              </div>
             ))}
           </div>
-          
-          {/* Solution */}
-          <div className="bg-gradient-subtle p-8 lg:p-12 rounded-2xl shadow-card">
-            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-primary">
-              Ihre Lösung: PAXUP
-            </h3>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Mit PAXUP erhält Ihr Unternehmen eine klare Digitalstrategie. Wir verbinden 
-              Prozessautomatisierung, KI-Beratung und Umsetzung – speziell für 
-              den Mittelstand. DSGVO-konform, praxisnah und sofort spürbar.
-            </p>
-            <Button variant="cta" size="lg" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
-              👉 Digitalisierung starten
-            </Button>
+
+          {/* Spalte 2: Die Brücke (Das visuelle Zentrum) */}
+          <div className="hidden md:block">
+            <CentralVisual />
           </div>
+
+          {/* Spalte 3: Die Lösungen (Das "Nachher") */}
+          <div className="space-y-6 p-8 bg-muted/30 border border-border rounded-2xl">
+            {problemSolutionPairs.map((pair, index) => (
+              <div key={index} className="flex items-start gap-4">
+                <pair.solution.icon className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
+                <p className="text-lg font-semibold text-foreground">
+                  {pair.solution.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Der finale Call-to-Action */}
+        <div className="text-center mt-16 md:mt-24">
+          <Button size="lg" onClick={() => window.open(calendlyUrl, "_blank")}>
+            Ihren klaren Weg jetzt finden
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
       </div>
     </section>

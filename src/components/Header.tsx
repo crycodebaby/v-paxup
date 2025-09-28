@@ -1,9 +1,15 @@
+// src/components/Header.tsx
 import { useEffect, useId, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import PaxupLogo from "@/assets/logo/Logo_blau_rot.png";
+
+// Logos (hell/dunkel + kompakte „Up“-Varianten)
+import LogoFullLight from "@/assets/logo/Logo_blau_rot.png";
+import LogoFullDark from "@/assets/logo/Logo_weiss_rot.png";
+import LogoMonoLight from "@/assets/logo/Up_blau.png";
+import LogoMonoDark from "@/assets/logo/Up_weiss.png";
 
 type RouteItem = { name: string; href: string; kind: "route" };
 type HashItem = { name: string; href: `#${string}`; kind: "hash" };
@@ -30,29 +36,22 @@ export default function Header() {
   const { pathname } = useLocation();
   const contentId = useId();
 
-  // Mobile-Menü bei Route-Change schließen
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => setOpen(false), [pathname]);
 
-  // Smooth-Scroll für Hash-Links
   function handleHashNav(targetHash: `#${string}`) {
     const id = targetHash.slice(1);
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // Gemeinsame Klassen für Desktop-Navlinks
   const desktopLinkClass = (isActive: boolean) =>
     [
-      "rounded-md px-3 py-2 text-sm font-medium transition-all",
+      // kompakter bei lg, luftiger ab xl
+      "rounded-md lg:px-2 xl:px-3 py-2 text-sm font-medium transition-all",
       "hover:bg-muted hover:text-primary",
       isActive ? "text-primary bg-muted" : "text-muted-foreground",
     ].join(" ");
 
-  // Gemeinsame Klassen für Mobile-Navlinks
   const mobileLinkClass = (isActive: boolean) =>
     [
       "rounded-md px-3 py-3 text-base font-medium transition-colors",
@@ -62,28 +61,52 @@ export default function Header() {
 
   return (
     <Collapsible.Root
+      data-site-header
       open={open}
       onOpenChange={setOpen}
       className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          {/* Logo */}
+        <div className="flex h-20 items-center gap-3">
+          {/* Logo (niemals schrumpfen) */}
           <Link
             to="/"
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 shrink-0"
             aria-label="Startseite"
             onClick={() => setOpen(false)}
           >
-            <img
-              src={PaxupLogo}
-              alt="PAXUP Logo"
-              className="h-10 w-auto transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none"
-            />
+            {/* Light Theme */}
+            <picture className="dark:hidden">
+              {/* kompaktes Monogramm bis 979px */}
+              <source srcSet={LogoMonoLight} media="(max-width: 979px)" />
+              <img
+                src={LogoFullLight}
+                alt="PAXUP"
+                className="h-[clamp(32px,3vw,40px)] w-auto transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
+            {/* Dark Theme */}
+            <picture className="hidden dark:block">
+              <source srcSet={LogoMonoDark} media="(max-width: 979px)" />
+              <img
+                src={LogoFullDark}
+                alt="PAXUP"
+                className="h-[clamp(32px,3vw,40px)] w-auto transition-transform duration-300 hover:scale-[1.03] motion-reduce:transition-none"
+                loading="eager"
+                decoding="async"
+              />
+            </picture>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-2">
+          {/* Desktop Navigation: erhält den mittleren flex-Block, darf scrollen */}
+          <nav
+            className="
+              hidden lg:flex flex-1 min-w-0 items-center 
+              gap-1 overflow-x-auto whitespace-nowrap
+            "
+          >
             {menuItems.map((item) =>
               item.kind === "route" ? (
                 <NavLink
@@ -98,7 +121,7 @@ export default function Header() {
                   key={item.name}
                   type="button"
                   onClick={() => handleHashNav(item.href)}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted hover:text-primary"
+                  className="rounded-md lg:px-2 xl:px-3 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted hover:text-primary"
                 >
                   {item.name}
                 </button>
@@ -106,11 +129,13 @@ export default function Header() {
             )}
           </nav>
 
-          {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop CTAs: shrink-0, und reduziert auf lg (nur Haupt-CTA) */}
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
+            {/* „Erstberatung“ erst ab xl anzeigen, um Platzkonflikte zu vermeiden */}
             <Button
               variant="ghost"
               size="sm"
+              className="hidden xl:inline-flex"
               onClick={() => window.open(calendlyUrl, "_blank")}
             >
               Erstberatung
@@ -130,7 +155,7 @@ export default function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className="ml-auto lg:hidden shrink-0"
               aria-controls={contentId}
               aria-expanded={open}
               aria-label={open ? "Menü schließen" : "Menü öffnen"}
@@ -144,7 +169,7 @@ export default function Header() {
       {/* Mobile Navigation */}
       <Collapsible.Content
         id={contentId}
-        className="overflow-hidden border-t border-border md:hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up motion-reduce:animate-none"
+        className="overflow-hidden border-t border-border lg:hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up motion-reduce:animate-none"
       >
         <div className="container mx-auto px-4 lg:px-8 py-4">
           <nav className="flex flex-col gap-1">
