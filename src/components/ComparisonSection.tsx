@@ -1,3 +1,4 @@
+// src/components/ComparisonSection.tsx
 import {
   X,
   Check,
@@ -5,141 +6,257 @@ import {
   Shield,
   TrendingUp,
   Settings,
-  Link,
+  Link as LinkIcon,
   Target,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import UpMark from "@/assets/logo/Up_rot.png";
+import { cn } from "@/lib/utils"; // falls du kein cn util hast, kannst du die Funktion weglassen und string joinen.
 
-const ComparisonSection = () => {
-  const comparisonData = [
-    {
-      icon: <Clock className="w-5 h-5" />,
-      title: "Zeitaufwand",
-      without: "Stundenlanges Recherchieren und Testen",
-      with: "1x pro Monat 60 Minuten Strategiemeeting",
-    },
-    {
-      icon: <Shield className="w-5 h-5" />,
-      title: "Datenschutzrisiken",
-      without: "Hohe Unsicherheit bei rechtlicher Lage",
-      with: "DSGVO-Check und rechtssichere Umsetzung",
-    },
-    {
-      icon: <TrendingUp className="w-5 h-5" />,
-      title: "Erfolg",
-      without: "Keine messbare Wirkung im Alltag",
-      with: "Klare KPIs: Messbare Kosteneinsparungen & Prozessnutzen",
-    },
-    {
-      icon: <Settings className="w-5 h-5" />,
-      title: "Komplexität",
-      without: "Technisches Chaos und Tool-Überforderung",
-      with: "Verständliche Umsetzung ohne Vorwissen",
-    },
-    {
-      icon: <Link className="w-5 h-5" />,
-      title: "Integration",
-      without: "Einzelne Tools ohne Zusammenhang",
-      with: "Voll integrierte Lösung in bestehende Prozesse",
-    },
-    {
-      icon: <Target className="w-5 h-5" />,
-      title: "Strategie",
-      without: "Keine klare Zieldefinition und Stillstand",
-      with: "Individuelle KI-Roadmap mit konkreten Schritten",
-    },
-  ];
+type IconType = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
+type Row = {
+  icon: IconType;
+  title: string;
+  without: string;
+  with: string;
+};
+
+const rows: Readonly<Row[]> = [
+  {
+    icon: Clock,
+    title: "Zeitaufwand",
+    without: "Stundenlanges Recherchieren und Testen",
+    with: "1× pro Monat 60 Minuten Strategiemeeting",
+  },
+  {
+    icon: Shield,
+    title: "Datenschutzrisiken",
+    without: "Hohe Unsicherheit bei rechtlicher Lage",
+    with: "DSGVO-Check und rechtssichere Umsetzung",
+  },
+  {
+    icon: TrendingUp,
+    title: "Erfolg",
+    without: "Keine messbare Wirkung im Alltag",
+    with: "Klare KPIs: Kosteneinsparungen & Prozessnutzen",
+  },
+  {
+    icon: Settings,
+    title: "Komplexität",
+    without: "Technisches Chaos und Tool-Überforderung",
+    with: "Verständliche Umsetzung ohne Vorwissen",
+  },
+  {
+    icon: LinkIcon,
+    title: "Integration",
+    without: "Einzelne Tools ohne Zusammenhang",
+    with: "Voll integrierte Lösung in bestehende Prozesse",
+  },
+  {
+    icon: Target,
+    title: "Strategie",
+    without: "Keine klare Zieldefinition und Stillstand",
+    with: "Individuelle KI-Roadmap mit konkreten Schritten",
+  },
+];
+
+export default function ComparisonSection() {
   return (
-    <section className="py-20 bg-gradient-subtle">
+    <section
+      className="relative overflow-hidden py-20"
+      aria-labelledby="comparison-heading"
+    >
+      {/* Dark, layered background with subtle particles + red glow */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-20"
+        style={{
+          background:
+            // dunkelblauer Grundverlauf
+            "linear-gradient(180deg, hsl(222 30% 10%) 0%, hsl(222 40% 8%) 60%, hsl(222 50% 7%) 100%)",
+        }}
+      />
+      {/* zarte Partikel (repeating radial gradients) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 opacity-30"
+        style={{
+          backgroundImage:
+            "radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.10) 1px, transparent 1px), radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.10) 1px, transparent 1px)",
+          backgroundSize: "120px 120px, 140px 140px, 160px 160px",
+        }}
+      />
+      {/* roter Akzentschimmer (secondary) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 -top-32 h-[28rem] w-[28rem] -z-10 rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(closest-side, hsl(var(--secondary)/0.25), transparent 65%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[-10rem] bottom-[-8rem] h-[24rem] w-[24rem] -z-10 rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(closest-side, hsl(var(--secondary)/0.18), transparent 70%)",
+        }}
+      />
+      {/* Wasserzeichen */}
+      <img
+        aria-hidden
+        src={UpMark}
+        alt=""
+        className="pointer-events-none absolute right-6 top-8 -z-10 h-24 w-auto opacity-10 md:right-12 md:top-10 md:h-28"
+      />
+
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Der Unterschied ist klar erkennbar
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Während andere im KI-Chaos versinken, führen wir Sie sicher zum
-              Erfolg
-            </p>
-          </div>
+        {/* Header */}
+        <div className="mx-auto mb-14 max-w-3xl text-center text-white">
+          <h2
+            id="comparison-heading"
+            className="text-3xl font-bold md:text-4xl lg:text-5xl"
+          >
+            Der Unterschied ist{" "}
+            <span className="bg-[linear-gradient(90deg,hsl(var(--secondary)),#ff6b5f)] bg-clip-text text-transparent">
+              klar erkennbar
+            </span>
+          </h2>
+          <p className="mt-4 text-lg text-white/70">
+            Während andere im KI-Chaos versinken, führen wir Sie sicher zum
+            Erfolg.
+          </p>
+        </div>
 
-          {/* Comparison Grid */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Without Guidance Column */}
-            <Card className="p-8 border-destructive/20 bg-destructive/5 animate-scale-in">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-destructive/10 rounded-full mb-4">
-                  <X className="w-8 h-8 text-destructive" />
-                </div>
-                <h3 className="text-xl font-bold text-destructive mb-2">
-                  Wenn du KI ohne Begleitung einsetzt
-                </h3>
-              </div>
+        {/* Zwei Spalten – „ohne“ vs. „mit PAXUP“ */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Ohne Begleitung */}
+          <Card className="relative overflow-hidden border border-white/10 bg-white/[0.02] p-8 shadow-soft">
+            {/* linke rote Kante */}
+            <span className="absolute inset-y-0 left-0 w-1 bg-[hsl(var(--secondary))]" />
+            <ColumnHeader
+              tone="negative"
+              title="Wenn du KI ohne Begleitung einsetzt"
+              Icon={X}
+            />
+            <div className="space-y-6">
+              {rows.map(({ icon: Icon, title, without }) => (
+                <RowItem
+                  key={`wout-${title}`}
+                  Icon={Icon}
+                  title={title}
+                  text={without}
+                  tone="negative"
+                />
+              ))}
+            </div>
+          </Card>
 
-              <div className="space-y-6">
-                {comparisonData.map((item, index) => (
-                  <div
-                    key={`without-${index}`}
-                    className="flex items-start space-x-4"
-                  >
-                    <div className="p-2 bg-destructive/10 rounded-lg">
-                      <div className="text-destructive">{item.icon}</div>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">
-                        {item.title}
-                      </h4>
-                      <p className="text-muted-foreground text-sm">
-                        {item.without}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* With PAXUP Column */}
-            <Card
-              className="p-8 border-primary/20 bg-primary/5 animate-scale-in"
-              style={{ animationDelay: "0.2s" }}
-            >
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-                  <Check className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-2">
-                  Wenn PAXUP deine KI-Strategie übernimmt
-                </h3>
-              </div>
-
-              <div className="space-y-6">
-                {comparisonData.map((item, index) => (
-                  <div
-                    key={`with-${index}`}
-                    className="flex items-start space-x-4"
-                  >
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <div className="text-primary">{item.icon}</div>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">
-                        {item.title}
-                      </h4>
-                      <p className="text-muted-foreground text-sm">
-                        {item.with}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </div>
+          {/* Mit PAXUP */}
+          <Card className="relative overflow-hidden border border-white/10 bg-white/[0.04] p-8 shadow-soft">
+            {/* dezente rote Oberkante */}
+            <span className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,transparent, hsl(var(--secondary)), transparent)]" />
+            <ColumnHeader
+              tone="positive"
+              title="Wenn PAXUP deine KI-Strategie übernimmt"
+              Icon={Check}
+            />
+            <div className="space-y-6">
+              {rows.map(({ icon: Icon, title, with: withText }) => (
+                <RowItem
+                  key={`with-${title}`}
+                  Icon={Icon}
+                  title={title}
+                  text={withText}
+                  tone="positive"
+                />
+              ))}
+            </div>
+          </Card>
         </div>
       </div>
     </section>
   );
-};
+}
 
-export default ComparisonSection;
+/* ================= helpers ================= */
+
+function ColumnHeader({
+  tone,
+  title,
+  Icon,
+}: {
+  tone: "negative" | "positive";
+  title: string;
+  Icon: IconType;
+}) {
+  const isPositive = tone === "positive";
+  return (
+    <div className="mb-8 text-center">
+      <div
+        className={cn(
+          "mx-auto mb-4 grid h-16 w-16 place-content-center rounded-full",
+          isPositive
+            ? "bg-[hsl(var(--secondary)/0.18)]"
+            : "bg-[hsl(var(--secondary)/0.10)]"
+        )}
+      >
+        <Icon
+          className={cn(
+            "h-8 w-8",
+            isPositive
+              ? "text-[hsl(var(--secondary))]"
+              : "text-[hsl(var(--secondary))]"
+          )}
+        />
+      </div>
+      <h3
+        className={cn(
+          "text-xl font-bold",
+          isPositive ? "text-white" : "text-white"
+        )}
+      >
+        {title}
+      </h3>
+    </div>
+  );
+}
+
+function RowItem({
+  Icon,
+  title,
+  text,
+  tone,
+}: {
+  Icon: IconType;
+  title: string;
+  text: string;
+  tone: "negative" | "positive";
+}) {
+  const isPositive = tone === "positive";
+  return (
+    <div className="flex items-start gap-4">
+      <div
+        className={cn(
+          "grid h-10 w-10 flex-shrink-0 place-content-center rounded-lg ring-1",
+          isPositive
+            ? "bg-white/5 ring-white/15"
+            : "bg-[hsl(var(--secondary)/0.06)] ring-[hsl(var(--secondary)/0.25)]"
+        )}
+      >
+        <Icon
+          className={cn(
+            "h-5 w-5",
+            isPositive ? "text-white" : "text-[hsl(var(--secondary))]"
+          )}
+        />
+      </div>
+      <div className="min-w-0">
+        <h4 className="text-sm font-semibold text-white">{title}</h4>
+        <p className="mt-1 text-sm leading-relaxed text-white/75">{text}</p>
+      </div>
+    </div>
+  );
+}
