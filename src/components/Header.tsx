@@ -1,11 +1,18 @@
 // src/components/Header.tsx
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as Collapsible from "@radix-ui/react-collapsible";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
-// Logos (hell/dunkel + kompakte „Up“-Varianten)
+// Logos (hell/dunkel + kompakte Varianten)
 import LogoFullLight from "@/assets/logo/Logo_blau_rot.png";
 import LogoFullDark from "@/assets/logo/Logo_weiss_rot.png";
 import LogoMonoLight from "@/assets/logo/Up_blau.png";
@@ -31,6 +38,14 @@ const menuItems: MenuItem[] = [
 
 const calendlyUrl = "https://calendly.com/paxup";
 
+// Welche Links bleiben auf lg inline?
+const lgPrimaryNames = new Set<string>([
+  "Leistungen",
+  "Anwendungsfälle",
+  "Immobilienverwaltung",
+  "Blog",
+]);
+
 export default function Header() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
@@ -38,20 +53,28 @@ export default function Header() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  const { primaryLg, overflowLg } = useMemo(() => {
+    const primary = menuItems.filter((m) => lgPrimaryNames.has(m.name));
+    const overflow = menuItems.filter((m) => !lgPrimaryNames.has(m.name));
+    return { primaryLg: primary, overflowLg: overflow };
+  }, []);
+
+  // Smooth-Scroll für Hash-Links
   function handleHashNav(targetHash: `#${string}`) {
     const id = targetHash.slice(1);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  // Desktop-Link Styles
   const desktopLinkClass = (isActive: boolean) =>
     [
-      // kompakter bei lg, luftiger ab xl
-      "rounded-md lg:px-2 xl:px-3 py-2 text-sm font-medium transition-all",
+      "rounded-md lg:px-2 xl:px-3 py-2 text-sm font-medium transition-colors",
       "hover:bg-muted hover:text-primary",
       isActive ? "text-primary bg-muted" : "text-muted-foreground",
     ].join(" ");
 
+  // Mobile-Link Styles
   const mobileLinkClass = (isActive: boolean) =>
     [
       "rounded-md px-3 py-3 text-base font-medium transition-colors",
@@ -68,16 +91,15 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex h-20 items-center gap-3">
-          {/* Logo (niemals schrumpfen) */}
+          {/* Logo (immer sichtbar, schrumpft nie) */}
           <Link
             to="/"
             className="flex items-center gap-2 shrink-0"
             aria-label="Startseite"
             onClick={() => setOpen(false)}
           >
-            {/* Light Theme */}
+            {/* Light */}
             <picture className="dark:hidden">
-              {/* kompaktes Monogramm bis 979px */}
               <source srcSet={LogoMonoLight} media="(max-width: 979px)" />
               <img
                 src={LogoFullLight}
@@ -87,7 +109,7 @@ export default function Header() {
                 decoding="async"
               />
             </picture>
-            {/* Dark Theme */}
+            {/* Dark */}
             <picture className="hidden dark:block">
               <source srcSet={LogoMonoDark} media="(max-width: 979px)" />
               <img
@@ -100,38 +122,97 @@ export default function Header() {
             </picture>
           </Link>
 
-          {/* Desktop Navigation: erhält den mittleren flex-Block, darf scrollen */}
-          <nav
-            className="
-              hidden lg:flex flex-1 min-w-0 items-center 
-              gap-1 overflow-x-auto whitespace-nowrap
-            "
-          >
-            {menuItems.map((item) =>
-              item.kind === "route" ? (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  className={({ isActive }) => desktopLinkClass(isActive)}
-                >
-                  {item.name}
-                </NavLink>
-              ) : (
-                <button
-                  key={item.name}
-                  type="button"
-                  onClick={() => handleHashNav(item.href)}
-                  className="rounded-md lg:px-2 xl:px-3 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted hover:text-primary"
-                >
-                  {item.name}
-                </button>
-              )
-            )}
+          {/* Desktop-Navigation */}
+          <nav className="hidden lg:flex items-center gap-1 flex-1 min-w-0">
+            {/* lg: nur primäre Items */}
+            <div className="hidden lg:flex xl:hidden items-center gap-1">
+              {primaryLg.map((item) =>
+                item.kind === "route" ? (
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    className={({ isActive }) => desktopLinkClass(isActive)}
+                  >
+                    {item.name}
+                  </NavLink>
+                ) : (
+                  <button
+                    key={item.name}
+                    type="button"
+                    onClick={() => handleHashNav(item.href)}
+                    className="rounded-md lg:px-2 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                  >
+                    {item.name}
+                  </button>
+                )
+              )}
+
+              {/* Mehr-Dropdown für die restlichen Items */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="ml-1">
+                    <MoreHorizontal className="h-4 w-4" />
+                    <span className="sr-only">Weitere Navigation</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  {overflowLg.map((item, idx) =>
+                    item.kind === "route" ? (
+                      <NavLink key={item.name} to={item.href}>
+                        {({ isActive }) => (
+                          <DropdownMenuItem
+                            className={isActive ? "text-primary" : ""}
+                          >
+                            {item.name}
+                          </DropdownMenuItem>
+                        )}
+                      </NavLink>
+                    ) : (
+                      <DropdownMenuItem
+                        key={item.name}
+                        onClick={() => handleHashNav(item.href)}
+                      >
+                        {item.name}
+                      </DropdownMenuItem>
+                    )
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => window.open(calendlyUrl, "_blank")}
+                  >
+                    Erstberatung buchen
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* xl+: alle Items inline, kein „Mehr“-Button */}
+            <div className="hidden xl:flex items-center gap-1">
+              {menuItems.map((item) =>
+                item.kind === "route" ? (
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    className={({ isActive }) => desktopLinkClass(isActive)}
+                  >
+                    {item.name}
+                  </NavLink>
+                ) : (
+                  <button
+                    key={item.name}
+                    type="button"
+                    onClick={() => handleHashNav(item.href)}
+                    className="rounded-md xl:px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                  >
+                    {item.name}
+                  </button>
+                )
+              )}
+            </div>
           </nav>
 
-          {/* Desktop CTAs: shrink-0, und reduziert auf lg (nur Haupt-CTA) */}
+          {/* Desktop-CTAs: reduziert auf lg; vollständig auf xl */}
           <div className="hidden lg:flex items-center gap-2 shrink-0">
-            {/* „Erstberatung“ erst ab xl anzeigen, um Platzkonflikte zu vermeiden */}
             <Button
               variant="ghost"
               size="sm"

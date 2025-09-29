@@ -26,11 +26,9 @@ const Index = () => {
         <ServicesSection />
         <UseCasesSection />
         <ComparisonSection />
-        <ComparisonCTA />
         <TestimonialsSection />
         <AboutSection />
         <FundingSection />
-        <CTASection />
         <Footer />
       </main>
       <LeadPopup />
