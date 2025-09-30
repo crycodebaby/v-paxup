@@ -1,28 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" class="">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PAXUP - Digitalisierung und KI für den Mittelstand | Beratung & Umsetzung</title>
-    <meta name="description" content="Digitalisierung und KI für den Mittelstand - einfach, sicher, förderfähig. Prozessautomatisierung, KI-Beratung und Fördermittelberatung von PAXUP." />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>
+      PAXUP – Digitalisierung & KI für den Mittelstand | Beratung & Umsetzung
+    </title>
+
+    <!-- Primary Meta -->
+    <meta
+      name="description"
+      content="Digitalisierung und KI für den Mittelstand – einfach, sicher, förderfähig. Prozessautomatisierung, KI-Beratung und Fördermittelberatung von PAXUP."
+    />
     <meta name="author" content="PAXUP" />
-    <meta name="keywords" content="Digitalisierung Mittelstand, KI Beratung, Prozessautomatisierung, Fördermittel, DSGVO konform" />
-    <link rel="canonical" href="https://paxup.de" />
+    <meta
+      name="keywords"
+      content="Digitalisierung Mittelstand, KI Beratung, Prozessautomatisierung, Fördermittel, DSGVO konform, Automatisierung, KI-Strategie"
+    />
 
-    <meta property="og:title" content="PAXUP - Digitalisierung und KI für den Mittelstand" />
-    <meta property="og:description" content="Digitalisierung und KI für den Mittelstand - einfach, sicher, förderfähig. Prozessautomatisierung, KI-Beratung und Fördermittelberatung." />
+    <!-- Canonical (neue Domain) -->
+    <link rel="canonical" href="https://paxup.support/" />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="PAXUP – Digitalisierung & KI für den Mittelstand"
+    />
+    <meta
+      property="og:description"
+      content="Digitalisierung und KI für den Mittelstand – einfach, sicher, förderfähig. Prozessautomatisierung, KI-Beratung und Fördermittelberatung."
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://paxup.de" />
-    <meta property="og:image" content="https://paxup.de/og-image.jpg" />
+    <meta property="og:url" content="https://paxup.support/" />
+    <meta property="og:image" content="https://paxup.support/og-image.jpg" />
+    <meta property="og:locale" content="de_DE" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="PAXUP - Digitalisierung und KI für den Mittelstand" />
-    <meta name="twitter:description" content="Digitalisierung und KI für den Mittelstand - einfach, sicher, förderfähig." />
-    <meta name="twitter:image" content="https://paxup.de/og-image.jpg" />
+    <meta
+      name="twitter:title"
+      content="PAXUP – Digitalisierung & KI für den Mittelstand"
+    />
+    <meta
+      name="twitter:description"
+      content="Digitalisierung und KI für den Mittelstand – einfach, sicher, förderfähig."
+    />
+    <meta name="twitter:image" content="https://paxup.support/og-image.jpg" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+
+    <!-- Color scheme & theme-color (für Browser-UI) -->
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#ffffff"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#121b2f"
+    />
+
+    <!-- Favicons (du hast die Assets bereits im /public; Links optional ergänzen) -->
+    <!--
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    -->
+
+    <!-- Kritische Theme-Initialisierung: verhindert FOUC beim Theme -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches;
+          var useDark =
+            t === "dark" ||
+            (t === "system" && prefersDark) ||
+            (!t && prefersDark);
+          if (useDark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Preload selbstgehostete WOFF2 (Optional: Pfade anpassen, nur falls du die Font-Dateien hast) -->
+    <!--
+    <link rel="preload" href="/src/assets/fonts/Alexandria/Alexandria-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/src/assets/fonts/Alexandria/Alexandria-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/src/assets/fonts/Alexandria/Alexandria-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    -->
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Strukturierte Daten (JSON-LD) – Organisation/Service (anpassen wo nötig) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "PAXUP",
+        "url": "https://paxup.support/",
+        "logo": "https://paxup.support/android-chrome-512x512.png",
+        "sameAs": ["https://www.linkedin.com/company/paxup"],
+        "description": "Digitalisierung und KI für den Mittelstand – Prozessautomatisierung, KI-Beratung und Fördermittelberatung.",
+        "areaServed": "DE",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "availableLanguage": ["German"]
+        }
+      }
+    </script>
   </body>
 </html>

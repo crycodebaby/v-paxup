@@ -4,6 +4,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Menu, X, Sparkles, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as Collapsible from "@radix-ui/react-collapsible";
+import ThemeToggle from "@/components/ThemeToggle";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -11,12 +12,17 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 // Logos (hell/dunkel + kompakte Varianten)
 import LogoFullLight from "@/assets/logo/Logo_blau_rot.png";
 import LogoFullDark from "@/assets/logo/Logo_weiss_rot.png";
-import LogoMonoLight from "@/assets/logo/Up_blau.png";
-import LogoMonoDark from "@/assets/logo/Up_weiss.png";
+import LogoMonoLight from "@/assets/logo/Up_rot.png";
+import LogoMonoDark from "@/assets/logo/Up_rot.png";
 
 type RouteItem = { name: string; href: string; kind: "route" };
 type HashItem = { name: string; href: `#${string}`; kind: "hash" };
@@ -37,8 +43,6 @@ const menuItems: MenuItem[] = [
 ];
 
 const calendlyUrl = "https://calendly.com/paxup";
-
-// Welche Links bleiben auf lg inline?
 const lgPrimaryNames = new Set<string>([
   "Leistungen",
   "Anwendungsfälle",
@@ -59,14 +63,12 @@ export default function Header() {
     return { primaryLg: primary, overflowLg: overflow };
   }, []);
 
-  // Smooth-Scroll für Hash-Links
   function handleHashNav(targetHash: `#${string}`) {
     const id = targetHash.slice(1);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // Desktop-Link Styles
   const desktopLinkClass = (isActive: boolean) =>
     [
       "rounded-md lg:px-2 xl:px-3 py-2 text-sm font-medium transition-colors",
@@ -74,7 +76,6 @@ export default function Header() {
       isActive ? "text-primary bg-muted" : "text-muted-foreground",
     ].join(" ");
 
-  // Mobile-Link Styles
   const mobileLinkClass = (isActive: boolean) =>
     [
       "rounded-md px-3 py-3 text-base font-medium transition-colors",
@@ -87,11 +88,11 @@ export default function Header() {
       data-site-header
       open={open}
       onOpenChange={setOpen}
-      className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 overflow-x-clip"
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex h-20 items-center gap-3">
-          {/* Logo (immer sichtbar, schrumpft nie) */}
+          {/* Logo */}
           <Link
             to="/"
             className="flex items-center gap-2 shrink-0"
@@ -124,7 +125,7 @@ export default function Header() {
 
           {/* Desktop-Navigation */}
           <nav className="hidden lg:flex items-center gap-1 flex-1 min-w-0">
-            {/* lg: nur primäre Items */}
+            {/* lg: primäre Items + „Mehr“ */}
             <div className="hidden lg:flex xl:hidden items-center gap-1">
               {primaryLg.map((item) =>
                 item.kind === "route" ? (
@@ -147,7 +148,6 @@ export default function Header() {
                 )
               )}
 
-              {/* Mehr-Dropdown für die restlichen Items */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="ml-1">
@@ -156,7 +156,7 @@ export default function Header() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
-                  {overflowLg.map((item, idx) =>
+                  {overflowLg.map((item) =>
                     item.kind === "route" ? (
                       <NavLink key={item.name} to={item.href}>
                         {({ isActive }) => (
@@ -186,7 +186,7 @@ export default function Header() {
               </DropdownMenu>
             </div>
 
-            {/* xl+: alle Items inline, kein „Mehr“-Button */}
+            {/* xl+: alle Items inline */}
             <div className="hidden xl:flex items-center gap-1">
               {menuItems.map((item) =>
                 item.kind === "route" ? (
@@ -211,8 +211,17 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* Desktop-CTAs: reduziert auf lg; vollständig auf xl */}
-          <div className="hidden lg:flex items-center gap-2 shrink-0">
+          {/* Desktop-Actionbar: Theme + CTAs (immer sichtbar, aber platzsparend) */}
+          <div className="hidden lg:flex items-center gap-1 shrink-0">
+            <Tooltip delayDuration={150}>
+              <TooltipTrigger asChild>
+                <div className="rounded-md border border-border/60 bg-card/50 p-1">
+                  <ThemeToggle />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>Theme wechseln</TooltipContent>
+            </Tooltip>
+
             <Button
               variant="ghost"
               size="sm"
@@ -253,6 +262,14 @@ export default function Header() {
         className="overflow-hidden border-t border-border lg:hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up motion-reduce:animate-none"
       >
         <div className="container mx-auto px-4 lg:px-8 py-4">
+          {/* Theme Toggle – prominent im Mobile-Menü */}
+          <div className="mb-3 flex items-center justify-between rounded-lg border border-border/60 bg-card/50 p-2">
+            <span className="text-sm font-medium text-muted-foreground">
+              Theme
+            </span>
+            <ThemeToggle />
+          </div>
+
           <nav className="flex flex-col gap-1">
             {menuItems.map((item) =>
               item.kind === "route" ? (
