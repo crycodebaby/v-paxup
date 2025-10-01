@@ -2,7 +2,9 @@
 
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Providers } from "./Providers"; // Unser neuer Provider-Wrapper
+import { Providers } from "./Providers";
+import Impressum from "@/pages/Impressum";
+import Datenschutz from "@/pages/Datenschutz";
 
 // --- Code-Splitting: Seiten werden bei Bedarf nachgeladen ---
 const Index = lazy(() => import("./pages/Index"));
@@ -51,6 +53,8 @@ function App() {
 
             {/* Die Catch-All Route für 404-Fehler */}
             <Route path="*" element={<NotFound />} />
+            <Route path="/impressum" element={<Impressum />} />
+            <Route path="/datenschutz" element={<Datenschutz />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
