@@ -5,12 +5,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Providers } from "./Providers";
 import Impressum from "@/pages/Impressum";
 import Datenschutz from "@/pages/Datenschutz";
+import ScrollToTop from "@/components/ScrollToTop";
 
 // --- Code-Splitting: Seiten werden bei Bedarf nachgeladen ---
 const Index = lazy(() => import("./pages/Index"));
 const Blog = lazy(() => import("./pages/Blog"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
-const BlogPostPage = lazy(() => import("./pages/BlogPostPage")); // Die neue dynamische Seite
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const ImmobilienLandingPage = lazy(
   () => import("./pages/ImmobilienLandingPage")
 );
@@ -33,6 +34,7 @@ function App() {
   return (
     <Providers>
       <BrowserRouter>
+        <ScrollToTop />
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Index />} />

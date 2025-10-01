@@ -6,7 +6,7 @@ import { Target, Bot, Shield, DollarSign } from "lucide-react";
 import heroPng from "@/assets/paxup-hero-bg.jpg";
 import heroWebp from "@/assets/paxup-fallback-hero.webp";
 
-const CALENDLY_URL = "https://calendly.com/paxup";
+const CALENDLY_URL = "https://cal.com/paxup";
 
 const SERVICES = [
   {

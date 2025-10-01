@@ -48,7 +48,7 @@ const problemSolutionPairs = [
 ];
 
 const ProblemSolutionSection = () => {
-  const calendlyUrl = "https://calendly.com/paxup";
+  const calendlyUrl = "https://cal.com/paxup";
 
   return (
     <section className="py-20 md:py-32 bg-background overflow-hidden">

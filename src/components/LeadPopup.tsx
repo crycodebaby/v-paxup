@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { X } from "lucide-react";
 
 const LeadPopup = () => {
@@ -12,7 +18,7 @@ const LeadPopup = () => {
 
   useEffect(() => {
     // Check if popup was already closed
-    const wasPopupClosed = localStorage.getItem('leadPopupClosed');
+    const wasPopupClosed = localStorage.getItem("leadPopupClosed");
     if (wasPopupClosed) {
       return;
     }
@@ -28,18 +34,18 @@ const LeadPopup = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [isOpen]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission here
-    console.log('Form submitted:', { email, name, branche });
+    console.log("Form submitted:", { email, name, branche });
     setIsOpen(false);
   };
 
@@ -51,7 +57,7 @@ const LeadPopup = () => {
         {/* Close Button */}
         <button
           onClick={() => {
-            localStorage.setItem('leadPopupClosed', 'true');
+            localStorage.setItem("leadPopupClosed", "true");
             setIsOpen(false);
           }}
           className="absolute top-4 right-4 z-10 w-8 h-8 bg-background rounded-full flex items-center justify-center shadow-md hover:bg-muted transition-colors"
@@ -78,10 +84,14 @@ const LeadPopup = () => {
                 </div>
                 <h3 className="text-2xl lg:text-3xl font-bold mb-4">
                   Kostenloses Beratungsgespräch
-                  <span className="bg-gradient-primary bg-clip-text text-transparent"> vereinbaren</span>
+                  <span className="bg-gradient-primary bg-clip-text text-transparent">
+                    {" "}
+                    vereinbaren
+                  </span>
                 </h3>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Vereinbaren Sie ein Termin für Ihren <strong>individuellen Maßnahmenplan</strong> 
+                  Vereinbaren Sie ein Termin für Ihren{" "}
+                  <strong>individuellen Maßnahmenplan</strong>
                   mit 3 sofort umsetzbaren KI-Lösungen für Ihre Branche.
                 </p>
               </div>
@@ -90,15 +100,21 @@ const LeadPopup = () => {
                 <div className="grid gap-3">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span className="text-sm font-medium">3 konkrete KI-Implementierungen</span>
+                    <span className="text-sm font-medium">
+                      3 konkrete KI-Implementierungen
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-accent rounded-full"></div>
-                    <span className="text-sm font-medium">Branchenspezifische Empfehlungen</span>
+                    <span className="text-sm font-medium">
+                      Branchenspezifische Empfehlungen
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span className="text-sm font-medium">Sofort umsetzbare Maßnahmen</span>
+                    <span className="text-sm font-medium">
+                      Sofort umsetzbare Maßnahmen
+                    </span>
                   </div>
                 </div>
               </div>
@@ -130,23 +146,34 @@ const LeadPopup = () => {
                       <SelectValue placeholder="Ihre Branche" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="immobilien">Immobilienverwaltung</SelectItem>
+                      <SelectItem value="immobilien">
+                        Immobilienverwaltung
+                      </SelectItem>
                       <SelectItem value="grosshandel">Großhandel</SelectItem>
-                      <SelectItem value="dienstleistung">Dienstleistung</SelectItem>
+                      <SelectItem value="dienstleistung">
+                        Dienstleistung
+                      </SelectItem>
                       <SelectItem value="pflege">Pflege</SelectItem>
                       <SelectItem value="handwerk">Handwerk</SelectItem>
                       <SelectItem value="andere">Andere Branche</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                <Button type="button" variant="cta" size="lg" className="w-full h-12" onClick={() => window.open('https://calendly.com/paxup', '_blank')}>
+                <Button
+                  type="button"
+                  variant="cta"
+                  size="lg"
+                  className="w-full h-12"
+                  onClick={() => window.open("https://cal.com/paxup", "_blank")}
+                >
                   📅 Termin vereinbaren
                 </Button>
               </form>
 
               <p className="text-xs text-muted-foreground text-center">
-                Kein Spam. Ihre Daten sind bei uns sicher. 
-                <br />Sie können sich jederzeit abmelden.
+                Kein Spam. Ihre Daten sind bei uns sicher.
+                <br />
+                Sie können sich jederzeit abmelden.
               </p>
             </div>
           </div>

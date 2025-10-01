@@ -1,6 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Euro, Shield, Target, CheckCircle, FileText, Users, Calendar } from "lucide-react";
+import {
+  Euro,
+  Shield,
+  Target,
+  CheckCircle,
+  FileText,
+  Users,
+  Calendar,
+} from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -8,7 +16,7 @@ const Funding = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-accent/10">
         <div className="container mx-auto px-4 lg:px-8">
@@ -18,14 +26,14 @@ const Funding = () => {
               <span className="text-primary">Digitalisierung</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-              Nutzen Sie staatliche Förderprogramme und sparen Sie bis zu 80% der Kosten 
-              für Ihre KI- und Digitalisierungsprojekte
+              Nutzen Sie staatliche Förderprogramme und sparen Sie bis zu 80%
+              der Kosten für Ihre KI- und Digitalisierungsprojekte
             </p>
-            <Button 
-              variant="cta" 
-              size="lg" 
+            <Button
+              variant="cta"
+              size="lg"
               className="text-lg px-8 py-6"
-              onClick={() => window.open('https://calendly.com/paxup', '_blank')}
+              onClick={() => window.open("https://cal.com/paxup", "_blank")}
             >
               🎯 Kostenlose Förderberatung
             </Button>
@@ -41,8 +49,8 @@ const Funding = () => {
               Die wichtigsten Förderprogramme im Überblick
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Von KfW-Krediten bis hin zu BAFA-Zuschüssen – wir zeigen Ihnen den Weg 
-              zur optimalen Förderung für Ihr Digitalisierungsprojekt
+              Von KfW-Krediten bis hin zu BAFA-Zuschüssen – wir zeigen Ihnen den
+              Weg zur optimalen Förderung für Ihr Digitalisierungsprojekt
             </p>
           </div>
 
@@ -55,19 +63,23 @@ const Funding = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">KfW-Förderung</h3>
-                  <p className="text-sm text-muted-foreground">Bis zu 50% Förderung</p>
+                  <p className="text-sm text-muted-foreground">
+                    Bis zu 50% Förderung
+                  </p>
                 </div>
               </div>
-              
+
               <p className="text-muted-foreground mb-6">
-                Der KfW-Digitalisierungs- und Innovationskredit bietet günstige 
+                Der KfW-Digitalisierungs- und Innovationskredit bietet günstige
                 Finanzierung für Digitalisierungsprojekte im Mittelstand.
               </p>
-              
+
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">Bis zu 25 Mio. € Fördervolumen</span>
+                  <span className="text-sm">
+                    Bis zu 25 Mio. € Fördervolumen
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-accent" />
@@ -75,10 +87,12 @@ const Funding = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">Tilgungsfreie Anlaufjahre möglich</span>
+                  <span className="text-sm">
+                    Tilgungsfreie Anlaufjahre möglich
+                  </span>
                 </div>
               </div>
-              
+
               <Button variant="outline" className="w-full">
                 Mehr erfahren
               </Button>
@@ -92,15 +106,17 @@ const Funding = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">BAFA-Förderung</h3>
-                  <p className="text-sm text-muted-foreground">Bis zu 80% Zuschuss</p>
+                  <p className="text-sm text-muted-foreground">
+                    Bis zu 80% Zuschuss
+                  </p>
                 </div>
               </div>
-              
+
               <p className="text-muted-foreground mb-6">
-                Spezielle Förderung für Unternehmensberatung zur Entwicklung 
-                von Digitalisierungs- und KI-Strategien.
+                Spezielle Förderung für Unternehmensberatung zur Entwicklung von
+                Digitalisierungs- und KI-Strategien.
               </p>
-              
+
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-primary" />
@@ -108,14 +124,16 @@ const Funding = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-primary" />
-                  <span className="text-sm">Keine Rückzahlung erforderlich</span>
+                  <span className="text-sm">
+                    Keine Rückzahlung erforderlich
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-primary" />
                   <span className="text-sm">Schnelle Antragstellung</span>
                 </div>
               </div>
-              
+
               <Button variant="default" className="w-full">
                 Jetzt beantragen
               </Button>
@@ -129,30 +147,36 @@ const Funding = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold">Länderförderung</h3>
-                  <p className="text-sm text-muted-foreground">Regional variabel</p>
+                  <p className="text-sm text-muted-foreground">
+                    Regional variabel
+                  </p>
                 </div>
               </div>
-              
+
               <p className="text-muted-foreground mb-6">
-                Zusätzliche Fördermöglichkeiten durch Bundesländer und EU-Programme 
-                für innovative Digitalisierungsprojekte.
+                Zusätzliche Fördermöglichkeiten durch Bundesländer und
+                EU-Programme für innovative Digitalisierungsprojekte.
               </p>
-              
+
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">Kombinierbar mit anderen Förderungen</span>
+                  <span className="text-sm">
+                    Kombinierbar mit anderen Förderungen
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">Branchen-spezifische Programme</span>
+                  <span className="text-sm">
+                    Branchen-spezifische Programme
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-accent" />
                   <span className="text-sm">EU-Innovationsförderung</span>
                 </div>
               </div>
-              
+
               <Button variant="outline" className="w-full">
                 Regionale Förderung prüfen
               </Button>
@@ -169,7 +193,8 @@ const Funding = () => {
               So einfach kommen Sie zur Förderung
             </h2>
             <p className="text-lg text-muted-foreground">
-              Wir begleiten Sie durch den gesamten Förderprozess – von der Beratung bis zur Bewilligung
+              Wir begleiten Sie durch den gesamten Förderprozess – von der
+              Beratung bis zur Bewilligung
             </p>
           </div>
 
@@ -180,7 +205,8 @@ const Funding = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">1. Erstberatung</h3>
               <p className="text-muted-foreground">
-                Kostenlose Analyse Ihres Projekts und Identifikation der passenden Förderungen
+                Kostenlose Analyse Ihres Projekts und Identifikation der
+                passenden Förderungen
               </p>
             </div>
 
@@ -190,7 +216,8 @@ const Funding = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">2. Antragstellung</h3>
               <p className="text-muted-foreground">
-                Wir erstellen alle erforderlichen Unterlagen und reichen den Antrag für Sie ein
+                Wir erstellen alle erforderlichen Unterlagen und reichen den
+                Antrag für Sie ein
               </p>
             </div>
 
@@ -200,7 +227,8 @@ const Funding = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">3. Bewilligung</h3>
               <p className="text-muted-foreground">
-                Nach der Bewilligung können Sie sofort mit der Umsetzung Ihres Projekts beginnen
+                Nach der Bewilligung können Sie sofort mit der Umsetzung Ihres
+                Projekts beginnen
               </p>
             </div>
 
@@ -210,7 +238,8 @@ const Funding = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">4. Umsetzung</h3>
               <p className="text-muted-foreground">
-                Wir begleiten die komplette Projektumsetzung und sorgen für die ordnungsgemäße Verwendung
+                Wir begleiten die komplette Projektumsetzung und sorgen für die
+                ordnungsgemäße Verwendung
               </p>
             </div>
           </div>
@@ -225,30 +254,44 @@ const Funding = () => {
               Erfolgreiche Förderungen
             </h2>
             <p className="text-lg text-muted-foreground">
-              Unsere Kunden haben bereits über 2 Millionen Euro an Förderungen erhalten
+              Unsere Kunden haben bereits über 2 Millionen Euro an Förderungen
+              erhalten
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-6 text-center shadow-card">
-              <div className="text-3xl font-bold text-primary mb-2">€847.000</div>
-              <div className="text-sm font-medium mb-2">Mittelständisches Handwerksunternehmen</div>
+              <div className="text-3xl font-bold text-primary mb-2">
+                €847.000
+              </div>
+              <div className="text-sm font-medium mb-2">
+                Mittelständisches Handwerksunternehmen
+              </div>
               <p className="text-sm text-muted-foreground">
                 KfW-Förderung für digitale Transformation und KI-Implementierung
               </p>
             </Card>
 
             <Card className="p-6 text-center shadow-card">
-              <div className="text-3xl font-bold text-accent mb-2">€312.000</div>
-              <div className="text-sm font-medium mb-2">Immobilienverwaltung</div>
+              <div className="text-3xl font-bold text-accent mb-2">
+                €312.000
+              </div>
+              <div className="text-sm font-medium mb-2">
+                Immobilienverwaltung
+              </div>
               <p className="text-sm text-muted-foreground">
-                BAFA-Zuschuss + Länderförderung für Automatisierung der Verwaltungsprozesse
+                BAFA-Zuschuss + Länderförderung für Automatisierung der
+                Verwaltungsprozesse
               </p>
             </Card>
 
             <Card className="p-6 text-center shadow-card">
-              <div className="text-3xl font-bold text-primary mb-2">€156.000</div>
-              <div className="text-sm font-medium mb-2">Beratungsunternehmen</div>
+              <div className="text-3xl font-bold text-primary mb-2">
+                €156.000
+              </div>
+              <div className="text-sm font-medium mb-2">
+                Beratungsunternehmen
+              </div>
               <p className="text-sm text-muted-foreground">
                 EU-Innovationsförderung für KI-basierte Datenanalyse-Tools
               </p>
@@ -265,29 +308,33 @@ const Funding = () => {
               Sichern Sie sich jetzt Ihre Förderung
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Verpassen Sie nicht die Chance auf bis zu 80% Förderung für Ihr Digitalisierungsprojekt. 
-              Unsere Experten beraten Sie kostenlos und unverbindlich.
+              Verpassen Sie nicht die Chance auf bis zu 80% Förderung für Ihr
+              Digitalisierungsprojekt. Unsere Experten beraten Sie kostenlos und
+              unverbindlich.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                variant="cta" 
-                size="lg" 
+              <Button
+                variant="cta"
+                size="lg"
                 className="text-lg px-8 py-6"
-                onClick={() => window.open('https://calendly.com/paxup', '_blank')}
+                onClick={() => window.open("https://cal.com/paxup", "_blank")}
               >
                 🎯 Jetzt Förderberatung buchen
               </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
+              <Button
+                variant="outline"
+                size="lg"
                 className="text-lg px-8 py-6"
-                onClick={() => window.open('http://eepurl.com/jlQLmA', '_blank')}
+                onClick={() =>
+                  window.open("http://eepurl.com/jlQLmA", "_blank")
+                }
               >
                 📧 Newsletter abonnieren
               </Button>
             </div>
             <p className="text-sm text-muted-foreground mt-4">
-              Kostenlose Erstberatung • Keine versteckten Kosten • Erfolgsgarantie
+              Kostenlose Erstberatung • Keine versteckten Kosten •
+              Erfolgsgarantie
             </p>
           </div>
         </div>

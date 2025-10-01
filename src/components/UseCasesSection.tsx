@@ -440,9 +440,7 @@ export default function UseCasesSection() {
             <Button
               variant="cta"
               size="lg"
-              onClick={() =>
-                window.open("https://calendly.com/paxup", "_blank")
-              }
+              onClick={() => window.open("https://cal.com/paxup", "_blank")}
               className="shadow-button transition-transform hover:scale-[1.02]"
             >
               Individuelle Beratung anfragen

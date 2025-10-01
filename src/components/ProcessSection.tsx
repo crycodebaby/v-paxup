@@ -273,7 +273,7 @@ export default function ProcessSection() {
             variant="cta"
             size="lg"
             className="px-7 py-6 text-base md:text-lg shadow-button hover:shadow-elegant transition-all duration-300"
-            onClick={() => window.open("https://calendly.com/paxup", "_blank")}
+            onClick={() => window.open("https://cal.com/paxup", "_blank")}
           >
             Jetzt mit KI im Unternehmen starten
           </Button>

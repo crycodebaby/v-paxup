@@ -40,7 +40,7 @@ const legalLinks = [
 
 const Footer = () => {
   const mailchimpUrl = "http://eepurl.com/jlQLmA";
-  const calendlyUrl = "https://calendly.com/paxup";
+  const calendlyUrl = "https://cal.com/paxup";
   const currentYear = new Date().getFullYear();
 
   return (

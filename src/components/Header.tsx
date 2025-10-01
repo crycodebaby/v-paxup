@@ -42,7 +42,7 @@ const menuItems: MenuItem[] = [
   { name: "Kontakt", href: "#contact", kind: "hash" },
 ];
 
-const calendlyUrl = "https://calendly.com/paxup";
+const calendlyUrl = "https://cal.com/paxup";
 const lgPrimaryNames = new Set<string>([
   "Leistungen",
   "Anwendungsfälle",
