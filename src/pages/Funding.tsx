@@ -1,348 +1,412 @@
+// src/pages/Funding.tsx
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Euro,
-  Shield,
   Target,
-  CheckCircle,
+  Percent,
+  ShieldCheck,
   FileText,
-  Users,
+  CheckCircle2,
   Calendar,
+  ArrowRight,
 } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
-const Funding = () => {
+import UpWeiss from "@/assets/logo/Up_weiss.png";
+import UpRot from "@/assets/logo/Up_rot.png";
+import UpBlau from "@/assets/logo/Up_blau.png";
+
+const CAL_URL = "https://cal.com/paxup";
+
+export default function Funding() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
 
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 via-background to-accent/10">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="text-foreground">Förderungen für </span>
-              <span className="text-primary">Digitalisierung</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-              Nutzen Sie staatliche Förderprogramme und sparen Sie bis zu 80%
-              der Kosten für Ihre KI- und Digitalisierungsprojekte
-            </p>
-            <Button
-              variant="cta"
-              size="lg"
-              className="text-lg px-8 py-6"
-              onClick={() => window.open("https://cal.com/paxup", "_blank")}
+      <main className="flex-1">
+        {/* HERO */}
+        <section className="relative overflow-hidden bg-gradient-subtle">
+          {/* Auren/Partikel */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10 opacity-85"
+            style={{
+              background:
+                "radial-gradient(36rem 22rem at 18% 14%, hsl(var(--secondary)/0.10), transparent 60%), radial-gradient(32rem 22rem at 84% 8%, hsl(var(--secondary)/0.12), transparent 60%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10 hidden dark:block opacity-95"
+            style={{
+              background:
+                "radial-gradient(36rem 22rem at 18% 14%, hsl(var(--primary)/0.10), transparent 60%), radial-gradient(32rem 22rem at 84% 8%, hsl(var(--primary)/0.12), transparent 60%)",
+            }}
+          />
+          {/* Logos dezent */}
+          <img
+            aria-hidden
+            src={UpBlau}
+            alt=""
+            className="pointer-events-none absolute right-4 top-6 -z-10 hidden h-24 w-auto opacity-10 sm:block md:right-12 md:top-10 md:h-28"
+          />
+          <img
+            aria-hidden
+            src={UpRot}
+            alt=""
+            className="pointer-events-none absolute left-6 bottom-6 -z-10 hidden h-20 w-auto opacity-10 sm:block"
+          />
+
+          <div className="container mx-auto px-4 lg:px-8 py-16 md:py-20">
+            <div className="mx-auto max-w-5xl text-center">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                <span>Bis zu </span>
+                <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
+                  80&nbsp;% Zuschuss
+                </span>
+                <span> für KI- & Digitalisierungsvorhaben</span>
+              </h1>
+              <p className="mt-4 text-xl text-muted-foreground">
+                Wir machen Ihre **BAFA-Förderung** einfach: Fördercheck,
+                Antragstellung, förderkonforme Roadmap – und Umsetzung mit
+                Nachweisführung.
+              </p>
+
+              {/* USP-Band */}
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { Icon: Percent, text: "Bis zu 80 % Zuschuss" },
+                  { Icon: FileText, text: "Antrag & Nachweise aus einer Hand" },
+                  { Icon: ShieldCheck, text: "DSGVO & Audit-Trails" },
+                ].map(({ Icon, text }) => (
+                  <div
+                    key={text}
+                    className="rounded-xl border border-border bg-card/80 p-4 shadow-soft backdrop-blur supports-[backdrop-filter]:bg-card/70"
+                  >
+                    <div className="flex items-center justify-center gap-2 text-sm font-semibold">
+                      <Icon className="h-5 w-5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                      <span>{text}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8">
+                <Button
+                  size="lg"
+                  className="shadow-button hover:-translate-y-0.5 transition-all bg-[hsl(var(--secondary))] text-white dark:bg-[hsl(var(--primary))]"
+                  onClick={() => window.open(CAL_URL, "_blank")}
+                >
+                  Kostenlose Förderberatung buchen
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* BAFA – Premium Feature Card */}
+        <section className="py-16 md:py-20">
+          <div className="container mx-auto px-4 lg:px-8">
+            <Card
+              className="
+                group relative mx-auto max-w-6xl overflow-hidden rounded-3xl
+                border border-border bg-card/95 supports-[backdrop-filter]:bg-card/85 backdrop-blur
+                px-6 py-8 sm:px-10 sm:py-12 shadow-soft transition-all duration-500
+                hover:shadow-card hover:-translate-y-0.5
+              "
             >
-              🎯 Kostenlose Förderberatung
-            </Button>
-          </div>
-        </div>
-      </section>
+              {/* Glows */}
+              <div
+                aria-hidden
+                className="absolute -right-24 -top-24 h-72 w-72 rounded-full blur-3xl opacity-60"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, hsl(var(--secondary)/0.30), transparent 65%)",
+                }}
+              />
+              <div
+                aria-hidden
+                className="absolute -left-24 -bottom-24 h-80 w-80 rounded-full blur-3xl opacity-50 dark:opacity-60"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, hsl(var(--accent)/0.28), transparent 68%)",
+                }}
+              />
+              {/* weiteres Logo-Wasserzeichen */}
+              <img
+                aria-hidden
+                src={UpWeiss}
+                alt=""
+                className="pointer-events-none absolute right-24 bottom-8 hidden h-12 w-auto opacity-10 md:block"
+              />
 
-      {/* Main Funding Programs */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Die wichtigsten Förderprogramme im Überblick
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Von KfW-Krediten bis hin zu BAFA-Zuschüssen – wir zeigen Ihnen den
-              Weg zur optimalen Förderung für Ihr Digitalisierungsprojekt
-            </p>
-          </div>
+              {/* Head */}
+              <div className="mx-auto max-w-3xl text-center">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--secondary)/0.4)] bg-[hsl(var(--secondary)/0.08)] px-3 py-1.5 text-xs font-semibold tracking-wide text-[hsl(var(--secondary))] dark:border-[hsl(var(--primary)/0.45)] dark:bg-[hsl(var(--primary)/0.12)] dark:text-[hsl(var(--primary))]">
+                  BAFA-Programm • Unternehmensberatung
+                </span>
+                <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                  Förderung für **Strategie & Umsetzung** deiner Digitalisierung
+                </h2>
+                <p className="mx-auto mt-3 max-w-2xl text-base sm:text-lg text-muted-foreground">
+                  Förderfähig für KMU & Mittelstand. Wir prüfen die
+                  Förderfähigkeit, erstellen Anträge, liefern förderkonforme
+                  Unterlagen – und setzen dein Vorhaben messbar um.
+                </p>
+              </div>
 
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
-            {/* KfW Funding */}
-            <Card className="p-8 shadow-card hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center">
-                  <Euro className="w-8 h-8 text-accent" />
+              {/* Inhalt – drei kompakte Kacheln */}
+              <div className="mx-auto mt-8 grid max-w-4xl gap-6 sm:gap-7 lg:grid-cols-3">
+                {/* Förderhöhe */}
+                <div className="relative overflow-hidden rounded-2xl border border-border bg-background/60 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-transform duration-300 hover:-translate-y-0.5">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="grid h-11 w-11 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                      <Percent className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                    </div>
+                    <h3 className="text-lg font-semibold tracking-tight">
+                      Förderhöhe
+                    </h3>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
+                      <span>
+                        Bis zu <strong>80&nbsp;% Zuschuss</strong>{" "}
+                        (Beratung/Strategie)
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
+                      <span>
+                        Förderfähig: <strong>KMU & Mittelstand</strong>
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
+                      <span>Regionale Sätze & Bedingungen möglich</span>
+                    </li>
+                  </ul>
                 </div>
-                <div>
-                  <h3 className="text-xl font-bold">KfW-Förderung</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Bis zu 50% Förderung
-                  </p>
+
+                {/* Unser Beitrag */}
+                <div className="relative overflow-hidden rounded-2xl border border-border bg-background/60 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-transform duration-300 hover:-translate-y-0.5">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="grid h-11 w-11 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                      <Target className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                    </div>
+                    <h3 className="text-lg font-semibold tracking-tight">
+                      Unser Beitrag
+                    </h3>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
+                      <span>
+                        Fördercheck & <strong>Antragserstellung</strong>
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
+                      <span>
+                        Förderkonforme <strong>Roadmap & Nachweise</strong>
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
+                      <span>
+                        Umsetzung & <strong>Verwendungsnachweis</strong>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Sicher & konform */}
+                <div className="relative overflow-hidden rounded-2xl border border-border bg-background/60 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-transform duration-300 hover:-translate-y-0.5">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="grid h-11 w-11 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                      <ShieldCheck className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                    </div>
+                    <h3 className="text-lg font-semibold tracking-tight">
+                      Sicher & konform
+                    </h3>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                      <span>DSGVO, Audit-Trails, Löschregeln</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                      <span>Hosting & Verarbeitung in Deutschland</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                      <span>Nachweisführung für die Förderstelle</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
 
-              <p className="text-muted-foreground mb-6">
-                Der KfW-Digitalisierungs- und Innovationskredit bietet günstige
-                Finanzierung für Digitalisierungsprojekte im Mittelstand.
+              {/* CTA Row */}
+              <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto bg-[hsl(var(--secondary))] text-white hover:brightness-95 dark:bg-[hsl(var(--primary))] dark:hover:brightness-95 shadow-button transition-transform duration-300 hover:-translate-y-0.5"
+                  onClick={() => window.open(CAL_URL, "_blank")}
+                >
+                  BAFA-Fördercheck starten
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full sm:w-auto border-border shadow-soft hover:bg-white/60 dark:hover:bg-white/10"
+                  onClick={() => (window.location.href = "/foerderung")}
+                >
+                  Details & Richtlinien
+                </Button>
+              </div>
+
+              {/* Rechtlicher Hinweis (Advokat des Teufels) */}
+              <p className="mx-auto mt-4 max-w-3xl text-center text-xs text-muted-foreground">
+                Hinweis: Förderkonditionen variieren je nach Unternehmensgröße,
+                Region und Programmstand. Die endgültige Bewilligung und
+                Auszahlung von Fördermitteln erfolgt ausschließlich durch die
+                jeweilige Förderstelle (z. B. BAFA). Wir übernehmen keine
+                Garantie für Förderfähigkeit oder Bewilligung, unterstützen Sie
+                jedoch bestmöglich bei der Antragsvorbereitung und Umsetzung.
               </p>
-
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">
-                    Bis zu 25 Mio. € Fördervolumen
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">Zinssätze ab 1,03% p.a.</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">
-                    Tilgungsfreie Anlaufjahre möglich
-                  </span>
-                </div>
-              </div>
-
-              <Button variant="outline" className="w-full">
-                Mehr erfahren
-              </Button>
-            </Card>
-
-            {/* BAFA Strategy Funding */}
-            <Card className="p-8 shadow-card hover:shadow-lg transition-shadow border-primary/20">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                  <Target className="w-8 h-8 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">BAFA-Förderung</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Bis zu 80% Zuschuss
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-muted-foreground mb-6">
-                Spezielle Förderung für Unternehmensberatung zur Entwicklung von
-                Digitalisierungs- und KI-Strategien.
-              </p>
-
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <span className="text-sm">Bis zu 16.800€ Zuschuss</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <span className="text-sm">
-                    Keine Rückzahlung erforderlich
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary" />
-                  <span className="text-sm">Schnelle Antragstellung</span>
-                </div>
-              </div>
-
-              <Button variant="default" className="w-full">
-                Jetzt beantragen
-              </Button>
-            </Card>
-
-            {/* Regional Funding */}
-            <Card className="p-8 shadow-card hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-accent" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">Länderförderung</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Regional variabel
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-muted-foreground mb-6">
-                Zusätzliche Fördermöglichkeiten durch Bundesländer und
-                EU-Programme für innovative Digitalisierungsprojekte.
-              </p>
-
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">
-                    Kombinierbar mit anderen Förderungen
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">
-                    Branchen-spezifische Programme
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent" />
-                  <span className="text-sm">EU-Innovationsförderung</span>
-                </div>
-              </div>
-
-              <Button variant="outline" className="w-full">
-                Regionale Förderung prüfen
-              </Button>
             </Card>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Process Section */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              So einfach kommen Sie zur Förderung
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Wir begleiten Sie durch den gesamten Förderprozess – von der
-              Beratung bis zur Bewilligung
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">1. Erstberatung</h3>
-              <p className="text-muted-foreground">
-                Kostenlose Analyse Ihres Projekts und Identifikation der
-                passenden Förderungen
+        {/* Prozess (3 klare Schritte) */}
+        <section className="py-16 md:py-20 bg-muted/20">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="mx-auto mb-10 md:mb-14 max-w-4xl text-center">
+              <h3 className="text-3xl md:text-4xl font-bold tracking-tight">
+                So kommen Sie zur Förderung – einfach & planbar
+              </h3>
+              <p className="mt-3 text-lg text-muted-foreground">
+                Wir reduzieren Komplexität: vom ersten Check bis zum
+                Verwendungsnachweis.
               </p>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <FileText className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">2. Antragstellung</h3>
-              <p className="text-muted-foreground">
-                Wir erstellen alle erforderlichen Unterlagen und reichen den
-                Antrag für Sie ein
-              </p>
+            <div className="grid gap-6 lg:grid-cols-3">
+              {[
+                {
+                  Icon: Calendar,
+                  title: "1) Fördercheck & Beratung",
+                  points: [
+                    "Kostenlose Ersteinschätzung",
+                    "Förderfähigkeit & Quote",
+                    "Zeitleiste & To-dos",
+                  ],
+                },
+                {
+                  Icon: FileText,
+                  title: "2) Antrag & Roadmap",
+                  points: [
+                    "Antragsunterlagen fertig",
+                    "Förderkonforme Roadmap",
+                    "Nachweisstruktur definiert",
+                  ],
+                },
+                {
+                  Icon: ShieldCheck,
+                  title: "3) Umsetzung & Nachweis",
+                  points: [
+                    "Umsetzung mit Audit-Trails",
+                    "KPI-Tracking/Dashboard",
+                    "Verwendungsnachweis inkl.",
+                  ],
+                },
+              ].map(({ Icon, title, points }) => (
+                <Card
+                  key={title}
+                  className="relative overflow-hidden rounded-2xl border border-border bg-card/90 p-6 shadow-soft transition-all duration-300 hover:shadow-card hover:-translate-y-0.5 supports-[backdrop-filter]:bg-card/80 backdrop-blur"
+                >
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="grid h-11 w-11 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                      <Icon className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                    </div>
+                    <h4 className="text-lg font-semibold tracking-tight">
+                      {title}
+                    </h4>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    {points.map((p) => (
+                      <li key={p} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              ))}
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">3. Bewilligung</h3>
-              <p className="text-muted-foreground">
-                Nach der Bewilligung können Sie sofort mit der Umsetzung Ihres
-                Projekts beginnen
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">4. Umsetzung</h3>
-              <p className="text-muted-foreground">
-                Wir begleiten die komplette Projektumsetzung und sorgen für die
-                ordnungsgemäße Verwendung
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Success Stories */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Erfolgreiche Förderungen
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Unsere Kunden haben bereits über 2 Millionen Euro an Förderungen
-              erhalten
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6 text-center shadow-card">
-              <div className="text-3xl font-bold text-primary mb-2">
-                €847.000
-              </div>
-              <div className="text-sm font-medium mb-2">
-                Mittelständisches Handwerksunternehmen
-              </div>
-              <p className="text-sm text-muted-foreground">
-                KfW-Förderung für digitale Transformation und KI-Implementierung
-              </p>
-            </Card>
-
-            <Card className="p-6 text-center shadow-card">
-              <div className="text-3xl font-bold text-accent mb-2">
-                €312.000
-              </div>
-              <div className="text-sm font-medium mb-2">
-                Immobilienverwaltung
-              </div>
-              <p className="text-sm text-muted-foreground">
-                BAFA-Zuschuss + Länderförderung für Automatisierung der
-                Verwaltungsprozesse
-              </p>
-            </Card>
-
-            <Card className="p-6 text-center shadow-card">
-              <div className="text-3xl font-bold text-primary mb-2">
-                €156.000
-              </div>
-              <div className="text-sm font-medium mb-2">
-                Beratungsunternehmen
-              </div>
-              <p className="text-sm text-muted-foreground">
-                EU-Innovationsförderung für KI-basierte Datenanalyse-Tools
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/5 to-accent/5">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Sichern Sie sich jetzt Ihre Förderung
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Verpassen Sie nicht die Chance auf bis zu 80% Förderung für Ihr
-              Digitalisierungsprojekt. Unsere Experten beraten Sie kostenlos und
-              unverbindlich.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-10 text-center">
               <Button
-                variant="cta"
                 size="lg"
-                className="text-lg px-8 py-6"
-                onClick={() => window.open("https://cal.com/paxup", "_blank")}
+                className="shadow-button hover:-translate-y-0.5 transition-all bg-[hsl(var(--secondary))] text-white dark:bg-[hsl(var(--primary))]"
+                onClick={() => window.open(CAL_URL, "_blank")}
               >
-                🎯 Jetzt Förderberatung buchen
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-lg px-8 py-6"
-                onClick={() =>
-                  window.open("http://eepurl.com/jlQLmA", "_blank")
-                }
-              >
-                📧 Newsletter abonnieren
+                Unverbindlichen Fördercheck buchen
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              Kostenlose Erstberatung • Keine versteckten Kosten •
-              Erfolgsgarantie
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Micro-FAQ (Optional, kurz & hilfreich) */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="mx-auto max-w-4xl">
+              <h4 className="text-2xl font-bold tracking-tight text-center">
+                Häufige Fragen – kurz beantwortet
+              </h4>
+              <div className="mt-6 grid gap-4">
+                {[
+                  {
+                    q: "Wie schnell geht das?",
+                    a: "Erstgespräch sofort. Antrag i. d. R. in 3–10 Tagen vorbereitet. Umsetzung nach Bewilligung unmittelbar.",
+                  },
+                  {
+                    q: "Für wen ist BAFA geeignet?",
+                    a: "Für KMU/Mittelstand. Wir prüfen im Fördercheck Voraussetzungen & mögliche Förderquote.",
+                  },
+                  {
+                    q: "Was genau macht PAXUP?",
+                    a: "Fördercheck, Antrag, förderkonforme Roadmap, Umsetzung mit Audit-Trails und Verwendungsnachweis.",
+                  },
+                ].map(({ q, a }) => (
+                  <Card
+                    key={q}
+                    className="rounded-2xl border border-border bg-card/90 p-5 shadow-soft supports-[backdrop-filter]:bg-card/80 backdrop-blur"
+                  >
+                    <div className="text-sm">
+                      <p className="font-semibold">{q}</p>
+                      <p className="mt-1 text-muted-foreground">{a}</p>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+              {/* Zusatz-Disclaimer unten nochmal klein */}
+              <p className="mx-auto mt-6 max-w-3xl text-center text-[11px] text-muted-foreground">
+                Hinweis: Die Entscheidung über Bewilligung und Auszahlung trifft
+                ausschließlich die Förderstelle (z. B. BAFA). Eine Garantie ist
+                ausgeschlossen.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>
   );
-};
-
-export default Funding;
+}

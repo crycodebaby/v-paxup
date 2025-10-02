@@ -264,16 +264,17 @@ export default function UseCasesSection() {
   const [activeIndustry, setActiveIndustry] =
     useState<IndustryId>("immobilien");
   const sectionId = useId();
-
   const active = USE_CASES[activeIndustry];
 
   return (
     <section
       id={sectionId}
-      className="relative overflow-hidden border-y bg-gradient-subtle py-20"
+      className="
+        relative overflow-hidden border-y bg-gradient-subtle py-16 sm:py-20
+      "
       aria-labelledby="usecases-heading"
     >
-      {/* zarte CI-Aura (sekundär, rot) im Hintergrund */}
+      {/* zarte CI-Aura (Light: secondary, Dark: primary) */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
@@ -282,13 +283,21 @@ export default function UseCasesSection() {
             "radial-gradient(40rem 24rem at 20% 20%, hsl(var(--secondary)/0.08), transparent 65%), radial-gradient(28rem 18rem at 88% 10%, hsl(var(--secondary)/0.10), transparent 60%)",
         }}
       />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 hidden dark:block opacity-60"
+        style={{
+          background:
+            "radial-gradient(40rem 24rem at 20% 20%, hsl(var(--primary)/0.08), transparent 65%), radial-gradient(28rem 18rem at 88% 10%, hsl(var(--primary)/0.10), transparent 60%)",
+        }}
+      />
 
       <div className="container mx-auto px-4 lg:px-8">
         {/* Kopf */}
-        <div className="mx-auto mb-12 max-w-3xl text-center">
+        <div className="mx-auto mb-10 sm:mb-12 max-w-3xl text-center">
           <h2
             id="usecases-heading"
-            className="text-3xl font-bold md:text-4xl lg:text-5xl"
+            className="text-3xl font-bold md:text-4xl lg:text-5xl tracking-tight"
           >
             Anwendungsfälle aus der Praxis
           </h2>
@@ -298,9 +307,9 @@ export default function UseCasesSection() {
           </p>
         </div>
 
-        {/* Branchen-Tabs: horizontal scroll auf Mobile (ohne sichtbare Scrollbar) */}
+        {/* Branchen-Tabs */}
         <div className="relative">
-          {/* Fades an den Rändern als dezente Scroll-Andeutung */}
+          {/* Fades links/rechts als Scroll-Hinweis */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-background to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-background to-transparent" />
 
@@ -320,19 +329,20 @@ export default function UseCasesSection() {
                       aria-controls={`${sectionId}-${id}`}
                       onClick={() => setActiveIndustry(id)}
                       className={[
-                        "group w-[220px] md:w-auto rounded-xl border px-4 py-3 text-left transition-all md:text-center",
+                        "group relative w-[220px] md:w-auto rounded-2xl border px-4 py-3 text-left md:text-center transition-all",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--secondary))] dark:focus-visible:ring-[hsl(var(--primary))]",
                         isActive
-                          ? "border-[hsl(var(--secondary))] bg-[hsl(var(--secondary))] text-white shadow-card"
-                          : "border-border bg-card text-foreground hover:border-[hsl(var(--secondary)/0.6)] hover:shadow-soft",
+                          ? "border-[hsl(var(--secondary))] bg-[hsl(var(--secondary))] text-white shadow-card dark:border-[hsl(var(--primary))] dark:bg-[hsl(var(--primary))]"
+                          : "border-border bg-card text-foreground hover:border-[hsl(var(--secondary)/0.6)] hover:shadow-soft dark:hover:border-[hsl(var(--primary)/0.6)]",
                       ].join(" ")}
                     >
                       <div className="flex items-center gap-3 md:flex-col md:gap-2">
                         <span
                           className={[
-                            "grid h-10 w-10 place-content-center rounded-lg ring-1 transition-all",
+                            "grid h-10 w-10 place-content-center rounded-xl ring-1 transition-all",
                             isActive
                               ? "bg-white/15 ring-white/30"
-                              : "bg-[hsl(var(--secondary)/0.10)] ring-[hsl(var(--secondary)/0.35)]",
+                              : "bg-[hsl(var(--secondary)/0.10)] ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.12)] dark:ring-[hsl(var(--primary)/0.35)]",
                           ].join(" ")}
                         >
                           <Icon
@@ -340,12 +350,12 @@ export default function UseCasesSection() {
                               "h-6 w-6",
                               isActive
                                 ? "text-white"
-                                : "text-[hsl(var(--secondary))]",
+                                : "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]",
                             ].join(" ")}
                           />
                         </span>
                         <span className="min-w-0">
-                          <span className="block truncate text-sm font-semibold">
+                          <span className="block truncate text-sm font-semibold tracking-tight">
                             {name}
                           </span>
                           <span
@@ -360,6 +370,17 @@ export default function UseCasesSection() {
                           </span>
                         </span>
                       </div>
+
+                      {/* Aktiver Unterstreichungs-Indikator (Apple-like) */}
+                      <span
+                        aria-hidden
+                        className={[
+                          "absolute left-3 right-3 -bottom-[2px] h-[3px] rounded-full transition-all duration-300",
+                          isActive
+                            ? "bg-white/90 dark:bg-white/90"
+                            : "bg-transparent group-hover:bg-[hsl(var(--secondary)/0.25)] dark:group-hover:bg-[hsl(var(--primary)/0.25)]",
+                        ].join(" ")}
+                      />
                     </button>
                   </li>
                 );
@@ -375,54 +396,92 @@ export default function UseCasesSection() {
           aria-labelledby={activeIndustry}
           className="animate-fade-in"
         >
-          <div className="mx-auto mb-10 max-w-3xl text-center">
-            <h3 className="text-2xl font-bold md:text-3xl">{active.title}</h3>
+          <div className="mx-auto mb-8 sm:mb-10 max-w-3xl text-center">
+            <h3 className="text-2xl font-bold md:text-3xl tracking-tight">
+              {active.title}
+            </h3>
             <p className="mt-2 text-lg text-muted-foreground">
               {active.subtitle}
             </p>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
+          {/* Cards – symmetrisch, Apple-clean */}
+          <div className="grid gap-5 sm:gap-6 lg:grid-cols-3">
             {active.cases.map(
               ({ title, description, benefits, icon: Icon }) => (
                 <Card
                   key={title}
-                  className="group flex h-full flex-col overflow-hidden border-border p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card"
+                  className="
+        group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border
+        bg-card/95 supports-[backdrop-filter]:bg-card/90 backdrop-blur
+        p-6 sm:p-7 shadow-soft transition-all duration-300
+        hover:-translate-y-0.5 hover:shadow-card
+        focus-within:outline-none focus-within:ring-2 focus-within:ring-[hsl(var(--secondary)/0.6)]
+        dark:focus-within:ring-[hsl(var(--primary)/0.6)]
+      "
                 >
+                  {/* zarter Verlauf-Overlay für mehr Tiefe */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(24rem 16rem at 50% -10%, hsl(var(--secondary)/0.10), transparent 60%)",
+                    }}
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 hidden rounded-2xl opacity-100 dark:block"
+                    style={{
+                      background:
+                        "radial-gradient(24rem 16rem at 50% -10%, hsl(var(--primary)/0.08), transparent 60%)",
+                    }}
+                  />
+
                   {/* Icon-Badge */}
                   <div className="mb-5 flex justify-center">
                     <div className="relative">
-                      <div className="grid h-16 w-16 place-content-center rounded-full bg-gradient-primary shadow-button transition-transform group-hover:scale-105">
-                        <Icon className="h-8 w-8 text-white" />
+                      <div
+                        className="
+              grid h-16 w-16 place-content-center rounded-full shadow-button transition-transform duration-300 group-hover:scale-105
+              bg-[radial-gradient(60%_60%_at_30%_30%,_rgba(255,255,255,0.45),_rgba(255,255,255,0.05))]
+              ring-1 ring-border
+            "
+                      >
+                        <Icon className="h-8 w-8 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                       </div>
-                      {/* dünner sekundärer Ring */}
-                      <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[hsl(var(--secondary)/0.25)]" />
+                      {/* feine Doppel-Ringe */}
+                      <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[hsl(var(--secondary)/0.18)] dark:ring-[hsl(var(--primary)/0.20)]" />
+                      <span className="pointer-events-none absolute -inset-1 rounded-full ring-1 ring-black/5 dark:ring-white/5" />
                     </div>
                   </div>
 
-                  {/* Text */}
-                  <div className="mx-auto w-full max-w-md text-center">
-                    <h4 className="line-clamp-2 text-lg font-bold">{title}</h4>
-                    <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                  {/* Header-Block: Titel + Beschreibung → gleiche Höhe auf Desktop */}
+                  <div className="mx-auto w-full max-w-md text-center lg:max-w-none lg:min-h-[132px] flex flex-col justify-start">
+                    <h4 className="text-lg font-semibold tracking-tight leading-snug line-clamp-2">
+                      {title}
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-3">
                       {description}
                     </p>
                   </div>
 
-                  {/* Vorteile */}
-                  <ul className="mt-5 grid gap-2">
+                  {/* Vorteile – starten jetzt überall auf gleicher Höhe */}
+                  <ul className="mt-5 grid gap-2.5">
                     {benefits.map((b) => (
                       <li
                         key={b}
                         className="mx-auto flex w-full max-w-md items-start gap-2"
                       >
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(var(--secondary))]" />
-                        <span className="text-sm">{b}</span>
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                        <span className="text-sm leading-relaxed">{b}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* dezente Unterkante in CI-Rot */}
-                  <div className="mt-6 h-0.5 w-full bg-[hsl(var(--secondary)/0.35)]" />
+                  {/* Abstandshalter + Unterkante */}
+                  <div className="mt-6" />
+                  <div className="mt-auto h-px w-full bg-gradient-to-r from-transparent via-[hsl(var(--secondary)/0.45)] to-transparent dark:via-[hsl(var(--primary)/0.45)]" />
                 </Card>
               )
             )}
@@ -430,8 +489,15 @@ export default function UseCasesSection() {
         </div>
 
         {/* Abschluss-CTA */}
-        <div className="mt-14 rounded-2xl border border-border bg-card p-8 text-center shadow-soft">
-          <h4 className="text-2xl font-bold">Ihre Branche nicht dabei?</h4>
+        <div
+          className="
+            mt-12 sm:mt-14 rounded-2xl border border-border bg-card/95
+            p-7 sm:p-8 text-center shadow-soft supports-[backdrop-filter]:bg-card/90 backdrop-blur
+          "
+        >
+          <h4 className="text-2xl font-bold tracking-tight">
+            Ihre Branche nicht dabei?
+          </h4>
           <p className="mx-auto mt-2 max-w-3xl text-lg text-muted-foreground">
             Wir entwickeln maßgeschneiderte Lösungen für jede Branche. Sprechen
             wir über Ihr Projekt.
@@ -441,7 +507,11 @@ export default function UseCasesSection() {
               variant="cta"
               size="lg"
               onClick={() => window.open("https://cal.com/paxup", "_blank")}
-              className="shadow-button transition-transform hover:scale-[1.02]"
+              className="
+                shadow-button transition-transform duration-300 hover:scale-[1.02]
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+                focus-visible:ring-[hsl(var(--secondary))] dark:focus-visible:ring-[hsl(var(--primary))]
+              "
             >
               Individuelle Beratung anfragen
             </Button>

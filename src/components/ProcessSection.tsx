@@ -32,53 +32,59 @@ const STEPS: Readonly<Step[]> = [
   {
     number: "01",
     icon: Search,
-    title: "Analyse",
-    description: "Wir prüfen Ihre aktuellen Prozesse und Potenziale.",
+    title: "Potenzialanalyse (Inhouse-Methode)",
+    description:
+      "Statuscheck von Prozessen, Daten & Tools – messbar, vergleichbar, priorisiert.",
     detailedDescription:
-      "Gemeinsam analysieren wir Ihre bestehenden Workflows, Datenflüsse und Systeme. Wir identifizieren konkrete Digitalisierungspotenziale – mit Fokus auf schnelle Effekte und belastbare Roadmaps.",
-    duration: "1–2 Wochen",
+      "Wir erfassen Ihre Ist-Situation: Workflows, Tool-Landschaft, Datenflüsse, Medienbrüche, DSGVO-Risiken. Dazu Interviews mit Fachbereichen und ein technisches Assessment. Ergebnis: eine klar priorisierte Liste aus Quick-Wins und Hebeln mit quantifiziertem Nutzen.",
+    duration: "3–10 Tage",
     examples: [
-      "Prozessanalyse & Schwachstellenidentifikation",
-      "Potenzialanalyse für KI-Einsatz",
-      "Bewertung der aktuellen IT-Infrastruktur",
-      "Quick-Wins definieren",
+      "Systeminventar (E-Mail, Telefonie, Kalender, CRM/ERP, DMS)",
+      "Prozess-Mapping & Pain-Points (z. B. Angebot, Dispo, Support)",
+      "KPI-Baseline (Durchlaufzeiten, Fehlerquoten, Ticketvolumen)",
+      "DSGVO-Check (Datenorte, Auftragsverarbeiter, Löschregeln)",
+      "Quick-Win-Kandidaten inkl. Aufwand/Nutzen",
     ],
     deliverables:
-      "Detaillierte Analyse mit priorisierten Handlungsempfehlungen",
+      "Analyse-Report mit Impact/Effort-Matrix, ROI-Schätzung, Risiken & Empfehlungen",
   },
   {
     number: "02",
     icon: Target,
-    title: "Strategie",
+    title: "Blueprint & Roadmap",
     description:
-      "Wir entwickeln Ihren individuellen Fahrplan zur Digitalisierung und KI-Umsetzung.",
+      "Zielbild, Architektur & 90-Tage-Plan – was, womit, in welcher Reihenfolge.",
     detailedDescription:
-      "Aus der Analyse entsteht Ihre maßgeschneiderte Roadmap – mit klaren Prioritäten, Budgetrahmen und Meilensteinen. Transparent, realistisch und auf Impact optimiert.",
-    duration: "ca. 1 Woche",
+      "Aus den Potenzialen entsteht Ihr Umsetzungsplan: Zielprozesse, Integrationsarchitektur (Schnittstellen), Make/Buy-Entscheidungen, Verantwortlichkeiten, Budgetrahmen und Timeline. Inkl. Erfolgskriterien und Fördercheck.",
+    duration: "3–5 Tage",
     examples: [
-      "Digitalisierungsfahrplan & Priorisierung",
-      "KI-Implementierungsplan",
-      "Technologieauswahl (Make/Buy/Integrate)",
-      "ROI-Kalkulation & Budgetplanung",
+      "Zielprozess-Diagramme & Verantwortlichkeiten (RACI)",
+      "Datenmodell & Integrationspunkte (API, Webhooks, ETL)",
+      "Tool-Auswahl (z. B. Cal.com, CRM/ERP, Telefonie, DMS)",
+      "KI-Use-Cases (LLM-Agenten, Klassifikation, Extraktion)",
+      "Förderfähigkeit prüfen & vorbereiten",
     ],
-    deliverables: "Strategiedokument mit Umsetzungsfahrplan",
+    deliverables:
+      "Roadmap (90-Tage-Plan) + Umsetzungs-Backlog mit Meilensteinen, Budget & Erfolgskriterien",
   },
   {
     number: "03",
     icon: Cog,
-    title: "Umsetzung",
+    title: "Implementierung & Automatisierung",
     description:
-      "Wir automatisieren Prozesse, implementieren Systeme und sorgen für reibungslose Einführung.",
+      "KI-Worker & Integrationen live – stabil, auditierbar, DSGVO-konform.",
     detailedDescription:
-      "Iterativ in Sprints: Wir implementieren, testen und schulen. Change-Management inklusive, bis die Lösung produktiv läuft – stabil und messbar.",
+      "Wir setzen iterativ um: Integrationen (E-Mail, Telefonie, Kalender, CRM/ERP, DMS), KI-Automationen (z. B. LLM-Agenten), Tests, Schulungen und Go-Live. Anschließend Monitoring und Feintuning, bis Ziel-KPIs erreicht sind.",
     duration: "4–12 Wochen",
     examples: [
-      "Schrittweise Implementierung",
-      "Mitarbeiterschulungen & Enablement",
-      "Testing & Qualitätssicherung",
-      "Go-Live, Monitoring & Nachbetreuung",
+      "E-Mail-Triage & Auto-Antworten mit KI (Priorisierung, Zuweisung)",
+      "Telefon-Notizen & Zusammenfassungen (Call-to-CRM)",
+      "Kalender-Sync & Termin-Workflows (z. B. Cal.com ↔ CRM)",
+      "Ticket-/Auftrags-Automation (Status, SLA, Benachrichtigungen)",
+      "Dokumenten-Extraktion (Rechnungen, Verträge, Formulare)",
     ],
-    deliverables: "Vollständig implementierte & getestete Lösung",
+    deliverables:
+      "Produktiv laufende Automationen + Dashboard (KPI-Tracking), Schulungen & Betriebsübergabe",
   },
 ];
 
@@ -115,8 +121,11 @@ export default function ProcessSection() {
             So digitalisieren wir&nbsp;Ihr Unternehmen
           </h2>
           <p className="mt-4 text-lg md:text-xl text-white/80 max-w-3xl mx-auto">
-            Unser bewährter 3-Schritte-Prozess für erfolgreiche
-            Digitalisierung&nbsp;&&nbsp;KI
+            Potenzialanalyse&nbsp;→&nbsp;Blueprint&nbsp;→&nbsp;Implementierung.
+            <span className="hidden sm:inline">
+              {" "}
+              Alles messbar, sicher, förderfähig.
+            </span>
           </p>
         </div>
 

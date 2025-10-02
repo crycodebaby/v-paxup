@@ -1,261 +1,337 @@
+// src/pages/Services.tsx
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Database,
-  Shield,
-  Zap,
-  Brain,
-  CheckCircle,
+  Search,
+  Target,
+  Cog,
+  Clock,
+  CheckCircle2,
   ArrowRight,
+  Gauge,
+  ShieldCheck,
+  Workflow,
 } from "lucide-react";
 
-const Services = () => {
-  const processSteps = [
-    {
-      icon: Database,
-      title: "1. Intensive Unternehmensanalyse",
-      subtitle: "Tiefgreifende Analyse Ihrer Prozesse und Strukturen",
-      description:
-        "Wir analysieren Ihr Unternehmen ganzheitlich – von den Geschäftsprozessen über die IT-Landschaft bis hin zu den Arbeitsabläufen Ihrer Teams.",
-      features: [
-        "Detaillierte Prozessaufnahme und -dokumentation",
-        "Analyse der bestehenden IT-Infrastruktur",
-        "Bewertung der aktuellen Arbeitsabläufe",
-        "Stakeholder-Interviews mit Ihren Teams",
-        "Erfassung von Schmerzpunkten und Ineffizienzen",
-      ],
-      benefits: [
-        "Vollständige Transparenz über Ihre aktuellen Prozesse",
-        "Identifikation versteckter Problemfelder",
-        "Fundament für strategische Entscheidungen",
-        "Basis für messbare Verbesserungen",
-      ],
-    },
-    {
-      icon: Shield,
-      title: "2. Stärken-Schwächen-Analyse",
-      subtitle: "Potenziale erkennen und Chancen ableiten",
-      description:
-        "Basierend auf der Analyse ermitteln wir systematisch Ihre Stärken, decken Schwächen auf und leiten konkrete Digitalisierungspotenziale ab.",
-      features: [
-        "SWOT-Analyse speziell für Digitalisierung",
-        "Benchmarking mit Branchenstandards",
-        "Identifikation von Automatisierungspotenzialen",
-        "KI-Einsatzmöglichkeiten bewerten",
-        "ROI-Potenziale für verschiedene Maßnahmen",
-      ],
-      benefits: [
-        "Klare Priorisierung der wichtigsten Handlungsfelder",
-        "Realistische Einschätzung des Verbesserungspotenzials",
-        "Fundierte Basis für Investitionsentscheidungen",
-        "Fokus auf die wirkungsvollsten Maßnahmen",
-      ],
-    },
-    {
-      icon: Zap,
-      title: "3. Strategischer Fahrplan",
-      subtitle: "90-180-360 Tage Roadmap mit klaren Meilensteinen",
-      description:
-        "Wir entwickeln einen präzisen Umsetzungsplan mit drei Phasen, der Ihnen schrittweise und planbar zur digitalen Transformation verhilft.",
-      features: [
-        "90-Tage-Plan: Quick Wins und Sofortmaßnahmen",
-        "180-Tage-Plan: Kern-Digitalisierungsprojekte",
-        "360-Tage-Plan: Strategische KI-Integration",
-        "Klare Meilensteine und Erfolgsmessung",
-        "Budget- und Ressourcenplanung",
-      ],
-      benefits: [
-        "Planbare und kontrollierte Transformation",
-        "Schnelle erste Erfolge durch Quick Wins",
-        "Kontinuierliche Verbesserung ohne Betriebsunterbrechung",
-        "Transparente Kosten und Zeitpläne",
-      ],
-    },
-    {
-      icon: Brain,
-      title: "4. Professionelle Umsetzung",
-      subtitle: "Realisierung durch unser erfahrenes Entwicklerteam",
-      description:
-        "Unser spezialisiertes Entwicklerteam setzt die geplanten Maßnahmen professionell um und begleitet Sie während der gesamten Transformation.",
-      features: [
-        "Agile Entwicklung mit regelmäßigen Updates",
-        "Nahtlose Integration in bestehende Systeme",
-        "Umfassendes Testing und Qualitätssicherung",
-        "Schulungen und Change Management",
-        "Kontinuierlicher Support und Optimierung",
-      ],
-      benefits: [
-        "Professionelle Umsetzung ohne interne Ressourcenbindung",
-        "Bewährte Technologien und Best Practices",
-        "Minimale Ausfallzeiten durch erfahrene Umsetzung",
-        "Langfristige Partnerschaft für Ihren digitalen Erfolg",
-      ],
-    },
-  ];
+const CAL_URL = "https://cal.com/paxup";
 
+type Step = {
+  number: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  title: string;
+  kicker: string;
+  short: string;
+  bullets: string[];
+  benefits: string[];
+  kpis?: {
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    label: string;
+  }[];
+};
+
+const STEPS: Readonly<Step[]> = [
+  {
+    number: "01",
+    icon: Search,
+    title: "Potenzialanalyse (Inhouse)",
+    kicker: "Statuscheck von Prozessen, Daten & Tools",
+    short:
+      "Wir erfassen Ihre Ist-Situation — messbar, vergleichbar, priorisiert. Ergebnis: eine klare Liste aus Quick-Wins und Hebeln mit quantifiziertem Nutzen.",
+    bullets: [
+      "Systeminventar: E-Mail, Telefonie, Kalender, CRM/ERP, DMS",
+      "Prozess-Mapping & Pain-Points (Angebot, Dispo, Support)",
+      "KPI-Baseline: Durchlaufzeit, Fehlerquote, Ticketvolumen",
+      "DSGVO-Check: Datenorte, AVV, Löschregeln",
+      "Quick-Wins inkl. Aufwand/Nutzen",
+    ],
+    benefits: [
+      "Transparenz in Tagen statt Wochen",
+      "Fokus auf Maßnahmen mit echtem Effekt",
+      "Solide Entscheidungsgrundlage (ROI/Impact)",
+    ],
+    kpis: [
+      { icon: Gauge, label: "Quick-Wins identifiziert" },
+      { icon: Clock, label: "3–10 Tage Laufzeit" },
+      { icon: ShieldCheck, label: "DSGVO-Risiken sichtbar" },
+    ],
+  },
+  {
+    number: "02",
+    icon: Target,
+    title: "Blueprint & Roadmap",
+    kicker: "Zielbild, Architektur & 90-Tage-Plan",
+    short:
+      "Wir übersetzen Potenziale in einen umsetzbaren Plan: Zielprozesse, Integrationen, Make/Buy, Budget und Meilensteine — inkl. Fördercheck.",
+    bullets: [
+      "Zielprozesse & Verantwortlichkeiten (RACI)",
+      "Datenmodell & Integrationspunkte (API, Webhooks, ETL)",
+      "Tool-Auswahl (z. B. Cal.com, CRM/ERP, Telefonie, DMS)",
+      "KI-Use-Cases: Agenten, Klassifikation, Extraktion",
+      "Roadmap: 90 Tage + Backlog mit Meilensteinen",
+    ],
+    benefits: [
+      "Klarheit: was, womit, in welcher Reihenfolge",
+      "Planbarkeit für Budget & Ressourcen",
+      "Förderfähigkeit geprüft & vorbereitet",
+    ],
+    kpis: [
+      { icon: Workflow, label: "Saubere Integrationsarchitektur" },
+      { icon: Gauge, label: "Klares Priorisierungs-Backlog" },
+      { icon: Clock, label: "3–5 Tage Laufzeit" },
+    ],
+  },
+  {
+    number: "03",
+    icon: Cog,
+    title: "Implementierung & Automatisierung",
+    kicker: "KI-Worker & Integrationen live",
+    short:
+      "Wir setzen konsistent um: Integrationen, KI-Automationen, Tests, Schulungen und Go-Live. Danach Monitoring & Feintuning bis die KPIs sitzen.",
+    bullets: [
+      "E-Mail-Triage & Auto-Antworten (Priorisierung, Zuweisung)",
+      "Telefon-Notizen & Zusammenfassungen (Call-to-CRM)",
+      "Kalender-Sync & Termin-Workflows (z. B. Cal.com ↔ CRM)",
+      "Ticket/Auftrags-Automation (Status, SLA, Alerts)",
+      "Dokumenten-Extraktion (Rechnungen, Verträge, Formulare)",
+    ],
+    benefits: [
+      "Weniger Routine — mehr Produktivität",
+      "Nachweisbar: KPIs & Dashboard",
+      "Auditierbar & DSGVO-konform",
+    ],
+    kpis: [
+      { icon: Gauge, label: ">30% Durchsatzsteigerung*" },
+      { icon: ShieldCheck, label: "Audit-fähig" },
+      { icon: Clock, label: "4–12 Wochen Umsetzung" },
+    ],
+  },
+] as const;
+
+export default function Services() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
-      <main>
-        {/* Hero Section */}
-        <section className="py-20 bg-gradient-subtle">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Strategieentwicklung für Ihre Digitalisierung
+      <main className="flex-1">
+        {/* HERO */}
+        <section className="bg-gradient-subtle">
+          <div className="container mx-auto px-4 lg:px-8 py-16 md:py-20">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm bg-card/70 backdrop-blur ring-1 ring-border">
+                <span className="inline-block h-2 w-2 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
+                Leistungen & Vorgehen
+              </div>
+              <h1 className="mt-4 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                In 3 Schritten zu messbarer Digitalisierung
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                Wir entwickeln maßgeschneiderte Digitalisierungsstrategien unter
-                Nutzung von KI und Automatisierung. Unser bewährter
-                4-Stufen-Prozess führt Sie planbar und messbar zur erfolgreichen
-                digitalen Transformation.
+              <p className="mt-4 text-xl text-muted-foreground">
+                Klarer Plan, schnelle Effekte, stabile Umsetzung — ohne Bla, mit
+                Ergebnis.
               </p>
-              <Button
-                variant="default"
-                size="lg"
-                className="shadow-button hover:-translate-y-1 transition-smooth"
-                onClick={() => window.open("https://cal.com/paxup", "_blank")}
-              >
-                Kostenlose Beratung vereinbaren
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+              <div className="mt-8">
+                <Button
+                  size="lg"
+                  className="shadow-button hover:-translate-y-0.5 transition-smooth bg-[hsl(var(--secondary))] text-white dark:bg-[hsl(var(--primary))]"
+                  onClick={() => window.open(CAL_URL, "_blank")}
+                >
+                  Kostenlose Erstberatung
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+              <p className="mt-3 text-xs text-muted-foreground">
+                * Erfahrungswerte je nach Prozess & Ausgangslage
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Process Overview */}
-        <section className="py-20">
+        {/* STEP OVERVIEW (3 Cards) */}
+        <section className="py-16 md:py-20">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Unser bewährter 4-Stufen-Prozess
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Das ist unser USP: Systematische Herangehensweise mit klaren
-                Phasen, messbaren Ergebnissen und garantiertem Erfolg.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-              {processSteps.map((step, index) => (
+            <div className="grid gap-6 md:grid-cols-3">
+              {STEPS.map((s) => (
                 <Card
-                  key={index}
-                  className="p-8 shadow-soft hover:shadow-card transition-smooth"
+                  key={s.number}
+                  className="relative overflow-hidden rounded-2xl border border-border bg-card/95 p-7 shadow-soft supports-[backdrop-filter]:bg-card/90 backdrop-blur transition-all duration-300 hover:shadow-card"
                 >
-                  <div className="flex items-start space-x-6">
-                    <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-button">
-                      <step.icon className="w-8 h-8 text-white" />
+                  {/* Glow */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 hover:opacity-100"
+                    style={{
+                      background:
+                        "radial-gradient(24rem 16rem at 50% -10%, hsl(var(--secondary)/0.10), transparent 60%)",
+                    }}
+                  />
+                  {/* Header */}
+                  <div className="flex items-start gap-4">
+                    <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                      <s.icon className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
-                      <p className="text-lg text-primary font-medium mb-4">
-                        {step.subtitle}
-                      </p>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {step.description}
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-muted-foreground">
+                        {s.number}
+                      </div>
+                      <h3 className="text-lg md:text-xl font-bold tracking-tight">
+                        {s.title}
+                      </h3>
+                      <p className="text-sm text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
+                        {s.kicker}
                       </p>
                     </div>
                   </div>
+                  {/* Copy */}
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    {s.short}
+                  </p>
+                  {/* Mini KPIs */}
+                  {s.kpis && (
+                    <ul className="mt-5 grid grid-cols-1 gap-2">
+                      {s.kpis.map(({ icon: Icon, label }) => (
+                        <li
+                          key={label}
+                          className="flex items-center gap-2 text-sm"
+                        >
+                          <Icon className="h-4 w-4 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                          <span>{label}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </Card>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Detailed Process Steps */}
-        <section className="py-20 bg-muted/20">
+        {/* DETAILED STEPS */}
+        <section className="py-16 md:py-20 bg-muted/20">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                So führen wir Sie zum Erfolg
+            <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                So setzen wir um
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Detaillierte Einblicke in unseren bewährten Prozess und was Sie
-                in jeder Phase erwarten können.
+              <p className="mt-3 text-lg text-muted-foreground">
+                Kurze Wege, klare Sprints und ein Dashboard, das Wirkung zeigt.
               </p>
             </div>
 
-            <div className="space-y-16">
-              {processSteps.map((step, index) => (
+            <div className="space-y-10 md:space-y-12">
+              {STEPS.map((s) => (
                 <div
-                  key={index}
-                  className="bg-background rounded-2xl p-8 lg:p-12 shadow-card"
+                  key={s.number}
+                  className="bg-background rounded-2xl p-6 md:p-8 shadow-card border border-border"
                 >
-                  <div className="grid lg:grid-cols-2 gap-12 items-start">
+                  <div className="grid lg:grid-cols-2 gap-10">
+                    {/* Left: Head + bullets */}
                     <div>
-                      <div className="flex items-center space-x-4 mb-6">
-                        <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center shadow-button">
-                          <step.icon className="w-6 h-6 text-white" />
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                          <s.icon className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                         </div>
                         <div>
-                          <h3 className="text-2xl font-bold">{step.title}</h3>
-                          <p className="text-primary font-medium">
-                            {step.subtitle}
+                          <h3 className="text-xl md:text-2xl font-bold tracking-tight">
+                            {s.title}
+                          </h3>
+                          <p className="text-sm font-medium text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
+                            {s.kicker}
                           </p>
                         </div>
                       </div>
-                      <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                        {step.description}
+
+                      <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                        {s.short}
                       </p>
 
-                      <h4 className="text-xl font-bold mb-4">
-                        Was wir für Sie tun:
+                      <h4 className="mt-6 text-base md:text-lg font-semibold">
+                        Was wir konkret tun
                       </h4>
-                      <ul className="space-y-3">
-                        {step.features.map((feature, featureIndex) => (
+                      <ul className="mt-3 space-y-2">
+                        {s.bullets.map((b) => (
                           <li
-                            key={featureIndex}
-                            className="flex items-center space-x-3"
+                            key={b}
+                            className="flex items-start gap-2 text-sm md:text-base"
                           >
-                            <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span>{feature}</span>
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                            <span>{b}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
+                    {/* Right: Benefits */}
                     <div>
-                      <h4 className="text-xl font-bold mb-6">Ihr Nutzen:</h4>
-                      <div className="space-y-4">
-                        {step.benefits.map((benefit, benefitIndex) => (
+                      <h4 className="text-base md:text-lg font-semibold">
+                        Ihr Vorteil
+                      </h4>
+                      <div className="mt-3 grid gap-3">
+                        {s.benefits.map((v) => (
                           <div
-                            key={benefitIndex}
-                            className="bg-gradient-subtle p-4 rounded-lg"
+                            key={v}
+                            className="rounded-xl border border-border bg-gradient-subtle p-4"
                           >
-                            <div className="flex items-start space-x-3">
-                              <ArrowRight className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                              <p className="font-medium">{benefit}</p>
+                            <div className="flex items-start gap-3">
+                              <ArrowRight className="h-5 w-5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))] mt-0.5" />
+                              <p className="font-medium">{v}</p>
                             </div>
                           </div>
                         ))}
                       </div>
+
+                      {/* Optional: KPIs spiegeln */}
+                      {s.kpis && (
+                        <ul className="mt-6 grid gap-2">
+                          {s.kpis.map(({ icon: Icon, label }) => (
+                            <li
+                              key={label}
+                              className="flex items-center gap-2 text-sm"
+                            >
+                              <Icon className="h-4 w-4 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                              <span className="text-muted-foreground">
+                                {label}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
+
+            {/* CTA */}
+            <div className="mt-12 text-center">
+              <Button
+                variant="cta"
+                size="lg"
+                className="px-7 py-6 text-base md:text-lg shadow-button hover:shadow-elegant transition-all duration-300"
+                onClick={() => window.open(CAL_URL, "_blank")}
+              >
+                Jetzt mit KI im Unternehmen starten
+              </Button>
+            </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20 bg-gradient-primary text-white">
+        {/* FINAL CTA */}
+        <section className="py-16 md:py-20 bg-gradient-primary text-white">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Starten Sie Ihre strategische Digitalisierung
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold">
+                Bereit für Wirkung statt Hype?
               </h2>
-              <p className="text-xl mb-8 opacity-90">
-                Lassen Sie uns Ihr Unternehmen analysieren und eine
-                maßgeschneiderte Digitalisierungsstrategie entwickeln. Unser
-                bewährter Prozess garantiert messbaren Erfolg.
+              <p className="mt-3 text-lg opacity-90">
+                Wir bringen Ihre Prozesse auf Kurs — pragmatisch, sicher,
+                messbar.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
                 <Button
                   variant="outline"
                   size="lg"
                   className="bg-white text-primary hover:bg-white/90 border-white"
-                  onClick={() => window.open("https://cal.com/paxup", "_blank")}
+                  onClick={() => window.open(CAL_URL, "_blank")}
                 >
                   Kostenlose Erstberatung
                 </Button>
@@ -274,6 +350,4 @@ const Services = () => {
       <Footer />
     </div>
   );
-};
-
-export default Services;
+}

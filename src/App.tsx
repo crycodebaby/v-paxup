@@ -20,6 +20,7 @@ const Services = lazy(() => import("./pages/Services"));
 const UseCases = lazy(() => import("./pages/UseCases"));
 const ImageGenerator = lazy(() => import("./components/ImageGenerator"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 // Eine einfache Ladeanzeige, während die Seiten-Komponenten laden
 function LoadingFallback() {
@@ -57,6 +58,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/impressum" element={<Impressum />} />
             <Route path="/datenschutz" element={<Datenschutz />} />
+            <Route path="/kontakt" element={<Contact />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
