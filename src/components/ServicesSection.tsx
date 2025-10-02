@@ -9,6 +9,7 @@ import {
   ChevronDown,
   type LucideIcon,
 } from "lucide-react";
+import * as Popover from "@radix-ui/react-popover";
 import UpMark from "@/assets/logo/Up_rot.png";
 
 /* ----------------------------- Types & Data ----------------------------- */
@@ -63,7 +64,6 @@ const SERVICES: Readonly<Service[]> = [
 
 /* ----------------------------- Hooks & Utils ---------------------------- */
 
-/** MediaQuery-Hook (ESLint- & Safari-safe) */
 function useMediaQuery(query: string) {
   const getMatch = () =>
     typeof window !== "undefined" &&
@@ -80,32 +80,26 @@ function useMediaQuery(query: string) {
     if (mq.addEventListener) {
       mq.addEventListener("change", onChange);
       return () => mq.removeEventListener("change", onChange);
-    } else {
-      mq.addListener(onChange);
-      return () => {
-        mq.removeListener(onChange);
-      };
     }
+    mq.addListener(onChange);
+    return () => mq.removeListener(onChange);
   }, [query]);
 
   return matches;
 }
 
-/**
- * Regel für Offen-Logik:
- * - < 640px  => Single-Open (Mobile schmal)
- * - >=640px  => Multi-Open (auch 639–1021 Bereich inkl. Tablets)
- * - >=1024px => Multi-Open (Desktop – ohnehin)
- */
+/** < 640px => Single-Open, ≥640px => Multi-Open */
 function useAllowsMultiOpen() {
-  // Tailwind sm = 640px
-  const atLeastSm = useMediaQuery("(min-width: 640px)");
-  return atLeastSm; // true für 640px–∞
+  return useMediaQuery("(min-width: 640px)");
+}
+
+/** Ab 640px (sm) → Floating Popover statt Inline-Expand (verhindert Button-Springen) */
+function useFloatingDetails() {
+  return useMediaQuery("(min-width: 640px)");
 }
 
 /**
- * AnimatedDisclosure – „Apple-Style“ Smooth Expand/Collapse:
- * rAF + adaptiver Duration + Ease-Out, respektiert reduced motion
+ * AnimatedDisclosure – sanftes Expand/Collapse (für Mobile <640px)
  */
 function AnimatedDisclosure({
   open,
@@ -117,7 +111,6 @@ function AnimatedDisclosure({
   onRest?: () => void;
 }) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const contentRef = useRef<HTMLDivElement | null>(null);
   const animRef = useRef<number | null>(null);
   const firstMount = useRef(true);
   const reduceMotion = useMemo(
@@ -136,7 +129,7 @@ function AnimatedDisclosure({
       el.style.height = open ? "auto" : "0px";
       el.style.opacity = open ? "1" : "0";
       el.style.transform = open ? "translateY(0)" : "translateY(-4px)";
-      if (onRest) onRest();
+      onRest?.();
       return;
     }
 
@@ -149,20 +142,13 @@ function AnimatedDisclosure({
     el.style.height = `${startH}px`;
 
     const distance = Math.abs(targetH - startH);
-    const duration = Math.min(480, Math.max(220, distance)); // adaptiv
-    const ease = (t: number) => 1 - Math.pow(1 - t, 3); // sanftes Ease-Out
+    const duration = Math.min(480, Math.max(220, distance));
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
     let startTs: number | null = null;
 
-    if (open) {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(-6px)";
-      // Reflow erzwingen
-      void el.offsetHeight;
-      el.style.willChange = "height, opacity, transform, box-shadow";
-    } else {
-      el.style.willChange = "height, opacity, transform, box-shadow";
-    }
+    // keine nackten „unused expressions“ mehr – Reflow erzwingen via read-then-animate
+    el.style.willChange = "height, opacity, transform, box-shadow";
 
     const from = startH;
     const to = targetH;
@@ -174,7 +160,6 @@ function AnimatedDisclosure({
       const h = from + (to - from) * k;
       el.style.height = `${h}px`;
 
-      // Opacity/TranslateY/Glow
       if (open) {
         el.style.opacity = String(0.6 + 0.4 * k);
         el.style.transform = `translateY(${(-6 + 6 * k).toFixed(2)}px)`;
@@ -199,11 +184,10 @@ function AnimatedDisclosure({
         el.style.transform = open ? "translateY(0)" : "translateY(-4px)";
         el.style.boxShadow = "none";
         el.style.willChange = "auto";
-        if (onRest) onRest();
+        onRest?.();
       }
     };
 
-    // Erster Mount: nicht animieren
     if (firstMount.current) {
       firstMount.current = false;
       el.style.height = open ? "auto" : "0px";
@@ -231,13 +215,9 @@ function AnimatedDisclosure({
         overflow-hidden rounded-xl border border-border/70 bg-background/70
         dark:bg-background/60 transition-[height,opacity,transform]
       "
-      style={{
-        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-      }}
+      style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
     >
-      <div ref={contentRef} className="p-4 md:p-5">
-        {children}
-      </div>
+      <div className="p-4 md:p-5">{children}</div>
     </div>
   );
 }
@@ -248,23 +228,90 @@ function ServiceCard({
   idx,
   service,
   open,
-  toggle,
+  setOpenForIndex,
+  toggleInline,
   allowsMultiOpen,
+  isFloating,
   autoScrollOnOpen,
 }: {
   idx: number;
   service: Service;
   open: boolean;
-  toggle: (i: number) => void;
+  setOpenForIndex: (i: number, v: boolean) => void; // für Popover (≥640px)
+  toggleInline: (i: number) => void; // für Inline (<640px)
   allowsMultiOpen: boolean;
+  isFloating: boolean; // ab 640px
   autoScrollOnOpen: (el: HTMLElement | null) => void;
 }) {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Auto-Scroll nur im Single-Open-Modus (unter 640px)
-    if (open && !allowsMultiOpen) autoScrollOnOpen(cardRef.current);
-  }, [open, allowsMultiOpen, autoScrollOnOpen]);
+    if (open && !allowsMultiOpen && !isFloating)
+      autoScrollOnOpen(cardRef.current);
+  }, [open, allowsMultiOpen, isFloating, autoScrollOnOpen]);
+
+  const Head = (
+    <>
+      <div
+        className="
+          mb-5 grid h-16 w-16 place-content-center rounded-2xl
+          bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)]
+          dark:bg-[hsl(var(--primary)/0.18)] dark:ring-[hsl(var(--primary)/0.35)]
+          shadow-button transition-transform duration-300 group-hover:scale-105
+        "
+      >
+        <service.icon className="h-8 w-8 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+      </div>
+
+      <h3
+        id={`service-title-${idx}`}
+        className="text-lg md:text-xl font-semibold tracking-tight hyphens-none break-words"
+      >
+        {service.title}
+      </h3>
+
+      <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed">
+        {service.description}
+      </p>
+
+      <div className="mt-6 w-full">
+        <div className="mx-auto h-px w-16 bg-gradient-to-r from-transparent via-[hsl(var(--secondary)/0.55)] to-transparent dark:via-[hsl(var(--primary)/0.55)]" />
+      </div>
+    </>
+  );
+
+  const TriggerButton = ({
+    onClick,
+    ariaExpanded,
+  }: {
+    onClick: () => void;
+    ariaExpanded?: boolean;
+  }) => (
+    <button
+      type="button"
+      className="
+        inline-flex items-center gap-2 rounded-full px-3 py-1.5
+        text-xs md:text-sm font-medium
+        text-[hsl(var(--secondary))] hover:brightness-110
+        dark:text-[hsl(var(--primary))] dark:hover:brightness-110
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--secondary))]
+        dark:focus-visible:ring-[hsl(var(--primary))]
+        transition-colors select-none
+      "
+      aria-expanded={ariaExpanded}
+      aria-controls={`service-panel-${idx}`}
+      aria-labelledby={`service-title-${idx}`}
+      onClick={onClick}
+    >
+      Mehr erfahren
+      <ChevronDown
+        className={`h-4 w-4 transition-transform duration-300 ${
+          open ? "rotate-180" : ""
+        }`}
+        aria-hidden="true"
+      />
+    </button>
+  );
 
   return (
     <Card
@@ -272,10 +319,10 @@ function ServiceCard({
       className="
         group relative overflow-hidden rounded-2xl border border-border bg-card text-card-foreground
         p-6 md:p-8 shadow-card backdrop-blur supports-[backdrop-filter]:bg-card/95
-        transition-all duration-300 hover:shadow-lg
+        transition-all duration-300 hover:shadow-lg h-full
       "
     >
-      {/* Ambient Glow (Light: secondary, Dark: primary) */}
+      {/* Ambient Glows */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -286,83 +333,81 @@ function ServiceCard({
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:opacity-100 dark:group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 dark:opacity-100 dark:group-hover:opacity-100"
         style={{
           background:
             "radial-gradient(20rem 14rem at 50% 0%, hsl(var(--primary)/0.10), transparent 70%)",
         }}
       />
 
-      <div className="relative flex flex-col items-center text-center">
-        {/* Icon Badge */}
-        <div
-          className="
-            mb-5 grid h-16 w-16 place-content-center rounded-2xl
-            bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)]
-            dark:bg-[hsl(var(--primary)/0.18)] dark:ring-[hsl(var(--primary)/0.35)]
-            shadow-button transition-transform duration-300 group-hover:scale-105
-          "
-        >
-          <service.icon className="h-8 w-8 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+      {/* 3-Zeilen-Grid: Content (1fr) | Button (auto) | Panel/Overlay (auto) */}
+      <div className="relative grid h-full grid-rows-[minmax(0,1fr)_auto_auto] items-stretch text-center">
+        {/* Row 1 */}
+        <div className="row-start-1 row-end-2 flex flex-col items-center">
+          {Head}
         </div>
 
-        <h3
-          id={`service-title-${idx}`}
-          className="text-lg md:text-xl font-semibold tracking-tight hyphens-none break-words"
-        >
-          {service.title}
-        </h3>
-
-        <p className="mt-3 text-sm md:text-base text-muted-foreground leading-relaxed">
-          {service.description}
-        </p>
-
-        {/* Divider */}
-        <div className="mt-6 w-full">
-          <div className="mx-auto h-px w-16 bg-gradient-to-r from-transparent via-[hsl(var(--secondary)/0.55)] to-transparent dark:via-[hsl(var(--primary)/0.55)]" />
-        </div>
-
-        {/* Mehr erfahren */}
-        <div className="mt-3">
-          <button
-            type="button"
-            className="
-              inline-flex items-center gap-2 rounded-full px-3 py-1.5
-              text-xs md:text-sm font-medium
-              text-[hsl(var(--secondary))] hover:brightness-110
-              dark:text-[hsl(var(--primary))] dark:hover:brightness-110
-              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--secondary))]
-              dark:focus-visible:ring-[hsl(var(--primary))]
-              transition-colors select-none
-            "
-            aria-expanded={open}
-            aria-controls={`service-panel-${idx}`}
-            aria-labelledby={`service-title-${idx}`}
-            onClick={() => toggle(idx)}
-          >
-            Mehr erfahren
-            <ChevronDown
-              className={`h-4 w-4 transition-transform duration-300 ${
-                open ? "rotate-180" : ""
-              }`}
-              aria-hidden="true"
+        {/* Row 2 – Trigger */}
+        <div className="row-start-2 row-end-3 pt-3">
+          {isFloating ? (
+            <Popover.Root
+              open={open}
+              onOpenChange={(v) => setOpenForIndex(idx, v)}
+            >
+              <Popover.Trigger asChild>
+                <TriggerButton
+                  onClick={() => setOpenForIndex(idx, !open)}
+                  ariaExpanded={open}
+                />
+              </Popover.Trigger>
+              <Popover.Portal>
+                <Popover.Content
+                  side="bottom"
+                  align="center"
+                  collisionPadding={12}
+                  className="
+                    z-50 w-[min(calc(100vw-2rem),28rem)]
+                    rounded-2xl border border-border/60 bg-card/95 backdrop-blur
+                    p-5 shadow-elegant animate-fade-in text-left
+                  "
+                >
+                  <p className="text-sm md:text-[0.95rem] leading-relaxed">
+                    {service.details}
+                  </p>
+                  <p className="mt-3 text-sm md:text-[0.95rem] leading-relaxed font-semibold">
+                    {service.benefit}
+                  </p>
+                  <Popover.Arrow className="fill-current text-card" />
+                </Popover.Content>
+              </Popover.Portal>
+            </Popover.Root>
+          ) : (
+            <TriggerButton
+              onClick={() => toggleInline(idx)}
+              ariaExpanded={open}
             />
-          </button>
+          )}
         </div>
 
-        {/* Inhalt – Apple-like smooth expand */}
-        <div id={`service-panel-${idx}`} role="region" className="mt-3 w-full">
-          <AnimatedDisclosure open={open}>
-            <div className="text-left">
-              <p className="text-sm md:text-[0.95rem] leading-relaxed hyphens-none">
-                {service.details}
-              </p>
-              <p className="mt-3 text-sm md:text-[0.95rem] leading-relaxed font-semibold">
-                {service.benefit}
-              </p>
-            </div>
-          </AnimatedDisclosure>
-        </div>
+        {/* Row 3 – Inline Panel nur < 640px */}
+        {!isFloating && (
+          <div
+            id={`service-panel-${idx}`}
+            role="region"
+            className="row-start-3 row-end-4 mt-3 w-full"
+          >
+            <AnimatedDisclosure open={open}>
+              <div className="text-left">
+                <p className="text-sm md:text-[0.95rem] leading-relaxed hyphens-none">
+                  {service.details}
+                </p>
+                <p className="mt-3 text-sm md:text-[0.95rem] leading-relaxed font-semibold">
+                  {service.benefit}
+                </p>
+              </div>
+            </AnimatedDisclosure>
+          </div>
+        )}
       </div>
     </Card>
   );
@@ -371,15 +416,28 @@ function ServiceCard({
 /* ------------------------------- Section -------------------------------- */
 
 function ServicesSectionBase() {
-  const allowsMultiOpen = useAllowsMultiOpen(); // NEU: Multi-Open ab 640px
+  const allowsMultiOpen = useAllowsMultiOpen(); // ✅ nur top-level
+  const isFloating = useFloatingDetails(); // ✅ Popover ab 640px
   const [openSet, setOpenSet] = useState<Set<number>>(new Set());
 
-  const toggle = (i: number) => {
+  const setOpenForIndex = (i: number, v: boolean) => {
+    setOpenSet((prev) => {
+      const next = new Set(prev);
+      if (v) {
+        if (!allowsMultiOpen) next.clear();
+        next.add(i);
+      } else {
+        next.delete(i);
+      }
+      return next;
+    });
+  };
+
+  const toggleInline = (i: number) => {
     setOpenSet((prev) => {
       const next = new Set(prev);
       if (allowsMultiOpen) {
-        if (next.has(i)) next.delete(i);
-        else next.add(i);
+        next.has(i) ? next.delete(i) : next.add(i);
       } else {
         next.clear();
         if (!prev.has(i)) next.add(i);
@@ -403,7 +461,7 @@ function ServicesSectionBase() {
 
   return (
     <section className="relative overflow-hidden py-16 sm:py-20">
-      {/* Hintergrund (Navy) + CI-Glows */}
+      {/* Hintergrund */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
@@ -420,7 +478,6 @@ function ServicesSectionBase() {
             "radial-gradient(40rem 40rem at 8% 8%, hsl(var(--secondary)/0.45) 0%, transparent 55%), radial-gradient(26rem 26rem at 90% 0%, hsl(var(--secondary)/0.35) 0%, transparent 60%)",
         }}
       />
-      {/* Watermark */}
       <img
         aria-hidden
         src={UpMark}
@@ -442,7 +499,6 @@ function ServicesSectionBase() {
             – pragmatisch, sicher, förderfähig.
           </p>
 
-          {/* Chips */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             {["Analyse", "Strategie", "Umsetzung", "Enablement"].map((chip) => (
               <span
@@ -463,14 +519,16 @@ function ServicesSectionBase() {
               idx={i}
               service={service}
               open={openSet.has(i)}
-              toggle={toggle}
+              setOpenForIndex={setOpenForIndex}
+              toggleInline={toggleInline}
               allowsMultiOpen={allowsMultiOpen}
+              isFloating={isFloating}
               autoScrollOnOpen={autoScrollOnOpen}
             />
           ))}
         </div>
 
-        {/* CTA-Bottom */}
+        {/* CTA */}
         <div className="mt-14 md:mt-16 rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-8 md:px-10 md:py-10 backdrop-blur shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
           <div className="mx-auto max-w-5xl text-center">
             <div className="mx-auto mb-4 h-1 w-16 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
