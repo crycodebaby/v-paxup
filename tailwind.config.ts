@@ -6,39 +6,44 @@ export default {
   darkMode: ["class"],
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
+    /* Viewport Breakpoints */
     screens: {
-      xs: "380px", // Neuer Breakpoint für kleinere Geräte
+      xs: "380px",
       sm: "640px",
       md: "768px",
       lg: "1024px",
       xl: "1280px",
-      "2xl": "1400px", // Beibehalten für Konsistenz mit container
+      "2xl": "1400px",
     },
+
+    /* Container */
     container: {
       center: true,
-      padding: "2rem", // Beibehalten: luftiges Spacing
+      padding: "2rem",
       screens: {
-        xs: "380px", // Neuer Breakpoint auch im Container
+        xs: "380px",
         sm: "640px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
-        "2xl": "1400px", // Beibehalten: vermeidet Layout-Shifts
+        "2xl": "1400px",
       },
     },
+
     extend: {
-      // Fonts aus index.css via CSS-Variable (keine doppelte Pflege)
+      /* Fonts via CSS-Variable (Single Source of Truth in index.css) */
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui"],
       },
 
-      // Farben bleiben nur Referenzen auf deine CSS-Variablen (index.css = SoT)
+      /* Farben binden an CSS-Variablen (index.css definiert die HSL-Werte) */
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -48,18 +53,18 @@ export default {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+          hover: "hsl(var(--accent-hover))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-          hover: "hsl(var(--accent-hover))",
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -69,6 +74,8 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+
+        /* Sidebar-Tokens (falls verwendet) */
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -79,15 +86,23 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+
+        /* NEU: Success-Grün (für positive Ergebnisse & Bestätigungen) */
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
       },
 
-      // Kurzschreibweisen für deine CSS-Variablen
+      /* Gradients als Kurzschreibweise (lesen direkt CSS-Variablen) */
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-hero": "var(--gradient-hero)",
         "gradient-subtle": "var(--gradient-subtle)",
         "gradient-overlay": "var(--gradient-overlay)",
       },
+
+      /* Schatten (lesen direkt CSS-Variablen) */
       boxShadow: {
         soft: "var(--shadow-soft)",
         card: "var(--shadow-card)",
@@ -96,17 +111,19 @@ export default {
         elegant: "var(--shadow-elegant)",
       },
 
+      /* Timing Functions */
       transitionTimingFunction: {
         smooth: "var(--transition-smooth)",
       },
 
+      /* Radius-Kurzformen an CSS-Var gekoppelt */
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
 
-      // Animations für Accordion/Collapsible + kleine Motion-Utilities
+      /* Keyframes & Animations (Accordion/Collapsible + Micro-Motions) */
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

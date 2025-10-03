@@ -60,6 +60,10 @@
        #D1D1D1 →   0  0% 82%
        #1e1f1f → 180  2% 12%
     */
+
+    --success: 142 76% 36%; /* kräftiges Grün (Light) */
+    --success-foreground: 142 72% 18%; /* dunkleres Grün für Text auf hellem Grund */
+
     --background: 0 0% 100%;
     --foreground: 222 84% 4%;
 
@@ -137,6 +141,9 @@
   .dark {
     --background: 221 45% 13%; /* #121b2f */
     --foreground: 0 0% 98%;
+
+    --success: 142 60% 55%; /* helleres Grün (Dark) */
+    --success-foreground: 142 65% 88%; /* sehr helles Grün für Text auf dunklem Grund */
 
     --card: 221 45% 13%;
     --card-foreground: 0 0% 98%;

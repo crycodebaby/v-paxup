@@ -68,7 +68,7 @@ export default function Funding() {
                 <span> für KI- & Digitalisierungsvorhaben</span>
               </h1>
               <p className="mt-4 text-xl text-muted-foreground">
-                Wir machen Ihre **BAFA-Förderung** einfach: Fördercheck,
+                Wir machen Ihre BAFA-Förderung einfach: Fördercheck,
                 Antragstellung, förderkonforme Roadmap – und Umsetzung mit
                 Nachweisführung.
               </p>
@@ -148,7 +148,7 @@ export default function Funding() {
                   BAFA-Programm • Unternehmensberatung
                 </span>
                 <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                  Förderung für **Strategie & Umsetzung** deiner Digitalisierung
+                  Förderung für Strategie & Umsetzung deiner Digitalisierung
                 </h2>
                 <p className="mx-auto mt-3 max-w-2xl text-base sm:text-lg text-muted-foreground">
                   Förderfähig für KMU & Mittelstand. Wir prüfen die

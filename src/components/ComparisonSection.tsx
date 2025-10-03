@@ -66,20 +66,19 @@ export default function ComparisonSection() {
     <section
       className="relative overflow-hidden py-20"
       aria-labelledby="comparison-heading"
-      // Lokale Farbtokens: bewusst KEIN Rot für die negative Seite
+      // Lokale Farbtokens – Pro: Grün, Contra: Amber (kein CI-Rot in der negativen Spalte)
       style={
         {
-          // Good = Emerald 500
-          // Bad = Amber 500
-          // Wir arbeiten mit HSL für konsistente Alphas
-          "--good": "142 70% 45%",
+          // Grün (good)
+          "--good": "142 70% 45%", // hsl(142 70% 45%)
           "--good-ink": "142 75% 28%",
-          "--bad": "38 92% 50%",
+          // Amber (bad)
+          "--bad": "38 92% 50%", // hsl(38 92% 50%)
           "--bad-ink": "28 90% 28%",
         } as React.CSSProperties
       }
     >
-      {/* Background */}
+      {/* Hintergrund */}
       <div
         aria-hidden
         className="absolute inset-0 -z-20"
@@ -98,7 +97,7 @@ export default function ComparisonSection() {
           backgroundSize: "120px 120px, 140px 140px, 160px 160px",
         }}
       />
-      {/* CI-Rot Glows (dezent, neutral) */}
+      {/* CI-Rot Glows (dezent, neutral – keine negative Zuordnung) */}
       <div
         aria-hidden
         className="pointer-events-none absolute -right-32 -top-32 h-[28rem] w-[28rem] -z-10 rounded-full blur-3xl"
@@ -136,21 +135,21 @@ export default function ComparisonSection() {
             </span>
           </h2>
           <p className="mt-4 text-lg text-white/75">
-            Während andere im KI-Chaos versinken, führen wir Sie sicher zum
+            Während andere im KI-Chaos versinken, führen wir dich sicher zum
             Erfolg.
           </p>
         </div>
 
-        {/* Columns */}
+        {/* Zwei Spalten */}
         <div className="grid gap-6 lg:grid-cols-2">
-          {/* Ohne Begleitung – neutral/amber, nicht CI-rot */}
+          {/* CONTRA – Amber, kein CI-Rot */}
           <Card className="relative overflow-hidden border border-white/10 bg-white/[0.02] p-8 shadow-soft">
-            {/* linke Kante: amber Verlauf */}
+            {/* linke Kante: amber */}
             <span
               className="absolute inset-y-0 left-0 w-1"
               style={{
                 background:
-                  "linear-gradient(180deg, hsl(var(--bad)/0.9), hsl(var(--bad)/0.5))",
+                  "linear-gradient(180deg, hsl(var(--bad)), hsl(var(--bad)/0.6))",
               }}
               aria-hidden
             />
@@ -159,7 +158,7 @@ export default function ComparisonSection() {
               title="Wenn du KI ohne Begleitung einsetzt"
               Icon={X}
             />
-            <div className="divide-y divide-white/5 rounded-xl bg-white/2">
+            <div className="rounded-xl">
               {rows.map(({ icon: Icon, title, without }, i) => (
                 <RowItem
                   key={`wout-${title}`}
@@ -173,14 +172,14 @@ export default function ComparisonSection() {
             </div>
           </Card>
 
-          {/* Mit PAXUP – Good/Green + CI-rot als subtiler Co-Akzent */}
+          {/* PRO – Grün ONLY */}
           <Card className="relative overflow-hidden border border-white/10 bg-white/[0.05] p-8 shadow-soft">
-            {/* Top Kante: green + red blend */}
+            {/* reine grüne Oberkante (kein Rot gemischt) */}
             <span
               className="absolute inset-x-0 top-0 h-1"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent, hsl(var(--good)), hsl(var(--secondary)), hsl(var(--good)), transparent)",
+                  "linear-gradient(90deg, transparent, hsl(var(--good)), hsl(var(--good)), transparent)",
               }}
               aria-hidden
             />
@@ -189,7 +188,7 @@ export default function ComparisonSection() {
               title="Wenn PAXUP deine KI-Strategie übernimmt"
               Icon={Check}
             />
-            <div className="divide-y divide-white/8 rounded-xl bg-white/[0.03]">
+            <div className="rounded-xl">
               {rows.map(({ icon: Icon, title, with: withText }, i) => (
                 <RowItem
                   key={`with-${title}`}
@@ -259,8 +258,12 @@ function RowItem({
   return (
     <div
       className={cn(
-        "flex items-start gap-4 px-5 py-4",
-        striped ? "bg-white/[0.03]" : "bg-transparent"
+        "flex items-start gap-4 px-5 py-4 transition-colors",
+        striped
+          ? isPositive
+            ? "bg-[hsl(var(--good)/0.06)]"
+            : "bg-[hsl(var(--bad)/0.06)]"
+          : "bg-transparent"
       )}
     >
       <div

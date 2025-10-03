@@ -1,3 +1,5 @@
+// src/pages/AboutUs.tsx
+import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -9,396 +11,492 @@ import {
   Lightbulb,
   Award,
   MapPin,
-  Phone,
-  Mail,
   Clock,
   CheckCircle,
+  Brain,
+  Shield,
+  Zap,
+  LineChart,
+  Sparkles,
+  ChevronRight,
+  HeartHandshake,
+  MessageSquare,
 } from "lucide-react";
 import teamAbout from "@/assets/team-about.jpg";
 
-const AboutUs = () => {
-  const values = [
-    {
-      icon: Target,
-      title: "Kundenfokus",
-      description:
-        "Wir stellen die individuellen Bedürfnisse unserer Kunden in den Mittelpunkt und entwickeln maßgeschneiderte Digitalisierungslösungen.",
-    },
-    {
-      icon: Lightbulb,
-      title: "Innovation",
-      description:
-        "Wir bleiben am Puls der Zeit und bringen die neuesten KI- und Automatisierungstechnologien in den Mittelstand.",
-    },
-    {
-      icon: CheckCircle,
-      title: "Qualität",
-      description:
-        "Höchste Standards in Beratung und Umsetzung – DSGVO-konform, sicher und nachhaltig.",
-    },
-    {
-      icon: Users,
-      title: "Partnerschaft",
-      description:
-        "Langfristige Zusammenarbeit auf Augenhöhe – wir begleiten Sie von der Strategie bis zur erfolgreichen Umsetzung.",
-    },
-  ];
+/* ===========================================================
+   Werte / Nutzen
+   =========================================================== */
 
-  const timeline = [
-    {
-      year: "2020",
-      title: "Gründung",
-      description:
-        "PAXUP wurde mit der Vision gegründet, KI und Automatisierung für den Mittelstand zugänglich zu machen.",
-    },
-    {
-      year: "2021",
-      title: "Erste Erfolge",
-      description:
-        "Erste erfolgreiche Digitalisierungsprojekte in Handwerk und Immobilienwirtschaft umgesetzt.",
-    },
-    {
-      year: "2022",
-      title: "Expansion",
-      description:
-        "Erweiterung des Teams und der Serviceangebote. Fokus auf KI-gestützte Prozessoptimierung.",
-    },
-    {
-      year: "2023",
-      title: "Marktführer",
-      description:
-        "Über 200+ erfolgreich digitalisierte Unternehmen. Auszeichnung als 'Digitalisierungspartner des Jahres'.",
-    },
-    {
-      year: "2024",
-      title: "Heute",
-      description:
-        "Führender Anbieter für KI-Integration und Prozessautomatisierung im deutschsprachigen Mittelstand.",
-    },
-  ];
+const promises = [
+  "Klartext statt Hype: Wir lösen Dein konkretes Problem zuerst.",
+  "Messbare Ziele vor Start: Zeitersparnis, Kosten, Zufriedenheit.",
+  "Go-Live in 60–90 Tagen – nicht „irgendwann“.",
+  "Datenschutz von Anfang an: DSGVO & Hosting in Deutschland.",
+  "Du behältst die Kontrolle: verständliche Tools, dokumentierte Prozesse.",
+] as const;
 
-  const stats = [
-    { number: "200+", label: "Digitalisierte Unternehmen" },
-    { number: "4.9/5", label: "Kundenzufriedenheit" },
-    { number: "95%", label: "Erfolgsrate bei Projekten" },
-    { number: "24/7", label: "Support für Kunden" },
-  ];
+const whyUs = [
+  {
+    icon: MessageSquare,
+    title: "Wir kennen Dein Chaos",
+    description:
+      "Volles Postfach, Dauertelefon, Standardfragen – genau dort haben wir 2020 angefangen. Kleine Schritte, großer Effekt.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Pragmatische KI",
+    description:
+      "KI, die heute wirkt: Telefon-, E-Mail- und Chat-Automation. Weniger Unterbrechungen, mehr Fokus im Team.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Partner, kein PowerPoint",
+    description:
+      "Wir begleiten Dich vom Engpass bis zum Go-Live. Transparent, verbindlich, nah dran an Deinem Alltag.",
+  },
+] as const;
+
+const steps = [
+  {
+    icon: Brain,
+    title: "1) Potenzialanalyse",
+    text: "Wir schauen uns Prozesse, Tools und Daten an – und priorisieren die Hebel, die sofort wirken.",
+  },
+  {
+    icon: Target,
+    title: "2) Blueprint & Roadmap",
+    text: "Zielbild, Architektur, 90-Tage-Plan. Förderfähigkeit & DSGVO inklusive.",
+  },
+  {
+    icon: Zap,
+    title: "3) Implementierung",
+    text: "Bots & Integrationen gehen live. Schulung, Monitoring, KPIs – bis die Ziele stehen.",
+  },
+] as const;
+
+/* ===========================================================
+   Interaktive Timeline (bleibt erhalten)
+   =========================================================== */
+
+type Milestone = {
+  year: string;
+  title: string;
+  story: string;
+  impact: string[];
+  tech: string[];
+};
+
+const milestones: Readonly<Milestone[]> = [
+  {
+    year: "2020",
+    title: "Gründung – Kommunikation entlasten",
+    story:
+      "Aus einer kleinen Idee wird PAXUP: Kommunikations-KI, die Teams entlastet und Arbeit wieder fließen lässt.",
+    impact: ["Erste Voice-Bots im Handwerk", "Mail-Triage prototypisch"],
+    tech: ["Voice-Bots", "E-Mail-Routing"],
+  },
+  {
+    year: "2021",
+    title: "RAG & Integrationen",
+    story:
+      "Dokumente, Tickets & E-Mails verknüpfen – weniger Medienbrüche, mehr Tempo, bessere Datenbasis.",
+    impact: ["Durchlaufzeiten −35%", "Sauberere Daten, weniger Nachfragen"],
+    tech: ["RAG", "API-Orchestrierung", "Webhooks"],
+  },
+  {
+    year: "2022",
+    title: "KI in die Fläche",
+    story:
+      "Telefon, Mail, Chat – ein System. Standardprozesse laufen automatisch, Teams arbeiten fokussiert.",
+    impact: ["80% weniger Routineanrufe", "24/7 erreichbar"],
+    tech: ["Omnichannel-Bots", "Kalender-Sync", "Call-to-CRM"],
+  },
+  {
+    year: "2023",
+    title: "Agenten + KPIs",
+    story:
+      "Agenten übernehmen Folgeaktionen (Termin, Rückruf, Ticket). Erfolg wird im Dashboard sichtbar.",
+    impact: ["Planbarer Vertrieb", "SLA-Einhaltung im Service"],
+    tech: ["Agent Orchestration", "KPI-Dashboards", "Function Calls"],
+  },
+  {
+    year: "2024",
+    title: "Realtime & Qualität",
+    story:
+      "Realtime-Voice & bessere Extraktion: Antworten schneller, Qualität höher, Compliance im Blick.",
+    impact: ["95% vollständige Meldungen", "Zufriedenheit +30%"],
+    tech: ["Realtime-Voice", "Dokumenten-Extraktion", "PII-Guards"],
+  },
+  {
+    year: "2025",
+    title: "Blueprints nach Branche",
+    story:
+      "Vor-konfigurierte Blueprints bringen Dich noch schneller live – mit förderfähiger Roadmap.",
+    impact: ["Go-Live ≤ 60–90 Tage", "Schneller ROI"],
+    tech: ["Branchen-Blueprints", "Monitoring + Auto-Tuning"],
+  },
+];
+
+function Timeline() {
+  const [index, setIndex] = useState(milestones.length - 1);
+  const active = useMemo(() => milestones[index], [index]);
 
   return (
-    <div className="min-h-screen">
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 md:p-8 shadow-card">
+      {/* zarter Glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -z-10 inset-0 opacity-70"
+        style={{
+          background:
+            "radial-gradient(36rem 20rem at 12% 10%, hsl(var(--secondary)/0.10), transparent 60%), radial-gradient(24rem 16rem at 92% 0%, hsl(var(--secondary)/0.08), transparent 60%)",
+        }}
+      />
+      {/* Rail + Marker */}
+      <div className="mb-6">
+        <div className="relative mx-auto max-w-4xl">
+          <div className="h-1 w-full rounded-full bg-white/10 dark:bg-white/15" />
+          <div className="relative -mt-2 flex justify-between">
+            {milestones.map((m, i) => {
+              const activeMarker = i === index;
+              return (
+                <button
+                  key={m.year}
+                  aria-label={`Jahr ${m.year}`}
+                  onClick={() => setIndex(i)}
+                  className={[
+                    "group grid place-content-center rounded-full transition-transform",
+                    activeMarker ? "scale-110" : "scale-100",
+                  ].join(" ")}
+                >
+                  <span
+                    className={[
+                      "h-3 w-3 rounded-full ring-2 transition-all",
+                      activeMarker
+                        ? "bg-[hsl(var(--success))] ring-[hsl(var(--success)/0.45)]"
+                        : "bg-white/40 ring-white/30 dark:bg-white/30 dark:ring-white/20",
+                    ].join(" ")}
+                  />
+                  <span className="mt-1 text-[10px] font-medium text-muted-foreground group-hover:text-foreground">
+                    {m.year}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          {/* Range (mobile-freundlich + zugänglich) */}
+          <input
+            type="range"
+            min={0}
+            max={milestones.length - 1}
+            step={1}
+            value={index}
+            onChange={(e) => setIndex(Number(e.target.value))}
+            className="mt-4 block w-full cursor-pointer accent-[hsl(var(--success))]"
+            aria-label="Zeitleiste wählen"
+          />
+        </div>
+      </div>
+
+      {/* Inhalt */}
+      <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-[1.1fr_0.9fr]">
+        <div className="rounded-xl border border-border/60 bg-background/60 p-5 md:p-6 backdrop-blur">
+          <div className="flex items-start gap-3">
+            <div className="rounded-lg bg-[hsl(var(--secondary)/0.12)] p-2 ring-1 ring-[hsl(var(--secondary)/0.35)]">
+              <Sparkles className="h-5 w-5 text-[hsl(var(--secondary))]" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary">{active.year}</Badge>
+                <h3 className="text-lg md:text-xl font-bold">{active.title}</h3>
+              </div>
+              <p className="mt-2 text-sm md:text-base text-muted-foreground">
+                {active.story}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-2">
+            {active.impact.map((line) => (
+              <div key={line} className="flex items-start gap-2">
+                <CheckCircle className="mt-0.5 h-4 w-4 text-success" />
+                <span className="text-sm">{line}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-border/60 bg-background/60 p-5 md:p-6 backdrop-blur">
+          <div className="mb-3 flex items-center gap-2">
+            <Badge variant="outline">Tech, die’s möglich macht</Badge>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {active.tech.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-[hsl(var(--success)/0.35)] bg-[hsl(var(--success)/0.10)] px-3 py-1 text-xs font-medium text-success"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-5 grid gap-3">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Brain className="h-4 w-4" /> KI sinnvoll, nicht fancy
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Zap className="h-4 w-4" /> Go-Lives in 60–90 Tagen
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <LineChart className="h-4 w-4" /> KPIs & ROI im Dashboard
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===========================================================
+   Seite
+   =========================================================== */
+
+export default function AboutUs() {
+  return (
+    <div className="min-h-screen bg-background text-foreground">
       <Header />
 
       <main>
-        {/* Hero Section */}
-        <section className="py-20 bg-gradient-primary text-white relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute top-20 left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="container mx-auto px-4 lg:px-8 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <Badge
-                variant="secondary"
-                className="mb-6 bg-white/10 text-white border-white/20"
-              >
+        {/* HERO – leise, glaubwürdig, mit kleinem CTA */}
+        <section className="relative overflow-hidden bg-gradient-subtle">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-90"
+            style={{
+              background:
+                "radial-gradient(32rem 18rem at 15% 12%, hsl(var(--secondary)/0.10), transparent 60%), radial-gradient(38rem 22rem at 92% -8%, hsl(var(--secondary)/0.12), transparent 60%)",
+            }}
+          />
+          <div className="container mx-auto px-4 lg:px-8 py-16 md:py-20 relative">
+            <div className="mx-auto max-w-5xl text-center">
+              <Badge variant="outline" className="mb-4">
                 Über PAXUP
               </Badge>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8">
-                Ihr Partner für die
-                <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                  digitale Transformation
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                Für den Mittelstand.
+                <span className="block bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+                  Seit 2020 bauen wir KI, die Dein Team wirklich entlastet.
                 </span>
               </h1>
-
-              <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto leading-relaxed">
-                Wir machen KI und Automatisierung für mittelständische
-                Unternehmen greifbar, umsetzbar und profitabel – seit 2020 mit
-                über 200 erfolgreichen Projekten.
+              <p className="mt-4 text-xl text-muted-foreground">
+                Wir kommen nicht aus einem Konzern. Wir kommen aus dem Alltag:
+                klingelnde Telefone, volle Postfächer, wiederkehrende Fragen.
+                Heute automatisieren wir genau das – damit bei Dir wieder Ruhe
+                einkehrt und Wachstum planbar wird.
               </p>
 
-              <Button
-                variant="secondary"
-                size="lg"
-                className="text-lg px-8 py-6 bg-white text-primary hover:bg-white/90"
-                onClick={() => window.open("https://cal.com/paxup", "_blank")}
-              >
-                👋 Lernen Sie uns kennen
-              </Button>
+              <div className="mt-8 flex items-center justify-center">
+                <Button
+                  size="lg"
+                  className="text-lg px-7 py-6 shadow-button"
+                  onClick={() => window.open("https://cal.com/paxup", "_blank")}
+                >
+                  Kostenlos sprechen
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-16 bg-background border-b border-border">
+        {/* WARUM PAXUP – psychologisch sauber formuliert */}
+        <section className="py-18 md:py-20">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                    {stat.number}
-                  </div>
-                  <p className="text-muted-foreground font-medium">
-                    {stat.label}
-                  </p>
+            <div className="mx-auto mb-10 max-w-3xl text-center">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Warum es uns gibt
+              </h2>
+              <p className="mt-3 text-lg text-muted-foreground">
+                Kommunikation frisst Zeit. Wir geben sie Dir zurück – mit
+                verständlicher KI, die heute Nutzen stiftet.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              {whyUs.map((w) => (
+                <Card
+                  key={w.title}
+                  className="border-border/60 bg-background/60 backdrop-blur-sm transition-all duration-300 hover:shadow-elegant"
+                >
+                  <CardContent className="p-7">
+                    <div className="mb-4 inline-flex rounded-xl bg-success/10 p-3 ring-1 ring-success/30">
+                      <w.icon className="h-6 w-6 text-success" />
+                    </div>
+                    <h3 className="text-xl font-semibold">{w.title}</h3>
+                    <p className="mt-2 text-muted-foreground">
+                      {w.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* UNSER VERSPRECHEN – Sicherheit & Planbarkeit */}
+        <section className="py-18 md:py-20 bg-gradient-subtle">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="mx-auto mb-10 max-w-3xl text-center">
+              <Badge variant="outline" className="mb-4">
+                Unser Versprechen
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Ruhe im Kopf. Ergebnisse auf dem Konto.
+              </h2>
+            </div>
+
+            <div className="mx-auto max-w-3xl space-y-3">
+              {promises.map((p) => (
+                <div key={p} className="flex items-start gap-3">
+                  <CheckCircle className="mt-0.5 h-5 w-5 text-success" />
+                  <span className="text-[1.05rem]">{p}</span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Mission Section */}
+        {/* INTERAKTIVE STORY / TIMELINE */}
         <section className="py-20">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                  <Badge variant="outline" className="mb-6">
-                    Unsere Mission
-                  </Badge>
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <Badge variant="outline" className="mb-4">
+                Unsere Story
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Von 2020 bis heute – jedes Jahr ein Sprung nach vorn
+              </h2>
+              <p className="mt-3 text-lg text-muted-foreground">
+                KI-Durchbrüche treffen Mittelstand – wir machen sie nutzbar.
+              </p>
+            </div>
 
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                    Digitalisierung, die wirklich funktioniert
-                  </h2>
+            <Timeline />
+          </div>
+        </section>
 
-                  <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                    <p>
-                      <strong className="text-foreground">
-                        Der Mittelstand ist das Rückgrat der deutschen
-                        Wirtschaft.
-                      </strong>
-                      Aber bei der Digitalisierung hinken viele Unternehmen noch
-                      hinterher – nicht aus mangelndem Willen, sondern weil
-                      ihnen die richtige Strategie und Unterstützung fehlt.
-                    </p>
+        {/* WIE WIR ARBEITEN – kurz & klar */}
+        <section className="py-18 md:py-20">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="mx-auto mb-10 max-w-3xl text-center">
+              <Badge variant="outline" className="mb-4">
+                Wie wir arbeiten
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Von „Chaos“ zu „läuft“ – in 3 Schritten
+              </h2>
+            </div>
 
-                    <p>
-                      Genau hier setzen wir an: PAXUP macht aus komplexer
-                      Technologie einfache, praktische Lösungen. Wir verbinden
-                      KI-Beratung, Prozessautomatisierung und konkrete Umsetzung
-                      – alles aus einer Hand.
-                    </p>
-
-                    <p>
-                      <strong className="text-foreground">Unser Ziel:</strong>{" "}
-                      Jedes mittelständische Unternehmen soll die Vorteile der
-                      Digitalisierung nutzen können – ohne IT-Kopfschmerzen,
-                      ohne Risiko, aber mit spürbaren Ergebnissen ab dem ersten
-                      Tag.
-                    </p>
+            <div className="grid gap-6 lg:grid-cols-3">
+              {steps.map((s) => (
+                <Card
+                  key={s.title}
+                  className="border-border/60 bg-background/60 p-7 shadow-soft hover:shadow-card transition-all"
+                >
+                  <div className="mb-4">
+                    <div className="inline-flex rounded-xl bg-success/10 p-3 ring-1 ring-success/30">
+                      <s.icon className="h-6 w-6 text-success" />
+                    </div>
                   </div>
-                </div>
+                  <h3 className="text-xl font-semibold">{s.title}</h3>
+                  <p className="mt-2 text-muted-foreground">{s.text}</p>
+                </Card>
+              ))}
+            </div>
 
-                <div className="relative">
-                  <img
-                    src={teamAbout}
-                    alt="PAXUP Team bei der Arbeit"
-                    className="rounded-2xl shadow-elegant w-full"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-2xl"></div>
-                </div>
-              </div>
+            <div className="mt-10 text-center">
+              <Button
+                variant="cta"
+                size="lg"
+                className="px-8 py-6 text-lg shadow-button"
+                onClick={() => window.open("https://cal.com/paxup", "_blank")}
+              >
+                Starte mit Deiner Potenzialanalyse
+              </Button>
             </div>
           </div>
         </section>
 
-        {/* Values Section */}
-        <section className="py-20 bg-gradient-subtle">
+        {/* SICHERHEIT & VERANTWORTUNG */}
+        <section className="py-18 md:py-20 bg-gradient-subtle">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <Badge variant="outline" className="mb-6">
-                  Unsere Werte
+            <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-2 items-start">
+              <div>
+                <Badge variant="outline" className="mb-4">
+                  Sicherheit & Verantwortung
                 </Badge>
-
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  Was uns antreibt
-                </h2>
-
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Unsere Werte sind nicht nur Worte – sie sind die Grundlage für
-                  jede Entscheidung, jedes Projekt und jede Kundenbeziehung.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                {values.map((value, index) => (
-                  <Card
-                    key={index}
-                    className="border-border/50 bg-background/50 backdrop-blur-sm hover:shadow-elegant transition-all duration-300"
-                  >
-                    <CardContent className="p-8">
-                      <div className="flex items-start gap-4">
-                        <div className="bg-primary/10 p-3 rounded-lg">
-                          <value.icon className="w-6 h-6 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-semibold text-foreground mb-3">
-                            {value.title}
-                          </h3>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {value.description}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Timeline Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-16">
-                <Badge variant="outline" className="mb-6">
-                  Unsere Geschichte
-                </Badge>
-
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  Von der Vision zur Realität
-                </h2>
-
-                <p className="text-lg text-muted-foreground">
-                  Seit 2020 entwickeln wir uns kontinuierlich weiter – immer mit
-                  dem Ziel, die beste Digitalisierungsberatung für den
-                  Mittelstand zu bieten.
-                </p>
-              </div>
-
-              <div className="relative">
-                {/* Timeline line */}
-                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-primary/30 hidden md:block"></div>
-
-                <div className="space-y-12">
-                  {timeline.map((item, index) => (
-                    <div key={index} className="relative md:ml-16">
-                      {/* Timeline dot */}
-                      <div className="absolute -left-20 top-2 w-4 h-4 bg-primary rounded-full border-4 border-background shadow-sm hidden md:block"></div>
-
-                      <Card
-                        className={`border-border/50 ${
-                          index === timeline.length - 1
-                            ? "bg-primary/5 border-primary/20"
-                            : ""
-                        }`}
-                      >
-                        <CardContent className="p-6">
-                          <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-                            <Badge
-                              variant={
-                                index === timeline.length - 1
-                                  ? "default"
-                                  : "secondary"
-                              }
-                              className="w-fit"
-                            >
-                              {item.year}
-                            </Badge>
-                            <h3 className="text-xl font-semibold text-foreground">
-                              {item.title}
-                            </h3>
-                          </div>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {item.description}
-                          </p>
-                        </CardContent>
-                      </Card>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                  DSGVO first. Transparenz immer. Kontrolle bei Dir.
+                </h3>
+                <div className="mt-4 grid gap-2">
+                  {[
+                    "Hosting & Verarbeitung in Deutschland",
+                    "Datensparsamkeit & klare Rollen",
+                    "Auditierbare Workflows & Dokumentation",
+                    "Kein Black-Box-Gefühl: Du weißt, was wann passiert",
+                  ].map((b) => (
+                    <div key={b} className="flex items-start gap-2">
+                      <Shield className="mt-0.5 h-5 w-5 text-success" />
+                      <span>{b}</span>
                     </div>
                   ))}
                 </div>
               </div>
+
+              <div className="relative">
+                <img
+                  src={teamAbout}
+                  alt="PAXUP Team"
+                  className="w-full rounded-2xl shadow-elegant"
+                />
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-primary/15 to-transparent" />
+                <div className="mt-4 text-sm text-muted-foreground">
+                  Kleines Team, große Wirkung: nahbar, schnell, präzise.
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Contact Info Section */}
-        <section className="py-20 bg-gradient-subtle">
+        {/* KURZER, RUHIGER CTA */}
+        <section className="py-16">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <Badge variant="outline" className="mb-6">
-                  Kontakt
-                </Badge>
-
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  Lernen Sie uns persönlich kennen
-                </h2>
-
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Haben Sie Fragen zu unseren Leistungen oder möchten Sie mehr
-                  über PAXUP erfahren? Wir freuen uns auf das Gespräch mit
-                  Ihnen.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
-                <Card className="text-center border-border/50 bg-background/50 backdrop-blur-sm">
-                  <CardContent className="p-8">
-                    <div className="bg-primary/10 p-3 rounded-lg w-fit mx-auto mb-4">
-                      <MapPin className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold text-foreground mb-2">
-                      Standort
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Deutschland
-                      <br />
-                      (Remote & vor Ort)
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="text-center border-border/50 bg-background/50 backdrop-blur-sm">
-                  <CardContent className="p-8">
-                    <div className="bg-primary/10 p-3 rounded-lg w-fit mx-auto mb-4">
-                      <Clock className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold text-foreground mb-2">
-                      Verfügbarkeit
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Mo-Fr: 9:00 - 18:00
-                      <br />
-                      Notfall-Support 24/7
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="text-center border-border/50 bg-background/50 backdrop-blur-sm">
-                  <CardContent className="p-8">
-                    <div className="bg-primary/10 p-3 rounded-lg w-fit mx-auto mb-4">
-                      <Award className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold text-foreground mb-2">
-                      Auszeichnung
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Digitalisierungspartner
-                      <br />
-                      des Jahres 2023
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="text-center">
+            <div className="mx-auto max-w-3xl text-center">
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                Wenn Du weniger Unterbrechungen willst – lass uns anfangen.
+              </h3>
+              <p className="mt-3 text-lg text-muted-foreground">
+                30 Minuten, kostenfrei. Wir schauen auf Deinen Engpass und
+                skizzieren den ersten Schritt.
+              </p>
+              <div className="mt-8 flex items-center justify-center gap-3">
                 <Button
-                  variant="cta"
+                  variant="default"
                   size="lg"
-                  className="text-lg px-8 py-6 mb-6"
+                  className="shadow-button"
                   onClick={() => window.open("https://cal.com/paxup", "_blank")}
                 >
-                  👋 Kostenloses Kennenlerngespräch vereinbaren
+                  Kostenlos sprechen
                 </Button>
-
-                <p className="text-sm text-muted-foreground">
-                  30 Minuten persönliche Beratung • Kostenlos & unverbindlich
-                </p>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => (window.location.href = "/anwendungsfaelle")}
+                >
+                  Anwendungsfälle ansehen
+                </Button>
               </div>
             </div>
           </div>
@@ -408,6 +506,4 @@ const AboutUs = () => {
       <Footer />
     </div>
   );
-};
-
-export default AboutUs;
+}

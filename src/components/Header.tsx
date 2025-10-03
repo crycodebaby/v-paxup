@@ -39,7 +39,7 @@ const menuItems: MenuItem[] = [
   { name: "Blog", href: "/blog", kind: "route" },
   { name: "Über uns", href: "/ueber-uns", kind: "route" },
   { name: "Förderung", href: "/foerderung", kind: "route" },
-  { name: "Kontakt", href: "/kontakt", kind: "route" }, // <-- hier ändern
+  { name: "Kontakt", href: "/kontakt", kind: "route" },
 ];
 
 const calendlyUrl = "https://cal.com/paxup";
