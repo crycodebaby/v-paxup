@@ -27,20 +27,20 @@ import UpWeiss from "@/assets/logo/Up_weiss.png";
 
 const CAL_URL = "https://cal.com/paxup";
 
-// ————————————————————————————————————
-// Schema & Types
-// ————————————————————————————————————
+/* ─────────────────────────────────────────────────────────
+   Schema & Types (Du-Formulierungen)
+────────────────────────────────────────────────────────── */
 const ContactSchema = z.object({
-  name: z.string().min(2, "Bitte mindestens 2 Zeichen."),
-  email: z.string().email("Bitte gültige E-Mail eingeben."),
+  name: z.string().min(2, "Mindestens 2 Zeichen, bitte."),
+  email: z.string().email("Bitte eine gültige E-Mail eingeben."),
   phone: z
     .string()
     .optional()
     .transform((v) => (v ?? "").trim()),
   topic: z.enum(["beratung", "angebot", "kooperation", "support", "sonstiges"]),
-  message: z.string().min(10, "Bitte mindestens 10 Zeichen."),
+  message: z.string().min(10, "Mindestens 10 Zeichen, bitte."),
   consent: z.literal(true, {
-    errorMap: () => ({ message: "Bitte Einwilligung bestätigen." }),
+    errorMap: () => ({ message: "Bitte deine Einwilligung bestätigen." }),
   }),
   // Honeypot
   company: z.string().max(0, "Bot erkannt."),
@@ -48,9 +48,6 @@ const ContactSchema = z.object({
 
 type ContactForm = z.infer<typeof ContactSchema>;
 
-// ————————————————————————————————————
-// Utils
-// ————————————————————————————————————
 function encodeMailto({ name, email, phone, topic, message }: ContactForm) {
   const subject = `Kontaktanfrage (${topic}) – ${name}`;
   const bodyLines = [
@@ -70,6 +67,76 @@ function encodeMailto({ name, email, phone, topic, message }: ContactForm) {
   )}&body=${encodeURIComponent(bodyLines)}`;
 }
 
+/* ─────────────────────────────────────────────────────────
+   Apple-Style Field (nur EIN Fokusrahmen, Floating Label)
+────────────────────────────────────────────────────────── */
+function Field({
+  id,
+  label,
+  icon,
+  children,
+  error,
+}: {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+  children: React.ReactNode; // input | textarea | select
+  error?: string;
+}) {
+  return (
+    <div
+      className="
+        group relative rounded-2xl border border-border/60 bg-card/70
+        backdrop-blur supports-[backdrop-filter]:bg-card/60
+        transition-all duration-300 ease-[cubic-bezier(.22,1,.36,1)]
+        hover:shadow-card focus-within:shadow-elegant
+        focus-within:-translate-y-[1px]
+        focus-within:border-[hsl(var(--secondary))]
+        dark:focus-within:border-[hsl(var(--primary))]
+      "
+    >
+      <div className="relative flex items-start gap-3 px-4 py-3 md:px-5 md:py-4">
+        {icon ? (
+          <span
+            className="
+              mt-[2px] grid h-8 w-8 place-content-center rounded-xl
+              bg-white/5 text-muted-foreground
+            "
+          >
+            {icon}
+          </span>
+        ) : null}
+
+        <div className="relative w-full">
+          {/* Floating Label */}
+          <span
+            className="
+              pointer-events-none absolute left-0 top-2
+              text-sm text-muted-foreground/90
+              transition-all duration-300 ease-[cubic-bezier(.22,1,.36,1)]
+              peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+              peer-focus:-top-3 peer-focus:text-xs
+              peer-[&:not(:placeholder-shown)]:-top-3 peer-[&:not(:placeholder-shown)]:text-xs
+            "
+          >
+            {label}
+          </span>
+
+          {/* children = Input/Select/Textarea (peer) */}
+          {children}
+
+          {error ? (
+            <p className="mt-1 text-[13px] text-red-600">{error}</p>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
+   Seite
+────────────────────────────────────────────────────────── */
 export default function Contact() {
   const [submitting, setSubmitting] = useState(false);
 
@@ -101,13 +168,9 @@ export default function Contact() {
   const onSubmit = async (data: ContactForm) => {
     try {
       setSubmitting(true);
-
-      // Ohne Backend: hochwertige Fallbacks
       const link = encodeMailto(data);
-      // Öffne vorbefüllte E-Mail
       window.location.href = link;
 
-      // Kopie in Clipboard anbieten
       const plain = `Kontaktanfrage (${data.topic}) – ${data.name}
 E-Mail: ${data.email}
 ${data.phone ? `Telefon: ${data.phone}\n` : ""}
@@ -116,20 +179,17 @@ Nachricht:
 ${data.message}
 `;
       await navigator.clipboard.writeText(plain).catch(() => {});
-
-      toast.success(
-        "E-Mail-Entwurf geöffnet. Text liegt in der Zwischenablage."
-      );
+      toast.success("E-Mail-Entwurf geöffnet. Der Text liegt im Clipboard.");
       reset();
     } catch {
-      toast.error("Uups – bitte später erneut probieren.");
+      toast.error("Uups – bitte später nochmal probieren.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
       <Header />
       <main>
         {/* HERO */}
@@ -174,8 +234,9 @@ ${data.message}
               </h1>
               <p className="mt-3 text-lg text-muted-foreground">
                 Ob Frage, Projektidee oder schnelle Einschätzung – wir sind für
-                Sie da. Wählen Sie: **Formular**, **E-Mail**, **Telefon** oder
-                direkt **Termin buchen**.
+                dich da. Wähle: <strong>Formular</strong>,{" "}
+                <strong>E-Mail</strong>, <strong>Telefon</strong> oder direkt{" "}
+                <strong>Termin buchen</strong>.
               </p>
 
               <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -208,9 +269,9 @@ ${data.message}
             <div className="grid gap-8 lg:grid-cols-[1fr,1.2fr]">
               {/* Kontaktkarten */}
               <div className="space-y-6">
-                <Card className="relative overflow-hidden border border-border bg-card/90 p-6 shadow-soft supports-[backdrop-filter]:bg-card/80 backdrop-blur">
+                <Card className="relative overflow-hidden rounded-2xl border border-border bg-card/80 p-6 shadow-soft supports-[backdrop-filter]:bg-card/70 backdrop-blur transition-all">
                   <div className="mb-4 flex items-start gap-3">
-                    <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                    <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] dark:bg-[hsl(var(--primary)/0.14)]">
                       <Phone className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                     </div>
                     <div>
@@ -228,9 +289,9 @@ ${data.message}
                   </a>
                 </Card>
 
-                <Card className="relative overflow-hidden border border-border bg-card/90 p-6 shadow-soft supports-[backdrop-filter]:bg-card/80 backdrop-blur">
+                <Card className="relative overflow-hidden rounded-2xl border border-border bg-card/80 p-6 shadow-soft supports-[backdrop-filter]:bg-card/70 backdrop-blur transition-all">
                   <div className="mb-4 flex items-start gap-3">
-                    <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                    <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] dark:bg-[hsl(var(--primary)/0.14)]">
                       <MapPin className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                     </div>
                     <div>
@@ -249,9 +310,9 @@ ${data.message}
                   </address>
                 </Card>
 
-                <Card className="relative overflow-hidden border border-border bg-card/90 p-6 shadow-soft supports-[backdrop-filter]:bg-card/80 backdrop-blur">
+                <Card className="relative overflow-hidden rounded-2xl border border-border bg-card/80 p-6 shadow-soft supports-[backdrop-filter]:bg-card/70 backdrop-blur transition-all">
                   <div className="mb-4 flex items-start gap-3">
-                    <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] ring-1 ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.14)] dark:ring-[hsl(var(--primary)/0.35)]">
+                    <div className="grid h-12 w-12 place-content-center rounded-xl bg-[hsl(var(--secondary)/0.14)] dark:bg-[hsl(var(--primary)/0.14)]">
                       <ShieldCheck className="h-6 w-6 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                     </div>
                     <div>
@@ -272,10 +333,10 @@ ${data.message}
               </div>
 
               {/* Formular */}
-              <Card className="relative overflow-hidden border border-border bg-card/90 p-6 md:p-8 shadow-card supports-[backdrop-filter]:bg-card/80 backdrop-blur">
+              <Card className="relative overflow-hidden rounded-2xl border border-border bg-card/80 p-6 md:p-8 shadow-card supports-[backdrop-filter]:bg-card/60 backdrop-blur">
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold tracking-tight">
-                    Schreiben Sie uns
+                    Schreib uns
                   </h2>
                   <p className="mt-1 text-sm text-muted-foreground">
                     Wir melden uns in der Regel innerhalb eines Werktags.
@@ -287,7 +348,7 @@ ${data.message}
                   className="grid grid-cols-1 gap-4"
                   noValidate
                 >
-                  {/* Honeypot – unsichtbar für Nutzer */}
+                  {/* Honeypot */}
                   <input
                     type="text"
                     tabIndex={-1}
@@ -298,78 +359,120 @@ ${data.message}
                   />
 
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <LabelInput
-                      label="Ihr Name"
+                    <Field
+                      id="name"
+                      label="Dein Name"
                       icon={<User className="h-4 w-4" />}
                       error={errors.name?.message}
                     >
                       <input
-                        className="field"
+                        id="name"
+                        className="
+                          peer w-full bg-transparent pt-6 pb-2 text-sm
+                          outline-none border-0 focus:border-transparent
+                          focus:ring-0 focus-visible:shadow-none focus-visible:outline-none
+                          placeholder:text-transparent
+                        "
                         type="text"
-                        placeholder="Max Mustermann"
+                        placeholder=" "
                         {...register("name")}
                       />
-                    </LabelInput>
+                    </Field>
 
-                    <LabelInput
+                    <Field
+                      id="email"
                       label="E-Mail"
                       icon={<Mail className="h-4 w-4" />}
                       error={errors.email?.message}
                     >
                       <input
-                        className="field"
+                        id="email"
+                        className="
+                          peer w-full bg-transparent pt-6 pb-2 text-sm
+                          outline-none border-0 focus:border-transparent
+                          focus:ring-0 focus-visible:shadow-none focus-visible:outline-none
+                          placeholder:text-transparent
+                        "
                         type="email"
-                        placeholder="max@firma.de"
+                        placeholder=" "
                         autoComplete="email"
                         {...register("email")}
                       />
-                    </LabelInput>
+                    </Field>
                   </div>
 
-                  <LabelInput
+                  <Field
+                    id="phone"
                     label="Telefon (optional)"
                     icon={<Phone className="h-4 w-4" />}
                     error={errors.phone?.message}
                   >
                     <input
-                      className="field"
+                      id="phone"
+                      className="
+                        peer w-full bg-transparent pt-6 pb-2 text-sm
+                        outline-none border-0 focus:border-transparent
+                        focus:ring-0 focus-visible:shadow-none focus-visible:outline-none
+                        placeholder:text-transparent
+                      "
                       type="tel"
-                      placeholder="+49 …"
+                      placeholder=" "
                       autoComplete="tel"
                       {...register("phone")}
                     />
-                  </LabelInput>
+                  </Field>
 
-                  <LabelInput
+                  <Field
+                    id="topic"
                     label="Thema"
                     icon={<Building2 className="h-4 w-4" />}
                     error={errors.topic?.message}
                   >
-                    <select className="field" {...register("topic")}>
+                    <select
+                      id="topic"
+                      className="
+                        peer w-full bg-transparent pt-6 pb-2 text-sm
+                        outline-none border-0 focus:border-transparent
+                        focus:ring-0 focus-visible:shadow-none focus-visible:outline-none
+                        appearance-none pr-6
+                      "
+                      {...register("topic")}
+                    >
                       {topics.map((t) => (
                         <option key={t.value} value={t.value}>
                           {t.label}
                         </option>
                       ))}
                     </select>
-                  </LabelInput>
+                  </Field>
 
-                  <LabelInput
-                    label="Ihre Nachricht"
+                  <Field
+                    id="message"
+                    label="Deine Nachricht"
                     icon={<MessageSquareText className="h-4 w-4" />}
                     error={errors.message?.message}
                   >
                     <textarea
-                      className="field min-h-[140px] resize-y"
-                      placeholder="Beschreiben Sie kurz Ihr Anliegen…"
+                      id="message"
+                      className="
+                        peer w-full bg-transparent pt-6 pb-2 text-sm
+                        outline-none border-0 focus:border-transparent
+                        focus:ring-0 focus-visible:shadow-none focus-visible:outline-none
+                        placeholder:text-transparent min-h-[140px] resize-y
+                      "
+                      placeholder=" "
                       {...register("message")}
                     />
-                  </LabelInput>
+                  </Field>
 
                   <label className="mt-1 flex items-start gap-3 text-sm">
                     <input
                       type="checkbox"
-                      className="mt-0.5 h-4 w-4 rounded border-input text-[hsl(var(--secondary))] focus:ring-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))] dark:focus:ring-[hsl(var(--primary))]"
+                      className="
+                        mt-0.5 h-4 w-4 rounded border-input
+                        text-[hsl(var(--secondary))] focus:ring-[hsl(var(--secondary))]
+                        dark:text-[hsl(var(--primary))] dark:focus:ring-[hsl(var(--primary))]
+                      "
                       {...register("consent")}
                     />
                     <span>
@@ -455,7 +558,7 @@ ${data.message}
               ].map(({ Icon, title, text }) => (
                 <Card
                   key={title}
-                  className="border border-border/80 bg-card/90 p-5 shadow-soft"
+                  className="rounded-2xl border border-border/80 bg-card/80 p-5 shadow-soft backdrop-blur"
                 >
                   <div className="mb-2 flex items-center gap-2">
                     <Icon className="h-5 w-5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
@@ -471,51 +574,5 @@ ${data.message}
 
       <Footer />
     </div>
-  );
-}
-
-/* ————————————————————————————————————
-   Kleine Field-Komponente (clean & a11y)
-————————————————————————————————————— */
-function LabelInput({
-  label,
-  icon,
-  error,
-  children,
-}: {
-  label: string;
-  icon?: React.ReactNode;
-  error?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 flex items-center gap-2 text-sm font-medium">
-        {icon ? (
-          <span className="grid h-6 w-6 place-content-center rounded-md bg-muted ring-1 ring-border text-muted-foreground">
-            {icon}
-          </span>
-        ) : null}
-        {label}
-      </span>
-      <div className="relative">
-        {/* children = input/select/textarea */}
-        {children}
-      </div>
-      {error ? (
-        <span className="mt-1 block text-[13px] text-red-600">{error}</span>
-      ) : null}
-
-      {/* Styles für .field Inputs */}
-      <style>{`
-        .field {
-          @apply w-full rounded-lg border border-input bg-background px-3.5 py-3 text-sm
-                 placeholder:text-muted-foreground/70 shadow-sm
-                 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--secondary))] focus:border-[hsl(var(--secondary))]
-                 dark:focus:ring-[hsl(var(--primary))] dark:focus:border-[hsl(var(--primary))]
-                 transition-colors;
-        }
-      `}</style>
-    </label>
   );
 }

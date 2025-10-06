@@ -1,4 +1,5 @@
-import { useState } from "react";
+// src/pages/ImmobilienLandingPage.tsx
+import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
-  CheckCircle,
+  CheckCircle2,
   Clock,
   Users,
   TrendingUp,
@@ -20,279 +21,269 @@ import {
   Target,
   Award,
   Star,
+  MessageSquare,
 } from "lucide-react";
 
-const ImmobilienLandingPage = () => {
-  const [checkResults, setCheckResults] = useState<number | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    phone: "",
-    units: "",
-    challenges: "",
-  });
+/* =========================================================
+   Konstanten & Typen
+   ========================================================= */
+const CAL_URL = "https://cal.com/paxup";
 
-  // Digitalization Check Questions
-  const checkQuestions = [
-    {
-      question:
-        "Wie viel Zeit verbringen Sie täglich mit Routineanfragen von Mietern?",
-      answers: [
-        { text: "Mehr als 2 Stunden", points: 0 },
-        { text: "1-2 Stunden", points: 1 },
-        { text: "30-60 Minuten", points: 2 },
-        { text: "Weniger als 30 Minuten", points: 3 },
-      ],
-    },
-    {
-      question: "Wie lange dauert durchschnittlich Ihr Vermietungsprozess?",
-      answers: [
-        { text: "Mehr als 8 Wochen", points: 0 },
-        { text: "4-8 Wochen", points: 1 },
-        { text: "2-4 Wochen", points: 2 },
-        { text: "Weniger als 2 Wochen", points: 3 },
-      ],
-    },
-    {
-      question: "Wie handhaben Sie derzeit Schadensmeldungen?",
-      answers: [
-        { text: "Telefon und E-Mail", points: 0 },
-        { text: "Einfache Online-Formulare", points: 1 },
-        { text: "Digitale Plattform mit Foto-Upload", points: 2 },
-        { text: "Vollautomatisierte Lösung mit KI-Unterstützung", points: 3 },
-      ],
-    },
-    {
-      question: "Wie organisieren Sie Besichtigungstermine?",
-      answers: [
-        { text: "Telefonisch oder per E-Mail", points: 0 },
-        { text: "Online-Kalender zum Anschauen", points: 1 },
-        { text: "Selbstbuchung durch Interessenten", points: 2 },
-        { text: "KI-gestützte automatische Terminplanung", points: 3 },
-      ],
-    },
-    {
-      question: "Haben Sie bereits KI oder Automatisierung im Einsatz?",
-      answers: [
-        { text: "Nein, noch gar nicht", points: 0 },
-        { text: "Erste Überlegungen", points: 1 },
-        { text: "Pilotprojekte gestartet", points: 2 },
-        { text: "Bereits produktiv im Einsatz", points: 3 },
-      ],
-    },
-  ];
+type Answer = { text: string; points: number };
+type Question = { question: string; answers: Answer[] };
 
-  const [currentAnswers, setCurrentAnswers] = useState<(number | null)[]>(
-    new Array(checkQuestions.length).fill(null)
+/* =========================================================
+   Daten (psychologisch sauber, Du-Ansprache)
+   ========================================================= */
+const METRICS = [
+  { icon: Clock, label: "Täglich 3+ Std. gespart" },
+  { icon: Users, label: "24/7 erreichbar – ohne Mehrkosten" },
+  { icon: TrendingUp, label: "Leerstand messbar reduziert" },
+] as const;
+
+const PROBLEMS = [
+  {
+    icon: <Users className="w-8 h-8 text-primary" />,
+    title: "Bewerberflut, aber wenig Qualität?",
+    description:
+      "KI filtert vor, automatisiert Absagen, sammelt fehlende Infos – freundlich, strukturiert, durchgängig.",
+    result: "Qualifiziertere Anfragen, weniger Back-and-Forth.",
+  },
+  {
+    icon: <Building2 className="w-8 h-8 text-primary" />,
+    title: "Schadensmeldungen chaotisch?",
+    description:
+      "Geführte Meldung inkl. Foto/Video-Upload, automatische Zuordnung zum Objekt, Ticket & Handwerker – ohne Medienbruch.",
+    result: "95% vollständige Meldungen, schnellere Reaktion.",
+  },
+  {
+    icon: <TrendingUp className="w-8 h-8 text-primary" />,
+    title: "Vermietung zieht sich?",
+    description:
+      "Standardprozesse werden automatisiert (Terminierung, Unterlagen, Nachfassen). Du gewinnst Tempo – und Umsatz.",
+    result: "Kürzere Leerstandszeiten, planbarer Cashflow.",
+  },
+  {
+    icon: <Zap className="w-8 h-8 text-primary" />,
+    title: "Standardfragen fressen Zeit?",
+    description:
+      "Telefon-, Mail- und Chat-Bot beantworten wiederkehrende Fragen sofort. Wichtiges wird an Dich eskaliert.",
+    result: "Weniger Unterbrechungen, mehr Fokus für Wertschöpfung.",
+  },
+  {
+    icon: <Calendar className="w-8 h-8 text-primary" />,
+    title: "Terminplanung zäh?",
+    description:
+      "Self-Service-Buchung, automatische Erinnerungen & saubere Kalender-Syncs. Kein Ping-Pong mehr.",
+    result: "Minuten statt Stunden für Koordination.",
+  },
+] as const;
+
+const CHECK_QUESTIONS: Readonly<Question[]> = [
+  {
+    question:
+      "Wie viel Zeit verbringst Du täglich mit Routineanfragen von Mietern?",
+    answers: [
+      { text: "Mehr als 2 Stunden", points: 0 },
+      { text: "1–2 Stunden", points: 1 },
+      { text: "30–60 Minuten", points: 2 },
+      { text: "Weniger als 30 Minuten", points: 3 },
+    ],
+  },
+  {
+    question: "Wie lange dauert durchschnittlich Dein Vermietungsprozess?",
+    answers: [
+      { text: "Mehr als 8 Wochen", points: 0 },
+      { text: "4–8 Wochen", points: 1 },
+      { text: "2–4 Wochen", points: 2 },
+      { text: "Weniger als 2 Wochen", points: 3 },
+    ],
+  },
+  {
+    question: "Wie handhabst Du aktuell Schadensmeldungen?",
+    answers: [
+      { text: "Telefon und E-Mail", points: 0 },
+      { text: "Einfache Online-Formulare", points: 1 },
+      { text: "Digitale Plattform mit Foto-Upload", points: 2 },
+      { text: "Vollautomatisierte Lösung mit KI", points: 3 },
+    ],
+  },
+  {
+    question: "Wie organisierst Du Besichtigungstermine?",
+    answers: [
+      { text: "Telefonisch oder per E-Mail", points: 0 },
+      { text: "Online-Kalender nur zur Anzeige", points: 1 },
+      { text: "Selbstbuchung durch Interessenten", points: 2 },
+      { text: "KI-gestützte Terminplanung", points: 3 },
+    ],
+  },
+  {
+    question: "Setzt Du bereits KI oder Automatisierung produktiv ein?",
+    answers: [
+      { text: "Noch gar nicht", points: 0 },
+      { text: "Erste Überlegungen", points: 1 },
+      { text: "Pilotprojekte laufen", points: 2 },
+      { text: "Ja – produktiv im Einsatz", points: 3 },
+    ],
+  },
+];
+
+/* =========================================================
+   Hilfsfunktionen: Scoring
+   ========================================================= */
+function getCheckResult(score: number) {
+  if (score <= 5)
+    return {
+      level: "Großes Potenzial – sofort anpacken",
+      description:
+        "Viel manuell, viele Unterbrechungen. Du hast die Chance, sehr schnell spürbar Zeit & Nerven zu sparen.",
+      tone: {
+        box: "bg-destructive/10 border-destructive/30",
+        heading: "text-destructive",
+      },
+    };
+  if (score <= 10)
+    return {
+      level: "Guter Start – jetzt skalieren",
+      description:
+        "Die Basis stimmt. Mit KI-Bots & Integrationen hebst Du die Effizienz auf das nächste Level.",
+      tone: {
+        box: "bg-amber-500/10 border-amber-500/30",
+        heading: "text-amber-600 dark:text-amber-400",
+      },
+    };
+  return {
+    level: "Sehr gut – Feinschliff & ROI",
+    description:
+      "Du bist schon weit. Feintuning & Reporting machen Erfolge sichtbar – und multiplizieren den ROI.",
+    tone: {
+      box: "bg-success/10 border-success/30",
+      heading: "text-success",
+    },
+  };
+}
+
+/* =========================================================
+   Seite
+   ========================================================= */
+export default function ImmobilienLandingPage() {
+  // Alexandria sicher aktivieren:
+  // (root-wrapper nutzt font-sans → var(--font-sans) aus index.css)
+  const [answers, setAnswers] = useState<(number | null)[]>(
+    Array(CHECK_QUESTIONS.length).fill(null)
   );
 
-  const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
-    const newAnswers = [...currentAnswers];
-    newAnswers[questionIndex] = answerIndex;
-    setCurrentAnswers(newAnswers);
+  const score = useMemo(
+    () =>
+      answers.reduce((sum, idx, q) => {
+        if (idx === null) return sum;
+        return sum + CHECK_QUESTIONS[q].answers[idx].points;
+      }, 0),
+    [answers]
+  );
 
-    // Calculate results if all questions answered
-    if (newAnswers.every((answer) => answer !== null)) {
-      const totalPoints = newAnswers.reduce(
-        (sum, answerIndex, qIndex) =>
-          sum +
-          (answerIndex !== null
-            ? checkQuestions[qIndex].answers[answerIndex].points
-            : 0),
-        0
-      );
-      setCheckResults(totalPoints);
-    }
-  };
-
-  const getCheckResultText = (score: number) => {
-    if (score <= 5)
-      return {
-        level: "Starker Handlungsbedarf",
-        description:
-          "Ihr Digitalisierungsgrad ist noch sehr niedrig. Sie verlieren täglich wertvolle Zeit durch manuelle Prozesse.",
-        color: "text-red-600",
-        bgColor: "bg-red-50 border-red-200",
-      };
-    if (score <= 10)
-      return {
-        level: "Guter Start, aber Potenzial da",
-        description:
-          "Sie haben erste Schritte gemacht, aber es gibt noch viel Raum für Verbesserungen.",
-        color: "text-orange-600",
-        bgColor: "bg-orange-50 border-orange-200",
-      };
-    return {
-      level: "Sehr gut aufgestellt",
-      description:
-        "Sie sind bereits digital gut aufgestellt, aber auch hier gibt es noch Optimierungsmöglichkeiten.",
-      color: "text-green-600",
-      bgColor: "bg-green-50 border-green-200",
-    };
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here would be the form submission logic
-    console.log("Form submitted:", formData);
-    alert("Vielen Dank! Wir melden uns innerhalb von 24 Stunden bei Ihnen.");
-  };
-
-  const problems = [
-    {
-      icon: <Users className="w-8 h-8 text-primary" />,
-      title: "Bewerberflut effizient managen",
-      description:
-        "150 Bewerbungen für eine Wohnung? Mit KI automatisieren Sie Absagen und Kommunikation – professionell und zeitsparend.",
-      result: "Weniger Arbeitsaufwand, zufriedene Bewerber",
-    },
-    {
-      icon: <Building2 className="w-8 h-8 text-primary" />,
-      title: "Schäden automatisch erfassen",
-      description:
-        "Digitale Formulare und automatisierte Abläufe übernehmen Dokumentation, Handwerkeranfragen und Versicherungsunterlagen.",
-      result: "Schnellere Reaktionszeiten, weniger Fehler",
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8 text-primary" />,
-      title: "Vermietungsprozesse beschleunigen",
-      description:
-        "90% der Vermietungsprozesse laufen gleich ab. Automatisierung reduziert Leerstand und beschleunigt Neuvermietungen.",
-      result: "Mehr Rendite, weniger Routinearbeit",
-    },
-    {
-      icon: <Zap className="w-8 h-8 text-primary" />,
-      title: "Anfragen automatisch beantworten",
-      description:
-        "KI beantwortet Standardfragen 24/7: Nebenkostenabrechnung, Vermietungsstand, Ansprechpartner.",
-      result: "Weniger Unterbrechungen, mehr Fokus",
-    },
-    {
-      icon: <Calendar className="w-8 h-8 text-primary" />,
-      title: "Terminplanung stressfrei gestalten",
-      description:
-        "KI-gestützte Terminbuchung: Interessenten planen selbst – fehlerfrei und effizient.",
-      result: "Minuten statt Stunden für Organisation",
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Michael Schmidt",
-      company: "Schmidt Immobilien GmbH",
-      text: "Dank PAXUP sparen wir täglich 3 Stunden bei der Mieterkommunikation. Unser Team kann sich endlich auf strategische Aufgaben konzentrieren.",
-      rating: 5,
-    },
-    {
-      name: "Andrea Müller",
-      company: "Hausverwaltung Müller",
-      text: "Die Automatisierung der Vermietungsprozesse hat unseren Leerstand um 40% reduziert. ROI bereits nach 6 Monaten erreicht.",
-      rating: 5,
-    },
-  ];
+  const allAnswered = useMemo(
+    () => answers.every((a) => a !== null),
+    [answers]
+  );
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-subtle py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container mx-auto px-4 lg:px-8 relative">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              <div className="lg:col-span-7 animate-fade-in">
-                <Badge
-                  variant="secondary"
-                  className="mb-6 bg-primary/10 text-primary border-primary/20"
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-subtle py-16 lg:py-24">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 opacity-90"
+          style={{
+            background:
+              "radial-gradient(36rem 20rem at 12% 8%, hsl(var(--secondary)/0.10), transparent 60%), radial-gradient(30rem 20rem at 88% -6%, hsl(var(--secondary)/0.12), transparent 60%)",
+          }}
+        />
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <Badge
+                variant="secondary"
+                className="mb-6 bg-primary/10 text-primary border-primary/20"
+              >
+                🚀 KI für die Immobilienverwaltung
+              </Badge>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                Spare{" "}
+                <span className="bg-gradient-primary bg-clip-text text-transparent">
+                  täglich 3+ Stunden
+                </span>{" "}
+                durch intelligente Automatisierung
+              </h1>
+              <p className="mt-4 text-lg md:text-xl text-muted-foreground">
+                Schluss mit Bewerberflut, Termin-Ping-Pong und Standardfragen.
+                Unsere Kommunikations-KI übernimmt Routine – Du gewinnst Ruhe
+                und planbares Wachstum.
+              </p>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Button
+                  variant="cta"
+                  size="lg"
+                  className="text-lg px-6 py-6 shadow-button"
+                  onClick={() => window.open(CAL_URL, "_blank")}
                 >
-                  🚀 Digitalisierung & KI für Immobilienverwaltung
-                </Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-                  Sparen Sie{" "}
-                  <span className="bg-gradient-primary bg-clip-text text-transparent">
-                    täglich 3+ Stunden
-                  </span>{" "}
-                  durch intelligente Automatisierung
-                </h1>
-                <p className="text-lg lg:text-xl text-muted-foreground mb-8 leading-relaxed">
-                  Schluss mit Bewerberflut, Terminchaos und endlosen
-                  Routineanfragen. Entdecken Sie, wie Hausverwaltungen bereits
-                  heute KI nutzen, um effizienter zu arbeiten und nachhaltig zu
-                  wachsen.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                  <Button
-                    variant="cta"
-                    size="lg"
-                    className="text-lg px-8 py-6"
-                    onClick={() =>
-                      window.open("https://cal.com/paxup", "_blank")
-                    }
-                  >
-                    <Phone className="w-5 h-5 mr-2" />
-                    Kostenloses Erstgespräch (30 Min)
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="text-lg px-8 py-6"
-                    asChild
-                  >
-                    <a href="#digitalisierungs-check">
-                      <Target className="w-5 h-5 mr-2" />
-                      Digitalisierungs-Check starten
-                    </a>
-                  </Button>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                    30 Min kostenlose Beratung
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                    Individuelle Lösung
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                    Sofort umsetzbar
-                  </div>
-                </div>
+                  <Phone className="w-5 h-5 mr-2" />
+                  Kostenloses Gespräch (30 Min)
+                </Button>
+                <Button variant="outline" size="lg" asChild className="text-lg">
+                  <a href="#digital-check">
+                    <Target className="w-5 h-5 mr-2" />
+                    Digitalisierungs-Check starten
+                  </a>
+                </Button>
               </div>
 
-              <div className="lg:col-span-5 relative animate-fade-in">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur-3xl opacity-20 scale-105"></div>
-                  <img
-                    src="/lovable-uploads/b6154235-92ef-4609-8331-93cbfe6ae4dd.png"
-                    alt="KI & Digitalisierung für Immobilienverwaltung"
-                    className="relative w-full h-auto rounded-2xl shadow-2xl border border-border/10"
-                  />
-                </div>
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3 text-sm text-muted-foreground">
+                {METRICS.map(({ icon: Icon, label }) => (
+                  <div
+                    key={label}
+                    className="rounded-xl border border-border bg-card/80 p-4 text-center"
+                  >
+                    <div className="flex items-center justify-center gap-2 font-semibold">
+                      <Icon className="h-5 w-5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
+                      <span>{label}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="relative">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-primary blur-3xl opacity-20" />
+                <img
+                  src="/lovable-uploads/b6154235-92ef-4609-8331-93cbfe6ae4dd.png"
+                  alt="Automatisierte Kommunikation für Hausverwaltungen"
+                  className="relative w-full h-auto rounded-2xl border border-border/10 shadow-2xl"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Social Proof Section */}
-      <section className="py-12 bg-background border-b border-border">
+      {/* SOCIAL PROOF */}
+      <section className="py-10 border-b border-border">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-6xl mx-auto text-center">
-            <p className="text-muted-foreground mb-8">
-              Vertraut von führenden Hausverwaltungen
+          <div className="mx-auto max-w-6xl text-center">
+            <p className="text-muted-foreground mb-6">
+              Vertraut von zukunftsorientierten Hausverwaltungen
             </p>
-            <div className="grid grid-cols-3 md:grid-cols-4 gap-8 items-center opacity-60">
+            <div className="grid grid-cols-3 md:grid-cols-4 gap-6 items-center opacity-70">
               {[1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  className="h-12 bg-muted rounded-lg flex items-center justify-center"
+                  className="h-12 rounded-lg bg-muted/60 flex items-center justify-center"
                 >
-                  <Building2 className="w-6 h-6 text-muted-foreground" />
+                  <Building2 className="h-6 w-6 text-muted-foreground" />
                 </div>
               ))}
             </div>
@@ -300,63 +291,63 @@ const ImmobilienLandingPage = () => {
         </div>
       </section>
 
-      {/* Problems & Solutions Section */}
-      <section className="py-20 bg-background">
+      {/* PROBLEME → LÖSUNGEN */}
+      <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
-                5 Probleme, die Sie{" "}
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-bold">
+                5 Zeitfresser, die Du{" "}
                 <span className="bg-gradient-primary bg-clip-text text-transparent">
                   heute
                 </span>{" "}
-                lösen können
+                lösen kannst
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Jeden Tag verlieren Sie wertvolle Stunden durch manuelle
-                Prozesse. Hier sind die 5 häufigsten Zeitfresser – und wie Sie
-                sie eliminieren.
+              <p className="mt-3 text-lg text-muted-foreground">
+                Wir automatisieren die Routinen – Dein Team fokussiert sich aufs
+                Wesentliche.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {problems.map((problem, index) => (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {PROBLEMS.map((p) => (
                 <Card
-                  key={index}
-                  className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20"
+                  key={p.title}
+                  className="group border-border/60 hover:border-primary/30 transition-colors"
                 >
-                  <CardContent className="p-8">
-                    <div className="mb-6">{problem.icon}</div>
-                    <h3 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
-                      {problem.title}
+                  <CardContent className="p-7">
+                    <div className="mb-5">{p.icon}</div>
+                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                      {p.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">
-                      {problem.description}
+                    <p className="mt-2 text-muted-foreground">
+                      {p.description}
                     </p>
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                      <p className="text-green-800 text-sm font-medium">
-                        ✅ <strong>Ergebnis:</strong> {problem.result}
+                    <div className="mt-4 rounded-lg border border-success/30 bg-success/10 p-3">
+                      <p className="text-sm text-success-foreground">
+                        ✅ <strong>Ergebnis:</strong> {p.result}
                       </p>
                     </div>
                   </CardContent>
                 </Card>
               ))}
 
-              {/* CTA Card */}
+              {/* CTA Tile */}
               <Card className="md:col-span-2 lg:col-span-1 bg-gradient-primary text-white border-0">
-                <CardContent className="p-8 flex flex-col justify-center h-full text-center">
+                <CardContent className="p-8 h-full grid place-content-center text-center">
                   <Award className="w-12 h-12 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-4">
+                  <h3 className="text-xl font-bold">
                     Bereit für den nächsten Schritt?
                   </h3>
-                  <p className="mb-6 opacity-90">
-                    Lassen Sie uns gemeinsam Ihre größten Zeitfresser
-                    identifizieren und sofort lösbare Maßnahmen entwickeln.
+                  <p className="mt-2 opacity-90">
+                    Wir identifizieren Deine größten Zeitfresser – und lösen
+                    sie.
                   </p>
                   <Button
+                    onClick={() => window.open(CAL_URL, "_blank")}
                     variant="secondary"
                     size="lg"
-                    className="bg-white text-primary hover:bg-white/90"
+                    className="mt-6 bg-white text-primary hover:bg-white/90"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     Jetzt Termin buchen
@@ -368,91 +359,94 @@ const ImmobilienLandingPage = () => {
         </div>
       </section>
 
-      {/* Digitalization Check Section */}
-      <section id="digitalisierungs-check" className="py-20 bg-gradient-subtle">
+      {/* DIGITALISIERUNGS-CHECK (Interaktiv) */}
+      <section id="digital-check" className="py-16 md:py-20 bg-gradient-subtle">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                🎯 Digitalisierungs-Check: Wo stehen Sie heute?
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold">
+                🎯 Digitalisierungs-Check: Wo stehst Du?
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Finden Sie in 2 Minuten heraus, wie viel Potenzial in Ihrer
-                Hausverwaltung steckt
+              <p className="mt-3 text-lg text-muted-foreground">
+                Beantworte 5 Fragen – und erhalte Deine Einschätzung inkl.
+                nächster Schritte.
               </p>
             </div>
 
             <Card className="border-0 shadow-2xl">
               <CardContent className="p-8 lg:p-12">
                 <div className="space-y-8">
-                  {checkQuestions.map((question, qIndex) => (
-                    <div key={qIndex} className="space-y-4">
-                      <h3 className="text-lg font-semibold text-foreground">
-                        {qIndex + 1}. {question.question}
+                  {CHECK_QUESTIONS.map((q, qIndex) => (
+                    <div key={q.question} className="space-y-4">
+                      <h3 className="text-lg font-semibold">
+                        {qIndex + 1}. {q.question}
                       </h3>
                       <div className="grid gap-3">
-                        {question.answers.map((answer, aIndex) => (
-                          <Button
-                            key={aIndex}
-                            variant={
-                              currentAnswers[qIndex] === aIndex
-                                ? "default"
-                                : "outline"
-                            }
-                            className="text-left justify-start h-auto p-4"
-                            onClick={() => handleAnswerSelect(qIndex, aIndex)}
-                          >
-                            {answer.text}
-                          </Button>
-                        ))}
+                        {q.answers.map((a, aIndex) => {
+                          const active = answers[qIndex] === aIndex;
+                          return (
+                            <Button
+                              key={a.text}
+                              type="button"
+                              variant={active ? "default" : "outline"}
+                              className="h-auto p-4 justify-start text-left"
+                              onClick={() => {
+                                setAnswers((prev) => {
+                                  const next = [...prev];
+                                  next[qIndex] = aIndex;
+                                  return next;
+                                });
+                              }}
+                            >
+                              {a.text}
+                            </Button>
+                          );
+                        })}
                       </div>
                     </div>
                   ))}
 
-                  {checkResults !== null && (
-                    <div className="mt-8 animate-fade-in">
+                  {allAnswered && (
+                    <div className="mt-6 animate-fade-in">
                       <Separator className="mb-6" />
                       {(() => {
-                        const result = getCheckResultText(checkResults);
+                        const res = getCheckResult(score);
                         return (
                           <div
-                            className={`p-6 rounded-lg border ${result.bgColor}`}
+                            className={`rounded-lg border p-6 ${res.tone.box}`}
                           >
                             <h4
-                              className={`text-xl font-bold mb-3 ${result.color}`}
+                              className={`text-xl font-bold mb-2 ${res.tone.heading}`}
                             >
-                              Ihr Ergebnis: {result.level}
+                              Dein Ergebnis: {res.level}
                             </h4>
                             <p className="text-muted-foreground mb-6">
-                              {result.description}
+                              {res.description}
                             </p>
-                            <div className="bg-white p-6 rounded-lg border border-border">
-                              <h5 className="font-semibold text-foreground mb-3">
-                                💡 Ihre nächsten Schritte mit PAXUP:
+                            <div className="rounded-lg border border-border p-6 bg-background">
+                              <h5 className="font-semibold mb-3">
+                                💡 Deine nächsten Schritte mit PAXUP:
                               </h5>
                               <ul className="space-y-2 text-muted-foreground mb-6">
-                                <li className="flex items-center gap-2">
-                                  <CheckCircle className="w-4 h-4 text-green-500" />
-                                  Kostenlose 30-Min-Analyse Ihrer aktuellen
-                                  Prozesse
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <CheckCircle className="w-4 h-4 text-green-500" />
-                                  3 sofort umsetzbare Maßnahmen für mehr
-                                  Effizienz
-                                </li>
-                                <li className="flex items-center gap-2">
-                                  <CheckCircle className="w-4 h-4 text-green-500" />
-                                  Roadmap für Ihre digitale Transformation
-                                </li>
+                                {[
+                                  "Kostenlose 30-Min-Analyse Deiner Prozesse",
+                                  "3 sofort umsetzbare Maßnahmen für mehr Effizienz",
+                                  "Roadmap & Fahrplan bis zum Go-Live (60–90 Tage)",
+                                ].map((line) => (
+                                  <li
+                                    key={line}
+                                    className="flex items-center gap-2"
+                                  >
+                                    <CheckCircle2 className="h-4 w-4 text-success" />
+                                    <span>{line}</span>
+                                  </li>
+                                ))}
                               </ul>
                               <Button
                                 variant="cta"
                                 size="lg"
                                 className="w-full"
-                                onClick={() =>
-                                  window.open("https://cal.com/paxup", "_blank")
-                                }
+                                onClick={() => window.open(CAL_URL, "_blank")}
                               >
                                 <Calendar className="w-5 h-5 mr-2" />
                                 Kostenloses Erstgespräch vereinbaren
@@ -470,43 +464,54 @@ const ImmobilienLandingPage = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-background">
+      {/* TESTIMONIALS */}
+      <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">
                 Das sagen unsere Kunden
               </h2>
-              <p className="text-xl text-muted-foreground">
-                Über 500 Hausverwaltungen vertrauen bereits auf PAXUP
+              <p className="mt-2 text-lg text-muted-foreground">
+                Über 500 Hausverwaltungen vertrauen auf PAXUP
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {testimonials.map((testimonial, index) => (
+            <div className="grid gap-8 md:grid-cols-2">
+              {[
+                {
+                  name: "Michael Schmidt",
+                  company: "Schmidt Immobilien GmbH",
+                  text: "PAXUP spart uns jeden Tag ~3 Stunden in der Mieterkommunikation. Endlich Zeit für die wichtigen Themen.",
+                  rating: 5,
+                },
+                {
+                  name: "Andrea Müller",
+                  company: "Hausverwaltung Müller",
+                  text: "Vermietungsprozesse automatisiert, Leerstand um 40% reduziert. Der ROI kam schneller als erwartet.",
+                  rating: 5,
+                },
+              ].map((t) => (
                 <Card
-                  key={index}
-                  className="border-border/50 hover:shadow-lg transition-shadow"
+                  key={t.name}
+                  className="border-border/60 hover:shadow-card transition-shadow"
                 >
                   <CardContent className="p-8">
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
+                    <div className="mb-4 flex items-center gap-1">
+                      {Array.from({ length: t.rating }).map((_, i) => (
                         <Star
                           key={i}
-                          className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                          className="h-5 w-5 fill-yellow-400 text-yellow-400"
                         />
                       ))}
                     </div>
-                    <blockquote className="text-lg text-muted-foreground mb-6 italic leading-relaxed">
-                      "{testimonial.text}"
+                    <blockquote className="italic text-lg text-muted-foreground mb-6 leading-relaxed">
+                      “{t.text}”
                     </blockquote>
                     <div>
-                      <p className="font-semibold text-foreground">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-muted-foreground text-sm">
-                        {testimonial.company}
+                      <p className="font-semibold">{t.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {t.company}
                       </p>
                     </div>
                   </CardContent>
@@ -517,160 +522,83 @@ const ImmobilienLandingPage = () => {
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-20 bg-gradient-primary text-white">
+      {/* KONTAKT / FINAL CTA – ohne Horizontalscrolling */}
+      <section className="py-16 md:py-20 bg-gradient-primary text-white overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Starten Sie jetzt Ihre digitale Transformation
-              </h2>
-              <p className="text-xl opacity-90">
-                Buchen Sie Ihr kostenloses 30-Minuten-Erstgespräch und erhalten
-                Sie sofort umsetzbare Lösungen
-              </p>
-            </div>
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Starte jetzt Deine Transformation
+            </h2>
+            <p className="mt-2 text-xl opacity-90">
+              Buche Dein kostenloses 30-Minuten-Gespräch und erhalte sofort
+              umsetzbare Schritte.
+            </p>
 
-            <Card className="border-0 bg-white text-foreground">
+            <Card className="mt-8 border-0 bg-white text-foreground">
               <CardContent className="p-8 lg:p-12">
-                <form onSubmit={handleFormSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Name *
-                      </label>
-                      <Input
-                        required
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        placeholder="Ihr vollständiger Name"
-                        className="h-12"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        E-Mail *
-                      </label>
-                      <Input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        placeholder="ihre.email@unternehmen.de"
-                        className="h-12"
-                      />
-                    </div>
+                <div className="grid gap-6 md:grid-cols-2">
+                  <div className="space-y-3 text-left">
+                    <h3 className="text-xl font-semibold">
+                      Warum das Gespräch?
+                    </h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                      {[
+                        "Wir bewerten Dein Anfrage- & Prozessvolumen",
+                        "Wir identifizieren Zeitfresser mit Sofort-ROI",
+                        "Du bekommst einen klaren 60–90-Tage-Plan",
+                      ].map((line) => (
+                        <li key={line} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-5 w-5 text-success mt-0.5" />
+                          <span>{line}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Unternehmen
-                      </label>
-                      <Input
-                        value={formData.company}
-                        onChange={(e) =>
-                          setFormData({ ...formData, company: e.target.value })
-                        }
-                        placeholder="Ihr Unternehmen"
-                        className="h-12"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Telefon
-                      </label>
-                      <Input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
-                        placeholder="+49 123 456789"
-                        className="h-12"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
-                      Anzahl verwaltete Einheiten
+                  <div className="space-y-4 text-left">
+                    <label className="block text-sm font-medium">
+                      Dein Name
                     </label>
+                    <Input placeholder="Max Mustermann" className="h-11" />
+                    <label className="block text-sm font-medium">E-Mail</label>
                     <Input
-                      value={formData.units}
-                      onChange={(e) =>
-                        setFormData({ ...formData, units: e.target.value })
-                      }
-                      placeholder="z.B. 150 Wohneinheiten"
-                      className="h-12"
+                      type="email"
+                      placeholder="max@deine-hausverwaltung.de"
+                      className="h-11"
                     />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
-                      Ihre größte Herausforderung
-                    </label>
-                    <textarea
-                      value={formData.challenges}
-                      onChange={(e) =>
-                        setFormData({ ...formData, challenges: e.target.value })
-                      }
-                      placeholder="Beschreiben Sie kurz, womit Sie täglich am meisten Zeit verbringen..."
-                      className="w-full h-24 px-3 py-2 border border-border rounded-lg resize-none"
-                    />
-                  </div>
-
-                  <div className="text-center">
                     <Button
-                      type="button"
                       variant="cta"
                       size="lg"
-                      className="text-lg px-12 py-6"
-                      onClick={() =>
-                        window.open("https://cal.com/paxup", "_blank")
-                      }
+                      className="w-full"
+                      onClick={() => window.open(CAL_URL, "_blank")}
                     >
                       <Calendar className="w-5 h-5 mr-2" />
                       Kostenloses Erstgespräch vereinbaren
                     </Button>
-                    <p className="text-sm text-muted-foreground mt-4">
-                      Wir melden uns innerhalb von 24 Stunden bei Ihnen. 100%
-                      unverbindlich.
-                    </p>
+                    <div className="text-xs text-muted-foreground">
+                      Keine Verpflichtung. Wir melden uns innerhalb von 24h.
+                    </div>
                   </div>
-                </form>
+                </div>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
 
-      {/* Final CTA Section */}
-      <section className="py-16 bg-background border-t border-border">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Bereit für mehr Effizienz in Ihrer Hausverwaltung?
-            </h3>
-            <p className="text-lg text-muted-foreground mb-8">
-              Schließen Sie sich 500+ Hausverwaltungen an, die bereits täglich
-              Zeit und Kosten durch intelligente Automatisierung sparen.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-6 flex items-center justify-center gap-3">
               <Button
-                variant="cta"
-                size="lg"
-                className="text-lg px-8 py-6"
-                onClick={() => window.open("https://cal.com/paxup", "_blank")}
+                variant="secondary"
+                className="bg-white text-primary hover:bg-white/90"
+                onClick={() => window.open(CAL_URL, "_blank")}
               >
                 <Phone className="w-5 h-5 mr-2" />
-                Jetzt kostenloses Gespräch buchen
+                Direkt Termin buchen
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+              <Button
+                variant="outline"
+                className="border-white/40 text-white hover:bg-white/10"
+                onClick={() =>
+                  (window.location.href = "mailto:hi@paxup.support")
+                }
+              >
                 <Mail className="w-5 h-5 mr-2" />
                 E-Mail schreiben
               </Button>
@@ -679,9 +607,8 @@ const ImmobilienLandingPage = () => {
         </div>
       </section>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
-};
-
-export default ImmobilienLandingPage;
+}

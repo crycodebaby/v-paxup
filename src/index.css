@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* === Globaler Overflow-Guard & Medien-Safety === */
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+@supports (overflow: clip) {
+  html,
+  body,
+  #root {
+    overflow-x: clip;
+  }
+}
+
+/* Medien dürfen nie überlaufen */
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* =========================================================
    FONTS — Alexandria (self-hosted, Vite-friendly)
    ========================================================= */
