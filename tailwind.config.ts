@@ -1,32 +1,53 @@
+// tailwind.config.ts
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 import typography from "@tailwindcss/typography";
+// Optional nice-to-haves:
+import aspectRatio from "@tailwindcss/aspect-ratio";
+import lineClamp from "@tailwindcss/line-clamp";
 
 export default {
   darkMode: ["class"],
   content: ["./src/**/*.{ts,tsx}"],
+
   theme: {
-    /* Viewport Breakpoints */
+    /* Viewport Breakpoints – von sehr klein bis 4K */
     screens: {
+      xxs: "350px", // sehr kleine Geräte
       xs: "380px",
       sm: "640px",
       md: "768px",
       lg: "1024px",
       xl: "1280px",
       "2xl": "1400px",
+      "3xl": "1920px", // 1080p
+      "4xl": "2560px", // WQHD / 2.5K
+      "5xl": "3840px", // 4K / UHD
     },
 
-    /* Container */
+    /* Container – zentriert, mit ansteigenden Innenabständen */
     container: {
       center: true,
-      padding: "2rem",
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.25rem",
+        lg: "1.75rem",
+        "2xl": "2rem",
+        "3xl": "2.5rem",
+        "4xl": "3rem",
+        "5xl": "3.5rem",
+      },
       screens: {
+        xxs: "350px",
         xs: "380px",
         sm: "640px",
         md: "768px",
         lg: "1024px",
         xl: "1280px",
         "2xl": "1400px",
+        "3xl": "1800px", // Content-Breite bei 1080p
+        "4xl": "2100px", // Bühne auf 2.5K
+        "5xl": "2400px", // 4K – noch gut lesbar
       },
     },
 
@@ -36,7 +57,7 @@ export default {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui"],
       },
 
-      /* Farben binden an CSS-Variablen (index.css definiert die HSL-Werte) */
+      /* HSL-Farben aus CSS-Variablen */
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -74,8 +95,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-
-        /* Sidebar-Tokens (falls verwendet) */
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -86,23 +105,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-
-        /* NEU: Success-Grün (für positive Ergebnisse & Bestätigungen) */
         success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
       },
 
-      /* Gradients als Kurzschreibweise (lesen direkt CSS-Variablen) */
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-hero": "var(--gradient-hero)",
         "gradient-subtle": "var(--gradient-subtle)",
         "gradient-overlay": "var(--gradient-overlay)",
       },
-
-      /* Schatten (lesen direkt CSS-Variablen) */
       boxShadow: {
         soft: "var(--shadow-soft)",
         card: "var(--shadow-card)",
@@ -110,20 +124,75 @@ export default {
         glow: "var(--shadow-glow)",
         elegant: "var(--shadow-elegant)",
       },
-
-      /* Timing Functions */
       transitionTimingFunction: {
         smooth: "var(--transition-smooth)",
       },
-
-      /* Radius-Kurzformen an CSS-Var gekoppelt */
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
 
-      /* Keyframes & Animations (Accordion/Collapsible + Micro-Motions) */
+      /* Fluid Type & Spacing – konsistent auf großen Screens */
+      fontSize: {
+        "fluid-h1": "clamp(2.2rem, 1.6rem + 2.2vw, 5rem)",
+        "fluid-h2": "clamp(1.8rem, 1.3rem + 1.6vw, 3.5rem)",
+        "fluid-h3": "clamp(1.4rem, 1.1rem + 1.1vw, 2.5rem)",
+        "fluid-body": "clamp(1rem, 0.95rem + 0.35vw, 1.25rem)",
+        "fluid-small": "clamp(0.9rem, 0.85rem + 0.25vw, 1.05rem)",
+      },
+      lineHeight: {
+        snugger: "1.2",
+        comfy: "1.5",
+      },
+      spacing: {
+        "fluid-6": "clamp(1.25rem, 1rem + 1vw, 2.5rem)",
+        "fluid-10": "clamp(2rem, 1.6rem + 1.6vw, 4rem)",
+        "fluid-16": "clamp(3rem, 2.2rem + 2.6vw, 6rem)",
+      },
+      maxWidth: {
+        "content-tight": "72ch",
+        "content-wide": "96rem",
+        "screen-3xl": "1920px",
+        "screen-4xl": "2560px",
+        "screen-5xl": "3840px",
+      },
+
+      /* Typografie-Plugin feinjustiert: bessere Prose Defaults */
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            maxWidth: theme("maxWidth.content-tight"),
+            color: "hsl(var(--foreground))",
+            h1: {
+              fontSize: theme("fontSize.fluid-h1"),
+              lineHeight: theme("lineHeight.snugger"),
+            },
+            h2: {
+              fontSize: theme("fontSize.fluid-h2"),
+              lineHeight: theme("lineHeight.snugger"),
+            },
+            h3: {
+              fontSize: theme("fontSize.fluid-h3"),
+              lineHeight: theme("lineHeight.snugger"),
+            },
+            p: {
+              fontSize: theme("fontSize.fluid-body"),
+              lineHeight: theme("lineHeight.comfy"),
+            },
+            a: { color: "hsl(var(--primary))" },
+            strong: { color: "hsl(var(--foreground))" },
+          },
+        },
+        invert: {
+          css: {
+            color: "hsl(var(--foreground))",
+            a: { color: "hsl(var(--primary))" },
+          },
+        },
+      }),
+
+      /* Micro-Animations */
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -160,5 +229,6 @@ export default {
       },
     },
   },
-  plugins: [animate, typography],
+
+  plugins: [animate, typography, aspectRatio, lineClamp],
 } satisfies Config;

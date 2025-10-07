@@ -56,16 +56,6 @@ svg {
   font-style: normal;
   font-display: swap;
 }
-/* Optional, nur wenn vorhanden:
-@font-face {
-  font-family: "Alexandria";
-  src:
-    url("./assets/fonts/Alexandria/Alexandria-Medium.woff2") format("woff2"),
-    url("./assets/fonts/Alexandria/Alexandria-Medium.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-} */
 
 /* =========================================================
    DESIGN TOKENS (CSS Custom Properties in HSL)
@@ -76,19 +66,9 @@ svg {
     --font-sans: Alexandria, ui-sans-serif, system-ui, Segoe UI, Roboto, Inter,
       Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
 
-    /* ---- Color System (LIGHT) ----
-       Designer-Hex → HSL
-       #213144 → 213 35% 20% (Primär Blau-dunkel)
-       #e23f3b →   1 74% 56% (Sekundär Rot)
-       #212630 → 220 19% 16%
-       #1a2b45 → 216 45% 19%
-       #121b2f → 221 45% 13%
-       #D1D1D1 →   0  0% 82%
-       #1e1f1f → 180  2% 12%
-    */
-
-    --success: 142 76% 36%; /* kräftiges Grün (Light) */
-    --success-foreground: 142 72% 18%; /* dunkleres Grün für Text auf hellem Grund */
+    /* ---- Color System (LIGHT) ---- */
+    --success: 142 76% 36%;
+    --success-foreground: 142 72% 18%;
 
     --background: 0 0% 100%;
     --foreground: 222 84% 4%;
@@ -98,6 +78,7 @@ svg {
     --popover: 0 0% 100%;
     --popover-foreground: 222 84% 4%;
 
+    /* Deine Palette (aus Kommentar): */
     --primary: 213 35% 20%; /* #213144 */
     --primary-foreground: 0 0% 100%;
     --primary-hover: 213 35% 25%;
@@ -129,7 +110,7 @@ svg {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 213 35% 20%;
 
-    /* Gradients (fix: keine ---typos) */
+    /* Gradients */
     --gradient-primary: linear-gradient(
       135deg,
       hsl(var(--primary)),
@@ -168,20 +149,20 @@ svg {
     --background: 221 45% 13%; /* #121b2f */
     --foreground: 0 0% 98%;
 
-    --success: 142 60% 55%; /* helleres Grün (Dark) */
-    --success-foreground: 142 65% 88%; /* sehr helles Grün für Text auf dunklem Grund */
+    --success: 142 60% 55%;
+    --success-foreground: 142 65% 88%;
 
     --card: 221 45% 13%;
     --card-foreground: 0 0% 98%;
     --popover: 221 45% 13%;
     --popover-foreground: 0 0% 98%;
 
-    /* Im Dark Mode darf ruhig der Rot-Akzent im Primary spielen */
+    /* Im Dark Mode darf der Rot-Akzent treiben */
     --primary: 1 74% 56%; /* #e23f3b */
     --primary-foreground: 0 0% 100%;
     --primary-hover: 1 74% 51%;
 
-    --secondary: 213 35% 20%; /* Blau-dunkel als Sekundär */
+    --secondary: 213 35% 20%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 216 45% 19%;
@@ -207,7 +188,6 @@ svg {
     --sidebar-border: 216 45% 19%;
     --sidebar-ring: 1 74% 56%;
 
-    /* Gradients (Dark) */
     --gradient-primary: linear-gradient(
       135deg,
       hsl(var(--primary)),
@@ -234,11 +214,19 @@ svg {
   * {
     @apply border-border;
   }
+
+  /* Basis-Typgröße leicht fluid – verhindert "Riesentext" auf 4K */
   html {
     font-family: var(--font-sans);
+    /* 15px → 18px je nach Viewport */
+    font-size: clamp(15px, 14px + 0.25vw, 18px);
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-  /* Respect reduced motion */
+
+  /* Respektiere Bewegungspräferenzen */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -248,20 +236,43 @@ svg {
       animation: none !important;
     }
   }
+
   body {
     @apply bg-background text-foreground antialiased;
   }
 
-  /* Better focus ring for accessibility */
+  /* Besserer Focus-Ring */
   :focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px hsl(var(--ring) / 0.3);
     border-color: hsl(var(--ring));
   }
 
-  /* Text selection */
+  /* Textauswahl */
   ::selection {
     background: hsl(var(--primary) / 0.18);
     color: hsl(var(--foreground));
+  }
+}
+
+/* ===== Typografie-Hilfen für Prosa ===== */
+@layer components {
+  /* Fließtexte auf sinnvolle Breite begrenzen */
+  .prose-tight {
+    @apply prose max-w-content-tight dark:prose-invert;
+  }
+  /* Große Bühne / Hero auf breiten Screens */
+  @media (min-width: 1920px) {
+    .stage-wide {
+      max-width: var(--stage-max, 1400px);
+      margin-inline: auto;
+    }
+  }
+}
+
+/* ===== Utility-Ergänzungen (optional) ===== */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

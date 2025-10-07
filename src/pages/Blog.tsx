@@ -253,7 +253,7 @@ const Blog = () => {
               <div className="text-center mb-8">
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
                   PAXUP{" "}
-                  <span className="bg-gradient-primary bg-clip-text text-transparent">
+                  <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
                     Blog
                   </span>
                 </h1>
