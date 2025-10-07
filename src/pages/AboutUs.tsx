@@ -31,7 +31,7 @@ import teamAbout from "@/assets/team-about.jpg";
 const promises = [
   "Klartext statt Hype: Wir lösen Dein konkretes Problem zuerst.",
   "Messbare Ziele vor Start: Zeitersparnis, Kosten, Zufriedenheit.",
-  "Go-Live in 60–90 Tagen – nicht „irgendwann“.",
+  "Go-Live in 6090 Tagen  nicht „irgendwann“.",
   "Datenschutz von Anfang an: DSGVO & Hosting in Deutschland.",
   "Du behältst die Kontrolle: verständliche Tools, dokumentierte Prozesse.",
 ] as const;
@@ -41,7 +41,7 @@ const whyUs = [
     icon: MessageSquare,
     title: "Wir kennen Dein Chaos",
     description:
-      "Volles Postfach, Dauertelefon, Standardfragen – genau dort haben wir 2020 angefangen. Kleine Schritte, großer Effekt.",
+      "Volles Postfach, Dauertelefon, Standardfragen  genau dort haben wir 2020 angefangen. Kleine Schritte, großer Effekt.",
   },
   {
     icon: Lightbulb,
@@ -61,7 +61,7 @@ const steps = [
   {
     icon: Brain,
     title: "1) Potenzialanalyse",
-    text: "Wir schauen uns Prozesse, Tools und Daten an – und priorisieren die Hebel, die sofort wirken.",
+    text: "Wir schauen uns Prozesse, Tools und Daten an  und priorisieren die Hebel, die sofort wirken.",
   },
   {
     icon: Target,
@@ -71,7 +71,7 @@ const steps = [
   {
     icon: Zap,
     title: "3) Implementierung",
-    text: "Bots & Integrationen gehen live. Schulung, Monitoring, KPIs – bis die Ziele stehen.",
+    text: "Bots & Integrationen gehen live. Schulung, Monitoring, KPIs  bis die Ziele stehen.",
   },
 ] as const;
 
@@ -90,7 +90,7 @@ type Milestone = {
 const milestones: Readonly<Milestone[]> = [
   {
     year: "2020",
-    title: "Gründung – Kommunikation entlasten",
+    title: "Gründung  Kommunikation entlasten",
     story:
       "Aus einer kleinen Idee wird PAXUP: Kommunikations-KI, die Teams entlastet und Arbeit wieder fließen lässt.",
     impact: ["Erste Voice-Bots im Handwerk", "Mail-Triage prototypisch"],
@@ -100,7 +100,7 @@ const milestones: Readonly<Milestone[]> = [
     year: "2021",
     title: "RAG & Integrationen",
     story:
-      "Dokumente, Tickets & E-Mails verknüpfen – weniger Medienbrüche, mehr Tempo, bessere Datenbasis.",
+      "Dokumente, Tickets & E-Mails verknüpfen  weniger Medienbrüche, mehr Tempo, bessere Datenbasis.",
     impact: ["Durchlaufzeiten −35%", "Sauberere Daten, weniger Nachfragen"],
     tech: ["RAG", "API-Orchestrierung", "Webhooks"],
   },
@@ -108,7 +108,7 @@ const milestones: Readonly<Milestone[]> = [
     year: "2022",
     title: "KI in die Fläche",
     story:
-      "Telefon, Mail, Chat – ein System. Standardprozesse laufen automatisch, Teams arbeiten fokussiert.",
+      "Telefon, Mail, Chat  ein System. Standardprozesse laufen automatisch, Teams arbeiten fokussiert.",
     impact: ["80% weniger Routineanrufe", "24/7 erreichbar"],
     tech: ["Omnichannel-Bots", "Kalender-Sync", "Call-to-CRM"],
   },
@@ -132,8 +132,8 @@ const milestones: Readonly<Milestone[]> = [
     year: "2025",
     title: "Blueprints nach Branche",
     story:
-      "Vor-konfigurierte Blueprints bringen Dich noch schneller live – mit förderfähiger Roadmap.",
-    impact: ["Go-Live ≤ 60–90 Tage", "Schneller ROI"],
+      "Vor-konfigurierte Blueprints bringen Dich noch schneller live  mit förderfähiger Roadmap.",
+    impact: ["Go-Live ≤ 6090 Tage", "Schneller ROI"],
     tech: ["Branchen-Blueprints", "Monitoring + Auto-Tuning"],
   },
 ];
@@ -247,7 +247,7 @@ function Timeline() {
               <Brain className="h-4 w-4" /> KI sinnvoll, nicht fancy
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Zap className="h-4 w-4" /> Go-Lives in 60–90 Tagen
+              <Zap className="h-4 w-4" /> Go-Lives in 6090 Tagen
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <LineChart className="h-4 w-4" /> KPIs & ROI im Dashboard
@@ -269,7 +269,7 @@ export default function AboutUs() {
       <Header />
 
       <main>
-        {/* HERO – leise, glaubwürdig, mit kleinem CTA */}
+        {/* HERO  leise, glaubwürdig, mit kleinem CTA */}
         <section className="relative overflow-hidden bg-gradient-subtle">
           <div
             aria-hidden
@@ -293,7 +293,7 @@ export default function AboutUs() {
               <p className="mt-4 text-xl text-muted-foreground">
                 Wir kommen nicht aus einem Konzern. Wir kommen aus dem Alltag:
                 klingelnde Telefone, volle Postfächer, wiederkehrende Fragen.
-                Heute automatisieren wir genau das – damit bei Dir wieder Ruhe
+                Heute automatisieren wir genau das damit bei Dir wieder Ruhe
                 einkehrt und Wachstum planbar wird.
               </p>
 
@@ -311,7 +311,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* WARUM PAXUP – psychologisch sauber formuliert */}
+        {/* WARUM PAXUP  psychologisch sauber formuliert */}
         <section className="py-18 md:py-20">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="mx-auto mb-10 max-w-3xl text-center">
@@ -319,7 +319,7 @@ export default function AboutUs() {
                 Warum es uns gibt
               </h2>
               <p className="mt-3 text-lg text-muted-foreground">
-                Kommunikation frisst Zeit. Wir geben sie Dir zurück – mit
+                Kommunikation frisst Zeit. Wir geben sie Dir zurück mit
                 verständlicher KI, die heute Nutzen stiftet.
               </p>
             </div>
@@ -345,7 +345,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* UNSER VERSPRECHEN – Sicherheit & Planbarkeit */}
+        {/* UNSER VERSPRECHEN  Sicherheit & Planbarkeit */}
         <section className="py-18 md:py-20 bg-gradient-subtle">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="mx-auto mb-10 max-w-3xl text-center">
@@ -376,10 +376,10 @@ export default function AboutUs() {
                 Unsere Story
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Von 2020 bis heute – jedes Jahr ein Sprung nach vorn
+                Von 2020 bis heute, jedes Jahr ein Sprung nach vorn
               </h2>
               <p className="mt-3 text-lg text-muted-foreground">
-                KI-Durchbrüche treffen Mittelstand – wir machen sie nutzbar.
+                KI-Durchbrüche treffen Mittelstand, wir machen sie nutzbar.
               </p>
             </div>
 
@@ -387,7 +387,7 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* WIE WIR ARBEITEN – kurz & klar */}
+        {/* WIE WIR ARBEITEN  kurz & klar */}
         <section className="py-18 md:py-20">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="mx-auto mb-10 max-w-3xl text-center">
@@ -395,7 +395,7 @@ export default function AboutUs() {
                 Wie wir arbeiten
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Von „Chaos“ zu „läuft“ – in 3 Schritten
+                Von „Chaos“ zu „läuft“ in 3 Schritten
               </h2>
             </div>
 
@@ -475,7 +475,7 @@ export default function AboutUs() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="mx-auto max-w-3xl text-center">
               <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                Wenn Du weniger Unterbrechungen willst – lass uns anfangen.
+                Wenn Du weniger Unterbrechungen willst, lass uns anfangen.
               </h3>
               <p className="mt-3 text-lg text-muted-foreground">
                 30 Minuten, kostenfrei. Wir schauen auf Deinen Engpass und

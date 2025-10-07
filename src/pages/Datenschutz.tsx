@@ -75,7 +75,9 @@ export default function Datenschutz() {
                     Verantwortlicher
                   </h2>
                   <div className="text-muted-foreground leading-relaxed space-y-2">
-                    <p className="font-medium text-foreground">Till Rudolph</p>
+                    <p className="font-medium text-foreground">
+                      Theodore Rudolph
+                    </p>
                     <p>
                       Grünberger Straße 143
                       <br />
@@ -194,9 +196,9 @@ export default function Datenschutz() {
                       Daten (z.&nbsp;B. Name, E-Mail, Terminpräferenzen) an
                       Cal.com übermittelt. Die Verarbeitung erfolgt auf
                       Grundlage von Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO
-                      (zur Durchführung vorvertraglicher Maßnahmen) bzw. —
-                      sofern erforderlich — auf Grundlage Ihrer Einwilligung
-                      (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO).
+                      (zur Durchführung vorvertraglicher Maßnahmen) bzw. sofern
+                      erforderlich auf Grundlage Ihrer Einwilligung (Art.&nbsp;6
+                      Abs.&nbsp;1 lit.&nbsp;a DSGVO).
                     </p>
                     <p>
                       Weitere Informationen entnehmen Sie der
@@ -345,9 +347,9 @@ export default function Datenschutz() {
                     Kurzübersicht der Rechtsgrundlagen
                   </h3>
                   <ul className="text-sm text-muted-foreground space-y-2">
-                    <li>Art. 6 Abs. 1 lit. a DSGVO – Einwilligung</li>
-                    <li>Art. 6 Abs. 1 lit. b DSGVO – Vertrag/Anbahnung</li>
-                    <li>Art. 6 Abs. 1 lit. f DSGVO – berechtigtes Interesse</li>
+                    <li>Art. 6 Abs. 1 lit. a DSGVO Einwilligung</li>
+                    <li>Art. 6 Abs. 1 lit. b DSGVO Vertrag/Anbahnung</li>
+                    <li>Art. 6 Abs. 1 lit. f DSGVO berechtigtes Interesse</li>
                   </ul>
                 </div>
               </aside>

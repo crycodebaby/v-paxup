@@ -69,7 +69,7 @@ export default function Funding() {
               </h1>
               <p className="mt-4 text-xl text-muted-foreground">
                 Wir machen Ihre BAFA-Förderung einfach: Fördercheck,
-                Antragstellung, förderkonforme Roadmap – und Umsetzung mit
+                Antragstellung, förderkonforme Roadmap und Umsetzung mit
                 Nachweisführung.
               </p>
 
@@ -106,7 +106,7 @@ export default function Funding() {
           </div>
         </section>
 
-        {/* BAFA – Premium Feature Card */}
+        {/* BAFA  Premium Feature Card */}
         <section className="py-16 md:py-20">
           <div className="container mx-auto px-4 lg:px-8">
             <Card
@@ -153,11 +153,11 @@ export default function Funding() {
                 <p className="mx-auto mt-3 max-w-2xl text-base sm:text-lg text-muted-foreground">
                   Förderfähig für KMU & Mittelstand. Wir prüfen die
                   Förderfähigkeit, erstellen Anträge, liefern förderkonforme
-                  Unterlagen – und setzen dein Vorhaben messbar um.
+                  Unterlagen und setzen dein Vorhaben messbar um.
                 </p>
               </div>
 
-              {/* Inhalt – drei kompakte Kacheln */}
+              {/* Inhalt  drei kompakte Kacheln */}
               <div className="mx-auto mt-8 grid max-w-4xl gap-6 sm:gap-7 lg:grid-cols-3">
                 {/* Förderhöhe */}
                 <div className="relative overflow-hidden rounded-2xl border border-border bg-background/60 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] transition-transform duration-300 hover:-translate-y-0.5">
@@ -287,7 +287,7 @@ export default function Funding() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="mx-auto mb-10 md:mb-14 max-w-4xl text-center">
               <h3 className="text-3xl md:text-4xl font-bold tracking-tight">
-                So kommen Sie zur Förderung – einfach & planbar
+                So kommen Sie zur Förderung einfach & planbar
               </h3>
               <p className="mt-3 text-lg text-muted-foreground">
                 Wir reduzieren Komplexität: vom ersten Check bis zum
@@ -367,13 +367,13 @@ export default function Funding() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="mx-auto max-w-4xl">
               <h4 className="text-2xl font-bold tracking-tight text-center">
-                Häufige Fragen – kurz beantwortet
+                Häufige Fragen kurz beantwortet
               </h4>
               <div className="mt-6 grid gap-4">
                 {[
                   {
                     q: "Wie schnell geht das?",
-                    a: "Erstgespräch sofort. Antrag i. d. R. in 3–10 Tagen vorbereitet. Umsetzung nach Bewilligung unmittelbar.",
+                    a: "Erstgespräch sofort. Antrag i. d. R. in 310 Tagen vorbereitet. Umsetzung nach Bewilligung unmittelbar.",
                   },
                   {
                     q: "Für wen ist BAFA geeignet?",

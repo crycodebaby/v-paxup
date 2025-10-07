@@ -21,7 +21,7 @@ const SERVICES: Readonly<ServiceItem[]> = [
     icon: Target,
     title: "Strategie-Entwicklung",
     description:
-      "Schritt für Schritt zu messbaren KI-Ergebnissen – von Quick Wins bis Roadmap.",
+      "Schritt für Schritt zu messbaren KI-Ergebnissen  von Quick Wins bis Roadmap.",
     ariaLabel: "Strategie-Entwicklung: Von Quick Wins zur Roadmap",
   },
   {
@@ -32,16 +32,16 @@ const SERVICES: Readonly<ServiceItem[]> = [
   },
   {
     icon: Shield,
-    title: "DSGVO-konform in DE",
+    title: "DSGVO Konform in DE",
     description:
-      "Hosting & Verarbeitung in Deutschland – mit klaren Richtlinien & Audit-Trails.",
+      "Hosting & Verarbeitung in Deutschland  mit klaren Richtlinien & Audit-Trails.",
     ariaLabel: "DSGVO-konforme Verarbeitung in Deutschland",
   },
   {
     icon: DollarSign,
     title: "Staatliche Förderung",
     description:
-      "Wir lotsen durch passende Programme & Anträge – für maximale Zuschüsse.",
+      "Wir lotsen durch passende Programme & Anträge  für maximale Zuschüsse.",
     ariaLabel: "Staatliche Förderung und Zuschüsse",
   },
 ] as const;
@@ -166,7 +166,7 @@ function HeroSectionBase() {
         min-h-[calc(var(--vh,1vh)*100-var(--header-h,80px))]
         supports-[height:100dvh]:min-h-[calc(100dvh-var(--header-h,80px))]
       "
-      aria-label="PAXUP – Digitalisierung & KI für den Mittelstand"
+      aria-label="PAXUP  Digitalisierung & KI für den Mittelstand"
     >
       {/* Background image */}
       <div className="absolute inset-0 -z-20">
@@ -247,7 +247,7 @@ function HeroSectionBase() {
                 <strong className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
                   Strategie &amp; Umsetzung
                 </strong>{" "}
-                aus einer Hand – damit dein Unternehmen effizient und
+                aus einer Hand damit dein Unternehmen effizient und
                 zukunftsfähig vorankommt.
               </p>
             </div>
@@ -286,7 +286,7 @@ function HeroSectionBase() {
         </div>
       </div>
 
-      {/* subtile Glows – adaptiv auf Tokens */}
+      {/* subtile Glows  adaptiv auf Tokens */}
       <div
         className="
           pointer-events-none absolute right-6 top-16 h-20 w-20 md:right-20 md:top-20 md:h-28 md:w-28

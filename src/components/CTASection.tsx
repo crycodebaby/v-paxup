@@ -34,7 +34,7 @@ const CTASection = () => {
               <span className="font-semibold">
                 Begrenzte Plätze für Beratungsgespräche
               </span>{" "}
-              – sichern Sie sich jetzt Ihren Termin.
+              sichern Sie sich jetzt Ihren Termin.
             </p>
           </div>
 

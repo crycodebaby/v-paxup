@@ -67,7 +67,7 @@ export default function ComparisonSection() {
     <section
       className="relative overflow-hidden py-16 sm:py-20 font-sans"
       aria-labelledby="comparison-heading"
-      // Lokale Farbtokens – Pro: Grün, Contra: Amber (kein CI-Rot in der negativen Spalte)
+      // Lokale Farbtokens  Pro: Grün, Contra: Amber (kein CI-Rot in der negativen Spalte)
       style={
         {
           // Grün (good)
@@ -147,7 +147,7 @@ export default function ComparisonSection() {
 
         {/* Zwei Spalten */}
         <div className="grid gap-5 sm:gap-6 lg:grid-cols-2">
-          {/* CONTRA – Amber */}
+          {/* CONTRA  Amber */}
           <Card className="relative overflow-hidden border border-white/10 bg-white/[0.03] p-6 sm:p-8 shadow-soft">
             {/* linke Kante: amber */}
             <span
@@ -177,7 +177,7 @@ export default function ComparisonSection() {
             </div>
           </Card>
 
-          {/* PRO – Grün ONLY */}
+          {/* PRO  Grün ONLY */}
           <Card className="relative overflow-hidden border border-white/10 bg-white/[0.06] p-6 sm:p-8 shadow-soft">
             {/* reine grüne Oberkante */}
             <span

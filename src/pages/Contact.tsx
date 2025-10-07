@@ -49,7 +49,7 @@ const ContactSchema = z.object({
 type ContactForm = z.infer<typeof ContactSchema>;
 
 function encodeMailto({ name, email, phone, topic, message }: ContactForm) {
-  const subject = `Kontaktanfrage (${topic}) – ${name}`;
+  const subject = `Kontaktanfrage (${topic})  ${name}`;
   const bodyLines = [
     `Name: ${name}`,
     `E-Mail: ${email}`,
@@ -171,7 +171,7 @@ export default function Contact() {
       const link = encodeMailto(data);
       window.location.href = link;
 
-      const plain = `Kontaktanfrage (${data.topic}) – ${data.name}
+      const plain = `Kontaktanfrage (${data.topic})  ${data.name}
 E-Mail: ${data.email}
 ${data.phone ? `Telefon: ${data.phone}\n` : ""}
 
@@ -182,7 +182,7 @@ ${data.message}
       toast.success("E-Mail-Entwurf geöffnet. Der Text liegt im Clipboard.");
       reset();
     } catch {
-      toast.error("Uups – bitte später nochmal probieren.");
+      toast.error("Uups  bitte später nochmal probieren.");
     } finally {
       setSubmitting(false);
     }
@@ -233,7 +233,7 @@ ${data.message}
                 Kontakt aufnehmen
               </h1>
               <p className="mt-3 text-lg text-muted-foreground">
-                Ob Frage, Projektidee oder schnelle Einschätzung – wir sind für
+                Ob Frage, Projektidee oder schnelle Einschätzung wir sind für
                 dich da. Wähle: <strong>Formular</strong>,{" "}
                 <strong>E-Mail</strong>, <strong>Telefon</strong> oder direkt{" "}
                 <strong>Termin buchen</strong>.
@@ -277,7 +277,7 @@ ${data.message}
                     <div>
                       <h3 className="text-lg font-semibold">Telefon</h3>
                       <p className="text-sm text-muted-foreground">
-                        Mo–Fr, 09:00–17:00 Uhr
+                        MoFr, 09:0017:00 Uhr
                       </p>
                     </div>
                   </div>
@@ -302,7 +302,7 @@ ${data.message}
                     </div>
                   </div>
                   <address className="not-italic text-sm leading-relaxed">
-                    Till Rudolph
+                    Theodore Rudolph
                     <br />
                     Grünberger Straße 143
                     <br />
@@ -318,7 +318,7 @@ ${data.message}
                     <div>
                       <h3 className="text-lg font-semibold">Datenschutz</h3>
                       <p className="text-sm text-muted-foreground">
-                        DSGVO-konforme Verarbeitung – Details in unserer{" "}
+                        DSGVO-konforme Verarbeitung Details in unserer{" "}
                         <a
                           href="/datenschutz"
                           className="text-[hsl(var(--secondary))] underline-offset-4 hover:underline dark:text-[hsl(var(--primary))]"

@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -12,7 +12,6 @@ import {
   Clock,
   Users,
   TrendingUp,
-  ArrowRight,
   Phone,
   Mail,
   Calendar,
@@ -21,7 +20,6 @@ import {
   Target,
   Award,
   Star,
-  MessageSquare,
 } from "lucide-react";
 
 /* =========================================================
@@ -167,8 +165,7 @@ function getCheckResult(score: number) {
    Seite
    ========================================================= */
 export default function ImmobilienLandingPage() {
-  // Alexandria sicher aktivieren:
-  // (root-wrapper nutzt font-sans → var(--font-sans) aus index.css)
+  // Alexandria sicher aktiv (Root verwendet font-sans aus index.css)
   const [answers, setAnswers] = useState<(number | null)[]>(
     Array(CHECK_QUESTIONS.length).fill(null)
   );
@@ -210,7 +207,7 @@ export default function ImmobilienLandingPage() {
               >
                 🚀 KI für die Immobilienverwaltung
               </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight break-words">
                 Spare{" "}
                 <span className="bg-gradient-primary bg-clip-text text-transparent">
                   täglich 3+ Stunden
@@ -227,13 +224,18 @@ export default function ImmobilienLandingPage() {
                 <Button
                   variant="cta"
                   size="lg"
-                  className="text-lg px-6 py-6 shadow-button"
+                  className="w-full sm:w-auto text-lg px-6 py-6 shadow-button"
                   onClick={() => window.open(CAL_URL, "_blank")}
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   Kostenloses Gespräch (30 Min)
                 </Button>
-                <Button variant="outline" size="lg" asChild className="text-lg">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  asChild
+                  className="w-full sm:w-auto text-lg"
+                >
                   <a href="#digital-check">
                     <Target className="w-5 h-5 mr-2" />
                     Digitalisierungs-Check starten
@@ -249,7 +251,7 @@ export default function ImmobilienLandingPage() {
                   >
                     <div className="flex items-center justify-center gap-2 font-semibold">
                       <Icon className="h-5 w-5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
-                      <span>{label}</span>
+                      <span className="break-words">{label}</span>
                     </div>
                   </div>
                 ))}
@@ -262,7 +264,7 @@ export default function ImmobilienLandingPage() {
                 <img
                   src="/lovable-uploads/b6154235-92ef-4609-8331-93cbfe6ae4dd.png"
                   alt="Automatisierte Kommunikation für Hausverwaltungen"
-                  className="relative w-full h-auto rounded-2xl border border-border/10 shadow-2xl"
+                  className="relative w-full max-w-full h-auto rounded-2xl border border-border/10 shadow-2xl"
                 />
               </div>
             </div>
@@ -271,7 +273,7 @@ export default function ImmobilienLandingPage() {
       </section>
 
       {/* SOCIAL PROOF */}
-      <section className="py-10 border-b border-border">
+      <section className="py-10 border-b border-border overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mx-auto max-w-6xl text-center">
             <p className="text-muted-foreground mb-6">
@@ -292,11 +294,11 @@ export default function ImmobilienLandingPage() {
       </section>
 
       {/* PROBLEME → LÖSUNGEN */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold">
+              <h2 className="text-3xl md:text-5xl font-bold break-words">
                 5 Zeitfresser, die Du{" "}
                 <span className="bg-gradient-primary bg-clip-text text-transparent">
                   heute
@@ -347,7 +349,7 @@ export default function ImmobilienLandingPage() {
                     onClick={() => window.open(CAL_URL, "_blank")}
                     variant="secondary"
                     size="lg"
-                    className="mt-6 bg-white text-primary hover:bg-white/90"
+                    className="mt-6 w-full sm:w-auto bg-white text-primary hover:bg-white/90"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     Jetzt Termin buchen
@@ -360,7 +362,10 @@ export default function ImmobilienLandingPage() {
       </section>
 
       {/* DIGITALISIERUNGS-CHECK (Interaktiv) */}
-      <section id="digital-check" className="py-16 md:py-20 bg-gradient-subtle">
+      <section
+        id="digital-check"
+        className="py-16 md:py-20 bg-gradient-subtle overflow-hidden"
+      >
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mx-auto max-w-4xl">
             <div className="text-center mb-10">
@@ -374,7 +379,7 @@ export default function ImmobilienLandingPage() {
             </div>
 
             <Card className="border-0 shadow-2xl">
-              <CardContent className="p-8 lg:p-12">
+              <CardContent className="p-6 sm:p-8 lg:p-12">
                 <div className="space-y-8">
                   {CHECK_QUESTIONS.map((q, qIndex) => (
                     <div key={q.question} className="space-y-4">
@@ -389,7 +394,7 @@ export default function ImmobilienLandingPage() {
                               key={a.text}
                               type="button"
                               variant={active ? "default" : "outline"}
-                              className="h-auto p-4 justify-start text-left"
+                              className="h-auto p-4 justify-start text-left w-full"
                               onClick={() => {
                                 setAnswers((prev) => {
                                   const next = [...prev];
@@ -464,113 +469,99 @@ export default function ImmobilienLandingPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="py-16 md:py-20">
+      {/* FINAL CTA – komplett neu, mobile-first */}
+      <section className="py-16 md:py-20 bg-gradient-primary text-white overflow-hidden">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Das sagen unsere Kunden
+          <div className="mx-auto max-w-5xl">
+            <div className="text-center">
+              <h2 className="text-3xl md:text-4xl font-bold break-words">
+                Starte jetzt Deine Transformation
               </h2>
-              <p className="mt-2 text-lg text-muted-foreground">
-                Über 500 Hausverwaltungen vertrauen auf PAXUP
+              <p className="mt-2 text-lg md:text-xl opacity-90">
+                In 30 Minuten klären wir Status, Potenzial und die ersten
+                Schritte – klar, konkret, umsetzbar.
               </p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2">
-              {[
-                {
-                  name: "Michael Schmidt",
-                  company: "Schmidt Immobilien GmbH",
-                  text: "PAXUP spart uns jeden Tag ~3 Stunden in der Mieterkommunikation. Endlich Zeit für die wichtigen Themen.",
-                  rating: 5,
-                },
-                {
-                  name: "Andrea Müller",
-                  company: "Hausverwaltung Müller",
-                  text: "Vermietungsprozesse automatisiert, Leerstand um 40% reduziert. Der ROI kam schneller als erwartet.",
-                  rating: 5,
-                },
-              ].map((t) => (
-                <Card
-                  key={t.name}
-                  className="border-border/60 hover:shadow-card transition-shadow"
-                >
-                  <CardContent className="p-8">
-                    <div className="mb-4 flex items-center gap-1">
-                      {Array.from({ length: t.rating }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-5 w-5 fill-yellow-400 text-yellow-400"
-                        />
-                      ))}
-                    </div>
-                    <blockquote className="italic text-lg text-muted-foreground mb-6 leading-relaxed">
-                      “{t.text}”
-                    </blockquote>
-                    <div>
-                      <p className="font-semibold">{t.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {t.company}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+            <div className="mt-8 grid gap-6 lg:grid-cols-2">
+              {/* Benefits / Erwartungsmanagement */}
+              <Card className="border-0 bg-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/10">
+                <CardContent className="p-6 sm:p-8">
+                  <h3 className="text-xl font-semibold">Was Du mitnimmst</h3>
+                  <ul className="mt-4 space-y-3 text-white/90">
+                    {[
+                      "Analyse Deiner Anfragen & Prozesse",
+                      "3 Quick Wins mit sofortigem ROI",
+                      "90-Tage-Blueprint bis zum Go-Live",
+                    ].map((line) => (
+                      <li key={line} className="flex items-start gap-3">
+                        <CheckCircle2 className="h-5 w-5 mt-0.5" />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-      {/* KONTAKT / FINAL CTA – ohne Horizontalscrolling */}
-      <section className="py-16 md:py-20 bg-gradient-primary text-white overflow-hidden">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Starte jetzt Deine Transformation
-            </h2>
-            <p className="mt-2 text-xl opacity-90">
-              Buche Dein kostenloses 30-Minuten-Gespräch und erhalte sofort
-              umsetzbare Schritte.
-            </p>
-
-            <Card className="mt-8 border-0 bg-white text-foreground">
-              <CardContent className="p-8 lg:p-12">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-3 text-left">
-                    <h3 className="text-xl font-semibold">
-                      Warum das Gespräch?
-                    </h3>
-                    <ul className="space-y-2 text-muted-foreground">
-                      {[
-                        "Wir bewerten Dein Anfrage- & Prozessvolumen",
-                        "Wir identifizieren Zeitfresser mit Sofort-ROI",
-                        "Du bekommst einen klaren 60–90-Tage-Plan",
-                      ].map((line) => (
-                        <li key={line} className="flex items-start gap-2">
-                          <CheckCircle2 className="h-5 w-5 text-success mt-0.5" />
-                          <span>{line}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="space-y-4 text-left">
-                    <label className="block text-sm font-medium">
-                      Dein Name
-                    </label>
-                    <Input placeholder="Max Mustermann" className="h-11" />
-                    <label className="block text-sm font-medium">E-Mail</label>
-                    <Input
-                      type="email"
-                      placeholder="max@deine-hausverwaltung.de"
-                      className="h-11"
-                    />
+                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
                     <Button
+                      variant="secondary"
+                      size="lg"
+                      className="w-full sm:w-auto bg-white text-primary hover:bg-white/90"
+                      onClick={() => window.open(CAL_URL, "_blank")}
+                    >
+                      <Phone className="w-5 h-5 mr-2" />
+                      Kostenloses Gespräch
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="w-full sm:w-auto border-white/40 text-white hover:bg-white/10"
+                      onClick={() =>
+                        (window.location.href = "mailto:support@paxup.de")
+                      }
+                    >
+                      <Mail className="w-5 h-5 mr-2" />
+                      E-Mail schreiben
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Mini-Form – super kompakt, 100% mobil-tauglich */}
+              <Card className="border-0 bg-white text-foreground">
+                <CardContent className="p-6 sm:p-8">
+                  <form
+                    className="grid gap-4"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      window.open(CAL_URL, "_blank");
+                    }}
+                  >
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Dein Name
+                      </label>
+                      <Input
+                        placeholder="Max Mustermann"
+                        className="h-11"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        E-Mail
+                      </label>
+                      <Input
+                        type="email"
+                        placeholder="max@hausverwaltung.de"
+                        className="h-11"
+                        required
+                      />
+                    </div>
+                    <Button
+                      type="submit"
                       variant="cta"
                       size="lg"
                       className="w-full"
-                      onClick={() => window.open(CAL_URL, "_blank")}
                     >
                       <Calendar className="w-5 h-5 mr-2" />
                       Kostenloses Erstgespräch vereinbaren
@@ -578,15 +569,16 @@ export default function ImmobilienLandingPage() {
                     <div className="text-xs text-muted-foreground">
                       Keine Verpflichtung. Wir melden uns innerhalb von 24h.
                     </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
 
-            <div className="mt-6 flex items-center justify-center gap-3">
+            {/* Sekundäre CTAs – STAPELN auf Mobile */}
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
               <Button
                 variant="secondary"
-                className="bg-white text-primary hover:bg-white/90"
+                className="w-full sm:w-auto bg-white text-primary hover:bg-white/90"
                 onClick={() => window.open(CAL_URL, "_blank")}
               >
                 <Phone className="w-5 h-5 mr-2" />
@@ -594,9 +586,9 @@ export default function ImmobilienLandingPage() {
               </Button>
               <Button
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10"
+                className="w-full sm:w-auto border-white/40 text-white hover:bg-white/10"
                 onClick={() =>
-                  (window.location.href = "mailto:hi@paxup.support")
+                  (window.location.href = "mailto:support@paxup.de")
                 }
               >
                 <Mail className="w-5 h-5 mr-2" />
@@ -607,7 +599,6 @@ export default function ImmobilienLandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

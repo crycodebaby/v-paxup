@@ -55,7 +55,9 @@ export default function Impressum() {
                     Verantwortlicher für den Inhalt
                   </h2>
                   <div className="space-y-3 text-muted-foreground">
-                    <p className="font-medium text-foreground">Till Rudolph</p>
+                    <p className="font-medium text-foreground">
+                      Theodore Rudolph
+                    </p>
                     <p className="flex items-start gap-3">
                       <MapPin className="w-5 h-5 text-primary mt-0.5" />
                       <span>

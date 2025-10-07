@@ -105,7 +105,7 @@ export default function FundingSection() {
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base sm:text-lg text-muted-foreground">
               Wir prüfen die Förderfähigkeit, bereiten die Unterlagen vor und
-              setzen Ihr Vorhaben förderkonform um —{" "}
+              setzen Ihr Vorhaben förderkonform um:{" "}
               <span className="font-medium">schnell, sicher, messbar</span>.
             </p>
           </div>

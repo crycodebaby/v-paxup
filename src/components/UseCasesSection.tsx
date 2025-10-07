@@ -90,7 +90,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Vermietungsprozess automatisieren",
         description:
-          "Absagen & Terminplanung laufen automatisiert – schneller zum Mietvertrag.",
+          "Absagen & Terminplanung laufen automatisiert schneller zum Mietvertrag.",
         benefits: [
           "Automatische Absagen",
           "Auto-Termine",
@@ -99,9 +99,9 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
         icon: BarChart3,
       },
       {
-        title: "Versicherungsschäden automatisch melden",
+        title: "Echtzeit Dokumentenprüfung",
         description:
-          "Schadensfälle werden dokumentiert und direkt an Versicherer übermittelt.",
+          "Kundendokumente werden auf Aktualität und Vollständigkeit geprüft.",
         benefits: [
           "Schnellere Abwicklung",
           "Lückenlose Dokumentation",
@@ -168,7 +168,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Angebots- & Vertragsdokumente automatisieren",
         description:
-          "Vorlagen befüllen sich aus CRM-/Kundendaten – fehlerarm & schnell.",
+          "Vorlagen befüllen sich aus CRM-/Kundendaten fehlerarm & schnell.",
         benefits: [
           "Schnellere Angebote",
           "Weniger Fehler",
@@ -195,7 +195,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Digitale Doku per Sprachaufnahme",
         description:
-          "Pflegedoku per Sprache – strukturiert & automatisch im System.",
+          "Pflegedoku per Sprache strukturiert & automatisch im System.",
         benefits: ["−70% Doku-Zeit", "Hands-free", "Nahtlose Integration"],
         icon: BarChart3,
       },
@@ -213,7 +213,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Einsatzplanung mit KI",
         description:
-          "Personalplanung optimiert – mehr Zeit für die Pflegearbeit.",
+          "Personalplanung optimiert mehr Zeit für die Pflegearbeit.",
         benefits: [
           "Optimale Auslastung",
           "Mehr Patient:innen-Zeit",
@@ -230,7 +230,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Automatische Angebotserstellung (60% der Fälle)",
         description:
-          "Standardaufträge werden KI-gestützt erstellt – schneller & konsistent.",
+          "Standardaufträge werden KI-gestützt erstellt schneller & konsistent.",
         benefits: [
           "−60% Aufwand",
           "Schnellere Angebote",
@@ -252,7 +252,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Automatischer Angebotsvergleich",
         description:
-          "Lieferantenpreise werden automatisch verglichen – beste Konditionen.",
+          "Lieferantenpreise werden automatisch verglichen beste Konditionen.",
         benefits: ["Beste Preise", "Transparente Kosten", "Mehr Marge"],
         icon: TrendingUp,
       },
@@ -302,7 +302,7 @@ export default function UseCasesSection() {
             Anwendungsfälle aus der Praxis
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Entdecken Sie konkrete Digitalisierungslösungen je Branche – klar
+            Entdecken Sie konkrete Digitalisierungslösungen je Branche klar
             visualisiert, mit messbaren Vorteilen.
           </p>
         </div>
@@ -405,7 +405,7 @@ export default function UseCasesSection() {
             </p>
           </div>
 
-          {/* Cards – symmetrisch, Apple-clean */}
+          {/* Cards symmetrisch, Apple-clean */}
           <div className="grid gap-5 sm:gap-6 lg:grid-cols-3">
             {active.cases.map(
               ({ title, description, benefits, icon: Icon }) => (
@@ -466,7 +466,7 @@ export default function UseCasesSection() {
                     </p>
                   </div>
 
-                  {/* Vorteile – starten jetzt überall auf gleicher Höhe */}
+                  {/* Vorteile starten jetzt überall auf gleicher Höhe */}
                   <ul className="mt-5 grid gap-2.5">
                     {benefits.map((b) => (
                       <li

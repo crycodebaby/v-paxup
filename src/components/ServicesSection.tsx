@@ -25,7 +25,7 @@ const SERVICES: Readonly<Service[]> = [
     title: "Digitale Datenbasis",
     description: "Ordnung & Transparenz für bessere, schnelle Entscheidungen.",
     details:
-      "Wir schaffen ein zentrales System, in dem jede Information sofort griffbereit ist – egal ob auf der Baustelle, im Pflegedienst oder im Vertrieb. Schluss mit der Zettelwirtschaft.",
+      "Wir schaffen ein zentrales System, in dem jede Information sofort griffbereit ist  egal ob auf der Baustelle, im Pflegedienst oder im Vertrieb. Schluss mit der Zettelwirtschaft.",
     benefit: "Dein Vorteil: Entscheidungen in Sekunden, nicht in Stunden.",
   },
   {
@@ -51,11 +51,11 @@ const SERVICES: Readonly<Service[]> = [
     icon: Brain,
     title: "Strategische KI-Beratung",
     description:
-      "KI pragmatisch einsetzen – messbar, verständlich, förderfähig.",
+      "KI pragmatisch einsetzen  messbar, verständlich, förderfähig.",
     details:
-      "Wir finden den einen KI-Hebel mit dem größten Nutzen für dich – z.B. bei Angebots-Erstellung, Tourenplanung oder Kundenbetreuung. Verständlich, pragmatisch und oft förderfähig.",
+      "Wir finden den einen KI-Hebel mit dem größten Nutzen für dich  z.B. bei Angebots-Erstellung, Tourenplanung oder Kundenbetreuung. Verständlich, pragmatisch und oft förderfähig.",
     benefit:
-      "Dein Vorteil: Arbeite am statt im Unternehmen – produktiver, zukunftsfähig.",
+      "Dein Vorteil: Arbeite am statt im Unternehmen  produktiver, zukunftsfähig.",
   },
 ];
 
@@ -98,10 +98,10 @@ function ServicesSectionBase() {
             <span className="text-secondary dark:text-primary font-semibold">
               KI
             </span>{" "}
-            – pragmatisch, sicher, förderfähig.
+            pragmatisch, sicher, förderfähig.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            {["Analyse", "Strategie", "Umsetzung", "Enablement"].map((chip) => (
+            {["Analyse", "Strategie", "Umsetzung"].map((chip) => (
               <span
                 key={chip}
                 className="rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1 text-sm text-secondary dark:border-primary/30 dark:bg-primary/10 dark:text-primary"

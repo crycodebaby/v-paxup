@@ -32,59 +32,59 @@ const STEPS: Readonly<Step[]> = [
   {
     number: "01",
     icon: Search,
-    title: "Potenzialanalyse (Inhouse-Methode)",
+    title: "Analyse & Bestandsaufnahme",
     description:
-      "Statuscheck von Prozessen, Daten & Tools – messbar, vergleichbar, priorisiert.",
+      "Wir prüfen, wo du stehst: Abläufe, Systeme und Daten  verständlich aufbereitet und klar bewertet.",
     detailedDescription:
-      "Wir erfassen Ihre Ist-Situation: Workflows, Tool-Landschaft, Datenflüsse, Medienbrüche, DSGVO-Risiken. Dazu Interviews mit Fachbereichen und ein technisches Assessment. Ergebnis: eine klar priorisierte Liste aus Quick-Wins und Hebeln mit quantifiziertem Nutzen.",
-    duration: "3–10 Tage",
+      "Gemeinsam erfassen wir den aktuellen Stand deiner Abläufe und Systeme: Wie laufen Prozesse wirklich ab? Wo gibt es doppelte Arbeit, unnötige Klicks oder Medienbrüche? Wir sprechen mit den Fachbereichen, prüfen eingesetzte Software und Datenschnittstellen und zeigen klar, wo Zeit und Geld verloren gehen  und wo sich Verbesserungen schnell lohnen.",
+    duration: "3 - 10 Tage",
     examples: [
-      "Systeminventar (E-Mail, Telefonie, Kalender, CRM/ERP, DMS)",
-      "Prozess-Mapping & Pain-Points (z. B. Angebot, Dispo, Support)",
-      "KPI-Baseline (Durchlaufzeiten, Fehlerquoten, Ticketvolumen)",
-      "DSGVO-Check (Datenorte, Auftragsverarbeiter, Löschregeln)",
-      "Quick-Win-Kandidaten inkl. Aufwand/Nutzen",
+      "Überblick über genutzte Systeme (E-Mail, Telefon, CRM, DMS usw.)",
+      "Darstellung der wichtigsten Arbeitsabläufe und Engpässe",
+      "Vergleich aktueller Kennzahlen (z. B. Bearbeitungszeiten, Fehlerquoten)",
+      "Datenschutz-Check nach DSGVO",
+      "Liste mit ersten Verbesserungsmöglichkeiten und Nutzenabschätzung",
     ],
     deliverables:
-      "Analyse-Report mit Impact/Effort-Matrix, ROI-Schätzung, Risiken & Empfehlungen",
+      "Kurzer Analysebericht mit Prioritäten, Einsparpotenzialen und klaren Handlungsempfehlungen",
   },
   {
     number: "02",
     icon: Target,
-    title: "Blueprint & Roadmap",
+    title: "Fahrplan & Konzept",
     description:
-      "Zielbild, Architektur & 90-Tage-Plan – was, womit, in welcher Reihenfolge.",
+      "Wir entwickeln deinen individuellen Umsetzungsplan  mit klaren Zielen, Verantwortlichkeiten und Schritten.",
     detailedDescription:
-      "Aus den Potenzialen entsteht Ihr Umsetzungsplan: Zielprozesse, Integrationsarchitektur (Schnittstellen), Make/Buy-Entscheidungen, Verantwortlichkeiten, Budgetrahmen und Timeline. Inkl. Erfolgskriterien und Fördercheck.",
-    duration: "3–5 Tage",
+      "Auf Basis der Analyse entsteht ein konkreter Plan, wie du digitale Abläufe Schritt für Schritt verbessern kannst. Wir legen fest, welche Themen zuerst umgesetzt werden, welche Software passt, wer im Team wofür verantwortlich ist und wie das Ganze finanziell und zeitlich machbar bleibt. Auf Wunsch prüfen wir auch Fördermöglichkeiten.",
+    duration: "3 - 5 Tage",
     examples: [
-      "Zielprozess-Diagramme & Verantwortlichkeiten (RACI)",
-      "Datenmodell & Integrationspunkte (API, Webhooks, ETL)",
-      "Tool-Auswahl (z. B. Cal.com, CRM/ERP, Telefonie, DMS)",
-      "KI-Use-Cases (LLM-Agenten, Klassifikation, Extraktion)",
-      "Förderfähigkeit prüfen & vorbereiten",
+      "Klares Zielbild und Zuständigkeiten",
+      "Vorschläge für geeignete Tools und Schnittstellen",
+      "Plan für die nächsten 90 Tage (inkl. Zeitplan und Budgetrahmen)",
+      "Ideen für den Einsatz von KI in passenden Bereichen",
+      "Prüfung möglicher Förderprogramme",
     ],
     deliverables:
-      "Roadmap (90-Tage-Plan) + Umsetzungs-Backlog mit Meilensteinen, Budget & Erfolgskriterien",
+      "Umsetzungsfahrplan mit Prioritäten, Kostenrahmen und Erfolgskriterien",
   },
   {
     number: "03",
     icon: Cog,
-    title: "Implementierung & Automatisierung",
+    title: "Umsetzung & Automatisierung",
     description:
-      "KI-Worker & Integrationen live – stabil, auditierbar, DSGVO-konform.",
+      "Wir setzen gemeinsam um  einfach, sicher und so, dass es im Alltag wirklich funktioniert.",
     detailedDescription:
-      "Wir setzen iterativ um: Integrationen (E-Mail, Telefonie, Kalender, CRM/ERP, DMS), KI-Automationen (z. B. LLM-Agenten), Tests, Schulungen und Go-Live. Anschließend Monitoring und Feintuning, bis Ziel-KPIs erreicht sind.",
-    duration: "4–12 Wochen",
+      "Wir richten Systeme, Schnittstellen und Automatisierungen ein  zum Beispiel für E-Mails, Termine oder Dokumente. Alles wird getestet, erklärt und im Team geschult. Anschließend begleiten wir den Start, überwachen die Ergebnisse und sorgen dafür, dass alles stabil und datenschutzkonform läuft.",
+    duration: "4 - 12 Wochen",
     examples: [
-      "E-Mail-Triage & Auto-Antworten mit KI (Priorisierung, Zuweisung)",
-      "Telefon-Notizen & Zusammenfassungen (Call-to-CRM)",
-      "Kalender-Sync & Termin-Workflows (z. B. Cal.com ↔ CRM)",
-      "Ticket-/Auftrags-Automation (Status, SLA, Benachrichtigungen)",
-      "Dokumenten-Extraktion (Rechnungen, Verträge, Formulare)",
+      "Automatische E-Mail-Verarbeitung und Aufgabenverteilung",
+      "Telefonnotizen und Termine automatisch im System hinterlegt",
+      "Einheitliche Abläufe zwischen Kalender, CRM und Dokumentenablage",
+      "Weniger manuelle Arbeit durch Automatisierung wiederkehrender Aufgaben",
+      "Automatische Dokumentenerkennung und -verarbeitung",
     ],
     deliverables:
-      "Produktiv laufende Automationen + Dashboard (KPI-Tracking), Schulungen & Betriebsübergabe",
+      "Laufende Automatisierungen mit klaren Ergebnissen, Schulung des Teams und Übergabe in den Regelbetrieb",
   },
 ];
 

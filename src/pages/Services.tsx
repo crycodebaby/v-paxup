@@ -35,10 +35,10 @@ const STEPS: Readonly<Step[]> = [
   {
     number: "01",
     icon: Search,
-    title: "Potenzialanalyse (Inhouse)",
+    title: "Potenzialanalyse",
     kicker: "Statuscheck von Prozessen, Daten & Tools",
     short:
-      "Wir erfassen Ihre Ist-Situation — messbar, vergleichbar, priorisiert. Ergebnis: eine klare Liste aus Quick-Wins und Hebeln mit quantifiziertem Nutzen.",
+      "Wir erfassen Ihre Ist-Situation  messbar, vergleichbar, priorisiert. Ergebnis: eine klare Liste aus Quick-Wins und Hebeln mit quantifiziertem Nutzen.",
     bullets: [
       "Systeminventar: E-Mail, Telefonie, Kalender, CRM/ERP, DMS",
       "Prozess-Mapping & Pain-Points (Angebot, Dispo, Support)",
@@ -53,7 +53,7 @@ const STEPS: Readonly<Step[]> = [
     ],
     kpis: [
       { icon: Gauge, label: "Quick-Wins identifiziert" },
-      { icon: Clock, label: "3–10 Tage Laufzeit" },
+      { icon: Clock, label: "3 – 10 Tage Laufzeit" },
       { icon: ShieldCheck, label: "DSGVO-Risiken sichtbar" },
     ],
   },
@@ -63,7 +63,7 @@ const STEPS: Readonly<Step[]> = [
     title: "Blueprint & Roadmap",
     kicker: "Zielbild, Architektur & 90-Tage-Plan",
     short:
-      "Wir übersetzen Potenziale in einen umsetzbaren Plan: Zielprozesse, Integrationen, Make/Buy, Budget und Meilensteine — inkl. Fördercheck.",
+      "Wir übersetzen Potenziale in einen umsetzbaren Plan: Zielprozesse, Integrationen, Make/Buy, Budget und Meilensteine  inkl. Fördercheck.",
     bullets: [
       "Zielprozesse & Verantwortlichkeiten (RACI)",
       "Datenmodell & Integrationspunkte (API, Webhooks, ETL)",
@@ -79,7 +79,7 @@ const STEPS: Readonly<Step[]> = [
     kpis: [
       { icon: Workflow, label: "Saubere Integrationsarchitektur" },
       { icon: Gauge, label: "Klares Priorisierungs-Backlog" },
-      { icon: Clock, label: "3–5 Tage Laufzeit" },
+      { icon: Clock, label: "3 – 5 Tage Laufzeit" },
     ],
   },
   {
@@ -97,14 +97,14 @@ const STEPS: Readonly<Step[]> = [
       "Dokumenten-Extraktion (Rechnungen, Verträge, Formulare)",
     ],
     benefits: [
-      "Weniger Routine — mehr Produktivität",
+      "Weniger Routine  mehr Produktivität",
       "Nachweisbar: KPIs & Dashboard",
       "Auditierbar & DSGVO-konform",
     ],
     kpis: [
       { icon: Gauge, label: ">30% Durchsatzsteigerung*" },
       { icon: ShieldCheck, label: "Audit-fähig" },
-      { icon: Clock, label: "4–12 Wochen Umsetzung" },
+      { icon: Clock, label: "4 – 12 Wochen Umsetzung" },
     ],
   },
 ] as const;
@@ -126,7 +126,7 @@ export default function Services() {
                 In 3 Schritten zu messbarer Digitalisierung
               </h1>
               <p className="mt-4 text-xl text-muted-foreground">
-                Klarer Plan, schnelle Effekte, stabile Umsetzung — ohne Bla, mit
+                Klarer Plan, schnelle Effekte, stabile Umsetzung ohne Bla, mit
                 Ergebnis.
               </p>
               <div className="mt-8">
@@ -323,8 +323,7 @@ export default function Services() {
                 Bereit für Wirkung statt Hype?
               </h2>
               <p className="mt-3 text-lg opacity-90">
-                Wir bringen Ihre Prozesse auf Kurs — pragmatisch, sicher,
-                messbar.
+                Wir bringen Ihre Prozesse auf Kurs pragmatisch, sicher, messbar.
               </p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
                 <Button
