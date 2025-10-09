@@ -1,5 +1,5 @@
 // src/components/ComparisonSection.tsx
-import type { ComponentType, SVGProps, CSSProperties } from "react";
+import type { ComponentType, SVGProps } from "react";
 import {
   X,
   Check,
@@ -14,14 +14,9 @@ import { Card } from "@/components/ui/card";
 import UpMark from "@/assets/logo/Up_rot.png";
 import { cn } from "@/lib/utils";
 
+/* Datentypen & Daten */
 type IconType = ComponentType<SVGProps<SVGSVGElement>>;
-
-type Row = {
-  icon: IconType;
-  title: string;
-  without: string;
-  with: string;
-};
+type Row = { icon: IconType; title: string; without: string; with: string };
 
 const rows: Readonly<Row[]> = [
   {
@@ -67,17 +62,6 @@ export default function ComparisonSection() {
     <section
       className="relative overflow-hidden py-16 sm:py-20 font-sans"
       aria-labelledby="comparison-heading"
-      // Lokale Farbtokens  Pro: Grün, Contra: Amber (kein CI-Rot in der negativen Spalte)
-      style={
-        {
-          // Grün (good)
-          "--good": "142 70% 45%",
-          "--good-ink": "142 75% 28%",
-          // Amber (bad)
-          "--bad": "38 92% 50%",
-          "--bad-ink": "28 90% 28%",
-        } as CSSProperties
-      }
     >
       {/* Hintergrund */}
       <div
@@ -85,37 +69,18 @@ export default function ComparisonSection() {
         className="absolute inset-0 -z-20"
         style={{
           background:
-            "linear-gradient(180deg, hsl(222 30% 10%) 0%, hsl(222 40% 8%) 60%, hsl(222 50% 7%) 100%)",
+            "linear-gradient(180deg, hsl(221 45% 13%) 0%, hsl(220 19% 16%) 60%, hsl(221 45% 13%) 100%)",
         }}
       />
-      {/* feine Partikel */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 opacity-30"
+        className="absolute inset-0 -z-10 opacity-[0.08]"
         style={{
           backgroundImage:
-            "radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.16) 1px, transparent 1px), radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.12) 1px, transparent 1px), radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.12) 1px, transparent 1px)",
+            "radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8) 1px, transparent 1px), radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.6) 1px, transparent 1px), radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.6) 1px, transparent 1px)",
           backgroundSize: "120px 120px, 140px 140px, 160px 160px",
         }}
       />
-      {/* CI-Glows: auf Mobile kleiner, Section clipt via overflow-hidden */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-24 -top-24 h-[18rem] w-[18rem] sm:h-[24rem] sm:w-[24rem] -z-10 rounded-full blur-3xl"
-        style={{
-          background:
-            "radial-gradient(closest-side, hsl(var(--secondary)/0.22), transparent 65%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-[-8rem] bottom-[-6rem] h-[16rem] w-[16rem] sm:h-[22rem] sm:w-[22rem] -z-10 rounded-full blur-3xl"
-        style={{
-          background:
-            "radial-gradient(closest-side, hsl(var(--secondary)/0.16), transparent 70%)",
-        }}
-      />
-      {/* Watermark (skaliert & gecappt für Mobile) */}
       <img
         aria-hidden
         src={UpMark}
@@ -124,178 +89,137 @@ export default function ComparisonSection() {
       />
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mx-auto mb-10 sm:mb-14 max-w-3xl text-center text-white">
+        <div className="mx-auto mb-8 sm:mb-12 max-w-3xl text-center text-white">
           <h2
             id="comparison-heading"
-            className="text-balance text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold"
+            className="text-balance text-3xl md:text-4xl 2xl:text-5xl font-bold"
           >
-            Der Unterschied ist {/* Light-Mode Gradient */}
-            <span className="bg-[linear-gradient(90deg,hsl(var(--secondary)),#ff7a6f)] bg-clip-text text-transparent dark:hidden">
-              klar erkennbar
-            </span>
-            {/* Dark-Mode Gradient: kräftiger, warmes Rot → helle Koralle */}
-            <span className="hidden dark:inline bg-[linear-gradient(90deg,hsl(var(--primary)),#ffb3a6)] bg-clip-text text-transparent">
-              klar erkennbar
-            </span>
+            Der Unterschied auf einen Blick
           </h2>
-          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-white/80">
-            Während andere im KI-Chaos versinken, führen wir dich sicher zum
-            Erfolg.
+          <p className="mt-3 text-base md:text-lg text-white/80">
+            Klar, kontrastreich, ohne visuelles Rauschen.
           </p>
         </div>
 
-        {/* Zwei Spalten */}
-        <div className="grid gap-5 sm:gap-6 lg:grid-cols-2">
-          {/* CONTRA  Amber */}
-          <Card className="relative overflow-hidden border border-white/10 bg-white/[0.03] p-6 sm:p-8 shadow-soft">
-            {/* linke Kante: amber */}
-            <span
-              className="absolute inset-y-0 left-0 w-1"
-              style={{
-                background:
-                  "linear-gradient(180deg, hsl(var(--bad)), hsl(var(--bad)/0.6))",
-              }}
-              aria-hidden
-            />
-            <ColumnHeader
-              tone="negative"
-              title="Wenn du KI ohne Begleitung einsetzt"
-              Icon={X}
-            />
-            <div className="rounded-xl">
-              {rows.map(({ icon: Icon, title, without }, i) => (
-                <RowItem
-                  key={`wout-${title}`}
-                  Icon={Icon}
-                  title={title}
-                  text={without}
-                  tone="negative"
-                  striped={i % 2 === 1}
-                />
-              ))}
-            </div>
-          </Card>
-
-          {/* PRO  Grün ONLY */}
-          <Card className="relative overflow-hidden border border-white/10 bg-white/[0.06] p-6 sm:p-8 shadow-soft">
-            {/* reine grüne Oberkante */}
-            <span
-              className="absolute inset-x-0 top-0 h-1"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, hsl(var(--good)), hsl(var(--good)), transparent)",
-              }}
-              aria-hidden
-            />
-            <ColumnHeader
-              tone="positive"
-              title="Wenn PAXUP deine KI-Strategie übernimmt"
-              Icon={Check}
-            />
-            <div className="rounded-xl">
-              {rows.map(({ icon: Icon, title, with: withText }, i) => (
-                <RowItem
-                  key={`with-${title}`}
-                  Icon={Icon}
-                  title={title}
-                  text={withText}
-                  tone="positive"
-                  striped={i % 2 === 1}
-                />
-              ))}
-            </div>
-          </Card>
+        <div className="mx-auto grid max-w-[1500px] 2xl:max-w-[1800px] gap-6 lg:grid-cols-2 2xl:gap-8">
+          <TableBlock
+            colorVar="--destructive"
+            title="Ohne Begleitung"
+            lead="Was dich bremst, wenn KI ohne Strategie und Umsetzung eingeführt wird."
+            rows={rows.map(({ icon, title, without: text }) => ({
+              icon,
+              title,
+              text,
+            }))}
+            HeaderIcon={X}
+          />
+          <TableBlock
+            colorVar="--success"
+            title="Mit PAXUP"
+            lead="Was du mit uns bekommst: klare Roadmap, messbare Ergebnisse und Ruhe im Kopf."
+            rows={rows.map(({ icon, title, with: text }) => ({
+              icon,
+              title,
+              text,
+            }))}
+            HeaderIcon={Check}
+          />
         </div>
       </div>
     </section>
   );
 }
 
-/* ================= helpers ================= */
-
-function ColumnHeader({
-  tone,
+function TableBlock({
+  colorVar,
   title,
-  Icon,
+  lead,
+  rows,
+  HeaderIcon,
 }: {
-  tone: "negative" | "positive";
+  colorVar: "--success" | "--destructive";
   title: string;
-  Icon: IconType;
+  lead: string;
+  rows: { icon: IconType; title: string; text: string }[];
+  HeaderIcon: IconType;
 }) {
-  const isPositive = tone === "positive";
-  return (
-    <div className="mb-6 sm:mb-8 text-center">
-      <div
-        className={cn(
-          "mx-auto mb-3 sm:mb-4 grid h-14 w-14 sm:h-16 sm:w-16 place-content-center rounded-full ring-1",
-          isPositive
-            ? "bg-[hsl(var(--good)/0.15)] ring-[hsl(var(--good)/0.35)]"
-            : "bg-[hsl(var(--bad)/0.12)] ring-[hsl(var(--bad)/0.35)]"
-        )}
-      >
-        <Icon
-          className={cn(
-            "h-7 w-7 sm:h-8 sm:w-8",
-            isPositive ? "text-[hsl(var(--good))]" : "text-[hsl(var(--bad))]"
-          )}
-        />
-      </div>
-      <h3 className="text-lg sm:text-xl font-bold text-white text-balance">
-        {title}
-      </h3>
-    </div>
-  );
-}
+  const chipBg = `bg-[hsl(var(${colorVar})/0.16)]`;
+  const sideGrad = `linear-gradient(180deg, hsl(var(${colorVar})), hsl(var(${colorVar})/0.65))`;
 
-function RowItem({
-  Icon,
-  title,
-  text,
-  tone,
-  striped,
-}: {
-  Icon: IconType;
-  title: string;
-  text: string;
-  tone: "negative" | "positive";
-  striped?: boolean;
-}) {
-  const isPositive = tone === "positive";
   return (
-    <div
+    <Card
       className={cn(
-        "flex items-start gap-3 sm:gap-4 px-4 sm:px-5 py-3 sm:py-4 transition-colors rounded-lg",
-        striped
-          ? isPositive
-            ? "bg-[hsl(var(--good)/0.06)]"
-            : "bg-[hsl(var(--bad)/0.06)]"
-          : "bg-transparent"
+        "relative overflow-hidden shadow-soft transform-gpu transition-transform duration-300",
+        "bg-black/10 backdrop-blur-[2px]"
       )}
+      aria-label={title}
     >
-      <div
-        className={cn(
-          "grid h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 place-content-center rounded-lg ring-1",
-          isPositive
-            ? "bg-[hsl(var(--good)/0.12)] ring-[hsl(var(--good)/0.35)]"
-            : "bg-[hsl(var(--bad)/0.10)] ring-[hsl(var(--bad)/0.35)]"
-        )}
-      >
-        <Icon
-          className={cn(
-            "h-5 w-5",
-            isPositive ? "text-[hsl(var(--good))]" : "text-[hsl(var(--bad))]"
-          )}
-        />
+      <span
+        aria-hidden
+        className="absolute inset-y-0 left-0 w-[7px]"
+        style={{ background: sideGrad, filter: "blur(0.4px)" }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-y-0 right-0 w-[7px]"
+        style={{ background: sideGrad, filter: "blur(0.4px)" }}
+      />
+
+      <div className="px-5 py-5 sm:px-7 sm:py-7">
+        <div className="mx-auto max-w-[75ch] text-center">
+          <div
+            className={cn(
+              "mx-auto mb-3 grid h-14 w-14 place-content-center rounded-full",
+              chipBg
+            )}
+            style={{
+              boxShadow: `0 0 0 1px hsl(var(${colorVar}) / 0.22) inset`,
+            }}
+          >
+            <HeaderIcon
+              className="h-7 w-7"
+              style={{ color: `hsl(var(${colorVar}))` }}
+            />
+          </div>
+          <h3 className="text-white text-xl md:text-2xl font-bold">{title}</h3>
+          <p className="mt-2 text-white/85 text-sm md:text-base">{lead}</p>
+        </div>
       </div>
-      <div className="min-w-0">
-        <h4 className="text-sm sm:text-base font-semibold text-white leading-snug">
-          {title}
-        </h4>
-        <p className="mt-1 text-sm sm:text-[0.95rem] leading-relaxed text-white/80 break-words">
-          {text}
-        </p>
+
+      <div className="px-5 pb-5 sm:px-7 sm:pb-7">
+        <ul className="mx-auto grid max-w-[1100px] rounded-lg">
+          {rows.map(({ icon: Icon, title, text }, i) => (
+            <li key={`${title}-${i}`}>
+              <div className="flex items-start gap-4 p-4">
+                <div
+                  className={cn(
+                    "grid h-11 w-11 flex-shrink-0 place-content-center rounded-lg",
+                    chipBg,
+                    "transform-gpu"
+                  )}
+                  style={{
+                    boxShadow: `0 0 0 1px hsl(var(${colorVar}) / 0.22) inset`,
+                  }}
+                >
+                  <Icon
+                    className="h-5 w-5"
+                    style={{ color: `hsl(var(${colorVar}))` }}
+                  />
+                </div>
+
+                <div className="min-w-0">
+                  <div className="text-white font-semibold text-sm sm:text-base leading-snug">
+                    {title}
+                  </div>
+                  <div className="mt-1 text-white/85 text-sm leading-relaxed break-words">
+                    {text}
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </Card>
   );
 }

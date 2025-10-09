@@ -1,6 +1,6 @@
 // src/components/UseCasesSection.tsx
 
-import { useState, useId } from "react";
+import { useState, useId, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -74,7 +74,7 @@ const INDUSTRIES: Readonly<IndustryEntry[]> = [
 const USE_CASES: Record<IndustryId, IndustryData> = {
   immobilien: {
     title: "Digitalisierung in der Immobilienverwaltung",
-    subtitle: "Verwaltungsprozesse automatisieren und Mieterservice verbessern",
+    subtitle: "Verwaltungsprozesse automatisieren & Mieterservice verbessern",
     cases: [
       {
         title: "Automatische Mieterkommunikation 24/7",
@@ -99,12 +99,12 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
         icon: BarChart3,
       },
       {
-        title: "Echtzeit Dokumentenprüfung",
+        title: "Echtzeit-Dokumentenprüfung",
         description:
           "Kundendokumente werden auf Aktualität und Vollständigkeit geprüft.",
         benefits: [
           "Schnellere Abwicklung",
-          "Lückenlose Dokumentation",
+          "Lückenlose Doku",
           "Weniger Aufwand",
         ],
         icon: TrendingUp,
@@ -113,7 +113,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
   },
   grosshandel: {
     title: "Digitalisierung im Großhandel",
-    subtitle: "B2B-Prozesse optimieren und Lieferketten automatisieren",
+    subtitle: "B2B-Prozesse optimieren & Lieferketten automatisieren",
     cases: [
       {
         title: "Angebots- & Rechnungserstellung automatisieren",
@@ -159,14 +159,14 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
         description:
           "Reports & Slides entstehen aus Unternehmensdaten + KI-Analyse.",
         benefits: [
-          "Pro Präsentationen in Minuten",
+          "Pro-Slides in Minuten",
           "Fundierte Insights",
           "CI-Konsistenz",
         ],
         icon: Clock,
       },
       {
-        title: "Angebots- & Vertragsdokumente automatisieren",
+        title: "Angebots- & Verträge automatisieren",
         description:
           "Vorlagen befüllen sich aus CRM-/Kundendaten fehlerarm & schnell.",
         benefits: [
@@ -212,8 +212,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       },
       {
         title: "Einsatzplanung mit KI",
-        description:
-          "Personalplanung optimiert mehr Zeit für die Pflegearbeit.",
+        description: "Personalplanung optimiert – mehr Zeit für Pflegearbeit.",
         benefits: [
           "Optimale Auslastung",
           "Mehr Patient:innen-Zeit",
@@ -230,7 +229,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Automatische Angebotserstellung (60% der Fälle)",
         description:
-          "Standardaufträge werden KI-gestützt erstellt schneller & konsistent.",
+          "Standardaufträge werden KI-gestützt schneller & konsistent erstellt.",
         benefits: [
           "−60% Aufwand",
           "Schnellere Angebote",
@@ -252,7 +251,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Automatischer Angebotsvergleich",
         description:
-          "Lieferantenpreise werden automatisch verglichen beste Konditionen.",
+          "Lieferantenpreise werden automatisch verglichen – beste Konditionen.",
         benefits: ["Beste Preise", "Transparente Kosten", "Mehr Marge"],
         icon: TrendingUp,
       },
@@ -261,20 +260,31 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
 };
 
 export default function UseCasesSection() {
+  const sectionId = useId();
   const [activeIndustry, setActiveIndustry] =
     useState<IndustryId>("immobilien");
-  const sectionId = useId();
+  const order = useMemo(() => INDUSTRIES.map((i) => i.id), []);
   const active = USE_CASES[activeIndustry];
+
+  // Tastatursteuerung (←/→) für Tabs
+  function handleArrowNav(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    const idx = order.indexOf(activeIndustry);
+    const next =
+      e.key === "ArrowRight"
+        ? order[(idx + 1) % order.length]
+        : order[(idx - 1 + order.length) % order.length];
+    setActiveIndustry(next);
+  }
 
   return (
     <section
       id={sectionId}
-      className="
-        relative overflow-hidden border-y bg-gradient-subtle py-16 sm:py-20
-      "
+      className="relative overflow-hidden border-y bg-gradient-subtle py-16 sm:py-20 font-sans"
       aria-labelledby="usecases-heading"
     >
-      {/* zarte CI-Aura (Light: secondary, Dark: primary) */}
+      {/* CI-Aura */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
@@ -297,85 +307,90 @@ export default function UseCasesSection() {
         <div className="mx-auto mb-10 sm:mb-12 max-w-3xl text-center">
           <h2
             id="usecases-heading"
-            className="text-3xl font-bold md:text-4xl lg:text-5xl tracking-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
           >
             Anwendungsfälle aus der Praxis
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Entdecken Sie konkrete Digitalisierungslösungen je Branche klar
+            Entdecke konkrete Digitalisierungslösungen je Branche – klar
             visualisiert, mit messbaren Vorteilen.
           </p>
         </div>
 
-        {/* Branchen-Tabs */}
+        {/* Branchen-Tabs – Touch-first & 4K-ready */}
         <div className="relative">
-          {/* Fades links/rechts als Scroll-Hinweis */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-background to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-background to-transparent" />
+          {/* Fades als Hint */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-background to-transparent" />
 
           <div
-            className="mb-10 -mx-4 overflow-x-auto px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="
+              mb-10 -mx-4 px-4 overflow-x-auto overscroll-x-contain touch-pan-x
+              snap-x snap-mandatory scroll-smooth
+              [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
+            "
             role="tablist"
             aria-label="Branchen"
+            onKeyDown={handleArrowNav}
           >
-            <ul className="flex snap-x snap-mandatory gap-3 md:grid md:grid-cols-3 lg:grid-cols-5">
+            <ul className="flex items-stretch gap-3 2xl:gap-4">
               {INDUSTRIES.map(({ id, name, shortDesc, icon: Icon }) => {
                 const isActive = id === activeIndustry;
                 return (
-                  <li key={id} className="snap-start">
+                  <li key={id} className="snap-center">
                     <button
                       role="tab"
                       aria-selected={isActive}
                       aria-controls={`${sectionId}-${id}`}
                       onClick={() => setActiveIndustry(id)}
                       className={[
-                        "group relative w-[220px] md:w-auto rounded-2xl border px-4 py-3 text-left md:text-center transition-all",
+                        // Größe & Touch-Ziel
+                        "group relative inline-flex min-w-[210px] sm:min-w-[230px] 2xl:min-w-[260px] items-center gap-3",
+                        "rounded-2xl border px-4 py-4 md:px-5 md:py-5",
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--secondary))] dark:focus-visible:ring-[hsl(var(--primary))]",
+                        // Zustand
                         isActive
                           ? "border-[hsl(var(--secondary))] bg-[hsl(var(--secondary))] text-white shadow-card dark:border-[hsl(var(--primary))] dark:bg-[hsl(var(--primary))]"
                           : "border-border bg-card text-foreground hover:border-[hsl(var(--secondary)/0.6)] hover:shadow-soft dark:hover:border-[hsl(var(--primary)/0.6)]",
                       ].join(" ")}
                     >
-                      <div className="flex items-center gap-3 md:flex-col md:gap-2">
-                        <span
+                      <span
+                        className={[
+                          "grid h-12 w-12 place-content-center rounded-xl ring-1 transition-all",
+                          isActive
+                            ? "bg-white/15 ring-white/30"
+                            : "bg-[hsl(var(--secondary)/0.10)] ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.12)] dark:ring-[hsl(var(--primary)/0.35)]",
+                        ].join(" ")}
+                      >
+                        <Icon
                           className={[
-                            "grid h-10 w-10 place-content-center rounded-xl ring-1 transition-all",
+                            "h-6 w-6",
                             isActive
-                              ? "bg-white/15 ring-white/30"
-                              : "bg-[hsl(var(--secondary)/0.10)] ring-[hsl(var(--secondary)/0.35)] dark:bg-[hsl(var(--primary)/0.12)] dark:ring-[hsl(var(--primary)/0.35)]",
+                              ? "text-white"
+                              : "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]",
                           ].join(" ")}
+                        />
+                      </span>
+                      <span className="min-w-0 md:text-center">
+                        <span className="block truncate text-sm font-semibold tracking-tight">
+                          {name}
+                        </span>
+                        <span
+                          className={
+                            isActive
+                              ? "block text-xs text-white/85"
+                              : "block text-xs text-muted-foreground"
+                          }
                         >
-                          <Icon
-                            className={[
-                              "h-6 w-6",
-                              isActive
-                                ? "text-white"
-                                : "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]",
-                            ].join(" ")}
-                          />
+                          {shortDesc}
                         </span>
-                        <span className="min-w-0">
-                          <span className="block truncate text-sm font-semibold tracking-tight">
-                            {name}
-                          </span>
-                          <span
-                            className={[
-                              "block text-xs",
-                              isActive
-                                ? "text-white/85"
-                                : "text-muted-foreground",
-                            ].join(" ")}
-                          >
-                            {shortDesc}
-                          </span>
-                        </span>
-                      </div>
+                      </span>
 
-                      {/* Aktiver Unterstreichungs-Indikator (Apple-like) */}
+                      {/* Aktive Unterstreichung */}
                       <span
                         aria-hidden
                         className={[
-                          "absolute left-3 right-3 -bottom-[2px] h-[3px] rounded-full transition-all duration-300",
+                          "absolute left-4 right-4 -bottom-[2px] h-[3px] rounded-full transition-all duration-300",
                           isActive
                             ? "bg-white/90 dark:bg-white/90"
                             : "bg-transparent group-hover:bg-[hsl(var(--secondary)/0.25)] dark:group-hover:bg-[hsl(var(--primary)/0.25)]",
@@ -389,7 +404,7 @@ export default function UseCasesSection() {
           </div>
         </div>
 
-        {/* Inhalt der aktiven Branche */}
+        {/* Inhalt – Cards (breiteres Grid auf großen Screens) */}
         <div
           id={`${sectionId}-${activeIndustry}`}
           role="tabpanel"
@@ -397,7 +412,7 @@ export default function UseCasesSection() {
           className="animate-fade-in"
         >
           <div className="mx-auto mb-8 sm:mb-10 max-w-3xl text-center">
-            <h3 className="text-2xl font-bold md:text-3xl tracking-tight">
+            <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
               {active.title}
             </h3>
             <p className="mt-2 text-lg text-muted-foreground">
@@ -405,22 +420,21 @@ export default function UseCasesSection() {
             </p>
           </div>
 
-          {/* Cards symmetrisch, Apple-clean */}
-          <div className="grid gap-5 sm:gap-6 lg:grid-cols-3">
+          <div className="mx-auto max-w-[1400px] xl:max-w-[1600px] 2xl:max-w-[1800px] grid gap-5 sm:gap-6 lg:grid-cols-3 2xl:gap-8">
             {active.cases.map(
               ({ title, description, benefits, icon: Icon }) => (
                 <Card
                   key={title}
                   className="
-        group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border
-        bg-card/95 supports-[backdrop-filter]:bg-card/90 backdrop-blur
-        p-6 sm:p-7 shadow-soft transition-all duration-300
-        hover:-translate-y-0.5 hover:shadow-card
-        focus-within:outline-none focus-within:ring-2 focus-within:ring-[hsl(var(--secondary)/0.6)]
-        dark:focus-within:ring-[hsl(var(--primary)/0.6)]
-      "
+                  group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border
+                  bg-card/95 supports-[backdrop-filter]:bg-card/90 backdrop-blur
+                  p-6 sm:p-7 shadow-soft transition-all duration-300
+                  hover:-translate-y-0.5 hover:shadow-card
+                  focus-within:outline-none focus-within:ring-2 focus-within:ring-[hsl(var(--secondary)/0.6)]
+                  dark:focus-within:ring-[hsl(var(--primary)/0.6)]
+                "
                 >
-                  {/* zarter Verlauf-Overlay für mehr Tiefe */}
+                  {/* zarter Verlauf */}
                   <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -443,20 +457,19 @@ export default function UseCasesSection() {
                     <div className="relative">
                       <div
                         className="
-              grid h-16 w-16 place-content-center rounded-full shadow-button transition-transform duration-300 group-hover:scale-105
-              bg-[radial-gradient(60%_60%_at_30%_30%,_rgba(255,255,255,0.45),_rgba(255,255,255,0.05))]
-              ring-1 ring-border
-            "
+                        grid h-16 w-16 place-content-center rounded-full shadow-button transition-transform duration-300 group-hover:scale-105
+                        bg-[radial-gradient(60%_60%_at_30%_30%,_rgba(255,255,255,0.45),_rgba(255,255,255,0.05))]
+                        ring-1 ring-border
+                      "
                       >
                         <Icon className="h-8 w-8 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                       </div>
-                      {/* feine Doppel-Ringe */}
                       <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[hsl(var(--secondary)/0.18)] dark:ring-[hsl(var(--primary)/0.20)]" />
                       <span className="pointer-events-none absolute -inset-1 rounded-full ring-1 ring-black/5 dark:ring-white/5" />
                     </div>
                   </div>
 
-                  {/* Header-Block: Titel + Beschreibung → gleiche Höhe auf Desktop */}
+                  {/* Titel/Desc */}
                   <div className="mx-auto w-full max-w-md text-center lg:max-w-none lg:min-h-[132px] flex flex-col justify-start">
                     <h4 className="text-lg font-semibold tracking-tight leading-snug line-clamp-2">
                       {title}
@@ -466,7 +479,7 @@ export default function UseCasesSection() {
                     </p>
                   </div>
 
-                  {/* Vorteile starten jetzt überall auf gleicher Höhe */}
+                  {/* Benefits */}
                   <ul className="mt-5 grid gap-2.5">
                     {benefits.map((b) => (
                       <li
@@ -479,7 +492,6 @@ export default function UseCasesSection() {
                     ))}
                   </ul>
 
-                  {/* Abstandshalter + Unterkante */}
                   <div className="mt-6" />
                   <div className="mt-auto h-px w-full bg-gradient-to-r from-transparent via-[hsl(var(--secondary)/0.45)] to-transparent dark:via-[hsl(var(--primary)/0.45)]" />
                 </Card>
@@ -496,11 +508,11 @@ export default function UseCasesSection() {
           "
         >
           <h4 className="text-2xl font-bold tracking-tight">
-            Ihre Branche nicht dabei?
+            Deine Branche ist nicht dabei?
           </h4>
           <p className="mx-auto mt-2 max-w-3xl text-lg text-muted-foreground">
-            Wir entwickeln maßgeschneiderte Lösungen für jede Branche. Sprechen
-            wir über Ihr Projekt.
+            Wir entwickeln maßgeschneiderte Lösungen für jede Branche. Lass uns
+            über Dein Projekt sprechen.
           </p>
           <div className="mt-6">
             <Button

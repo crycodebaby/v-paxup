@@ -14,11 +14,12 @@ import {
 import PaxupFlowLogoLight from "@/assets/paxup-flow-logo.png";
 import PaxupFlowLogoDark from "@/assets/for-dark-theme-flow-logo.png";
 
+/** Problem → Lösung (Du-Ansprache) */
 const problemSolutionPairs = [
   {
     problem: {
       icon: AlertTriangle,
-      text: "Sorge, den Anschluss an den Wettbewerb zu verlieren.",
+      text: "Sorge, den Anschluss an den Wettbewerb zu verlieren?",
     },
     solution: {
       icon: TrendingUp,
@@ -28,30 +29,30 @@ const problemSolutionPairs = [
   {
     problem: {
       icon: TrendingDown,
-      text: "Hoher manueller Aufwand bremst das Wachstum.",
+      text: "Hoher manueller Aufwand bremst dein Wachstum?",
     },
     solution: {
       icon: CheckCircle2,
-      text: "Schlanke, automatisierte Prozesse, die mit Ihnen wachsen.",
+      text: "Schlanke, automatisierte Prozesse, die mit dir skalieren.",
     },
   },
   {
     problem: {
       icon: Lock,
-      text: "Bedenken wegen Datenschutz und Datensicherheit.",
+      text: "Bedenken bei Datenschutz & Datensicherheit?",
     },
     solution: {
       icon: ShieldCheck,
       text: "100% DSGVO-konforme Lösungen, gehostet in Deutschland.",
     },
   },
-];
+] as const;
 
-const ProblemSolutionSection = () => {
-  const calendlyUrl = "https://cal.com/paxup";
+const calendlyUrl = "https://cal.com/paxup";
 
+export default function ProblemSolutionSection() {
   return (
-    <section className="py-20 md:py-32 bg-background overflow-hidden">
+    <section className="py-20 md:py-32 bg-background overflow-hidden font-sans">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Headline */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
@@ -59,60 +60,73 @@ const ProblemSolutionSection = () => {
             Vom digitalen Chaos zur klaren Ordnung
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground">
-            Sie kennen die Komplexität. Wir schaffen die Synergie. Entdecken Sie
-            Ihren direkten Weg zur digitalen Effizienz.
+            Du kennst die Komplexität. Wir schaffen Synergien. Entdecke deinen
+            direkten Weg zur digitalen Effizienz.
           </p>
         </div>
 
         {/* 3-Spalten Flow */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-0">
-          {/* Spalte 1: Probleme */}
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-0">
+          {/* Spalte 1: Probleme (Icon = Akzent-Rot, Text rechts/links je nach Breakpoint) */}
           <div className="w-full lg:w-1/3 space-y-8 lg:pr-12">
-            {problemSolutionPairs.map((pair, index) => (
+            {problemSolutionPairs.map(({ problem }, i) => (
               <div
-                key={`problem-${index}`}
-                className="flex items-start gap-4 text-right lg:text-left"
+                key={`problem-${i}`}
+                className="flex items-start gap-4 text-left lg:text-right"
               >
-                <div className="flex-1 lg:order-2">
-                  <p className="text-lg text-muted-foreground">
-                    {pair.problem.text}
-                  </p>
-                </div>
-                <pair.problem.icon className="w-8 h-8 text-secondary flex-shrink-0 lg:order-1" />
+                {/* Icon in roter Kapsel für immer perfekten Kontrast */}
+                <span
+                  className="
+                    grid h-10 w-10 flex-shrink-0 place-content-center rounded-full
+                    bg-[hsl(var(--secondary))] text-white
+                    dark:bg-[hsl(var(--primary))] dark:text-white
+                    shadow-sm ring-1 ring-white/15
+                  "
+                >
+                  <problem.icon className="h-5 w-5" />
+                </span>
+                <p className="flex-1 text-lg text-muted-foreground">
+                  {problem.text}
+                </p>
               </div>
             ))}
           </div>
 
-          {/* Mitte: Visual (Dark/Light tauschen sich aus) */}
+          {/* Mitte: Visual (Light/Dark) */}
           <div className="w-full max-w-md lg:w-auto lg:flex-1 px-4 my-8 lg:my-0">
-            {/* Light-Version */}
             <img
               src={PaxupFlowLogoLight}
-              alt="PAXUP verwandelt digitales Chaos in klare Ordnung"
+              alt="PAXUP: Vom digitalen Chaos zur Ordnung – Flow Visual"
               className="block dark:hidden w-full h-auto"
               loading="lazy"
               decoding="async"
             />
-            {/* Dark-Version */}
             <img
               src={PaxupFlowLogoDark}
-              alt="PAXUP verwandelt digitales Chaos in klare Ordnung (Dark Theme)"
+              alt="PAXUP: Vom digitalen Chaos zur Ordnung – Flow Visual (Dark)"
               className="hidden dark:block w-full h-auto"
               loading="lazy"
               decoding="async"
             />
           </div>
 
-          {/* Spalte 3: Lösungen */}
+          {/* Spalte 3: Lösungen (Icon = Weiß auf roter Kapsel) */}
           <div className="w-full lg:w-1/3 space-y-8 lg:pl-12">
-            {problemSolutionPairs.map((pair, index) => (
-              <div key={`solution-${index}`} className="flex items-start gap-4">
-                <pair.solution.icon className="w-8 h-8 text-primary flex-shrink-0" />
-                <div className="flex-1">
-                  <p className="text-lg font-semibold text-foreground">
-                    {pair.solution.text}
-                  </p>
-                </div>
+            {problemSolutionPairs.map(({ solution }, i) => (
+              <div key={`solution-${i}`} className="flex items-start gap-4">
+                <span
+                  className="
+                    grid h-10 w-10 flex-shrink-0 place-content-center rounded-full
+                    bg-[hsl(var(--secondary))] text-white
+                    dark:bg-[hsl(var(--primary))] dark:text-white
+                    shadow-sm ring-1 ring-white/15
+                  "
+                >
+                  <solution.icon className="h-5 w-5" />
+                </span>
+                <p className="flex-1 text-lg font-semibold text-foreground">
+                  {solution.text}
+                </p>
               </div>
             ))}
           </div>
@@ -125,13 +139,11 @@ const ProblemSolutionSection = () => {
             className="px-8 py-6 text-lg group"
             onClick={() => window.open(calendlyUrl, "_blank")}
           >
-            Starten Sie Ihre Transformation
+            Starte deine Transformation
             <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
       </div>
     </section>
   );
-};
-
-export default ProblemSolutionSection;
+}

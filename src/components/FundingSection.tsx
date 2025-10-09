@@ -18,7 +18,7 @@ const CAL_URL = "https://cal.com/paxup";
 export default function FundingSection() {
   return (
     <section
-      className="relative overflow-hidden border-y border-border/40 py-16 sm:py-20 bg-gradient-subtle"
+      className="relative overflow-hidden border-y border-border/40 bg-gradient-subtle py-14 xs:py-16 sm:py-20 lg:py-24"
       aria-labelledby="bafa-heading"
     >
       {/* Partikel / Aura – Light: secondary, Dark: primary */}
@@ -39,13 +39,14 @@ export default function FundingSection() {
         }}
       />
 
-      <div className="container mx-auto px-4 lg:px-8">
+      {/* Eigener, breiter Wrapper (unabhängig vom Tailwind-Container) */}
+      <div className="mx-auto w-full max-w-[96rem] px-3 xs:px-4 lg:px-8">
         <Card
           className="
-            group relative mx-auto max-w-5xl overflow-hidden rounded-3xl
+            group relative mx-auto w-full overflow-hidden rounded-3xl
             border border-border bg-card/95 supports-[backdrop-filter]:bg-card/85 backdrop-blur
-            px-6 py-8 sm:px-10 sm:py-12 shadow-soft transition-all duration-500
-            hover:shadow-card hover:-translate-y-0.5
+            px-4 py-6 xs:px-6 xs:py-8 sm:px-10 sm:py-12 lg:px-12 lg:py-14
+            shadow-soft transition-all duration-500 hover:-translate-y-0.5 hover:shadow-card
           "
         >
           {/* Dekorative Glows */}
@@ -71,23 +72,23 @@ export default function FundingSection() {
             aria-hidden
             src={UpBlau}
             alt=""
-            className="pointer-events-none absolute -right-6 top-6 hidden h-24 w-auto opacity-10 sm:block"
+            className="pointer-events-none absolute -right-6 top-6 hidden h-20 w-auto opacity-10 sm:block lg:h-24"
           />
           <img
             aria-hidden
             src={UpRot}
             alt=""
-            className="pointer-events-none absolute left-6 -bottom-4 hidden h-20 w-auto opacity-10 sm:block"
+            className="pointer-events-none absolute left-6 -bottom-4 hidden h-16 w-auto opacity-10 sm:block lg:h-20"
           />
           <img
             aria-hidden
             src={UpWeiss}
             alt=""
-            className="pointer-events-none absolute right-24 bottom-8 hidden h-12 w-auto opacity-10 md:block"
+            className="pointer-events-none absolute right-24 bottom-8 hidden h-10 w-auto opacity-10 md:block lg:h-12"
           />
 
           {/* Head */}
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-3xl text-balance text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-[hsl(var(--secondary)/0.4)] bg-[hsl(var(--secondary)/0.08)] px-3 py-1.5 text-xs font-semibold tracking-wide text-[hsl(var(--secondary))] dark:border-[hsl(var(--primary)/0.45)] dark:bg-[hsl(var(--primary)/0.12)] dark:text-[hsl(var(--primary))]">
               <BadgeCheck className="h-3.5 w-3.5" />
               BAFA-Förderung
@@ -95,7 +96,7 @@ export default function FundingSection() {
 
             <h2
               id="bafa-heading"
-              className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl"
+              className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl 2xl:text-6xl"
             >
               Bis zu{" "}
               <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
@@ -103,19 +104,20 @@ export default function FundingSection() {
               </span>{" "}
               für Strategie & Umsetzung
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-base sm:text-lg text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
               Wir prüfen die Förderfähigkeit, bereiten die Unterlagen vor und
-              setzen Ihr Vorhaben förderkonform um:{" "}
+              setzen dein Vorhaben förderkonform um:{" "}
               <span className="font-medium">schnell, sicher, messbar</span>.
             </p>
           </div>
 
           {/* Inhalt */}
-          <div className="mx-auto mt-8 grid max-w-4xl gap-6 sm:gap-7 lg:grid-cols-3">
+          <div className="mx-auto mt-8 grid w-full max-w-[80rem] gap-5 sm:gap-6 lg:grid-cols-3">
             {/* Kachel: Konditionen */}
             <div
               className="
-                relative overflow-hidden rounded-2xl border border-border bg-background/60 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+                relative overflow-hidden rounded-2xl border border-border bg-background/60 p-5 sm:p-6
+                shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
                 transition-transform duration-300 hover:-translate-y-0.5
               "
             >
@@ -147,10 +149,11 @@ export default function FundingSection() {
               </ul>
             </div>
 
-            {/* Kachel: Was wir übernehmen */}
+            {/* Kachel: Unser Beitrag */}
             <div
               className="
-                relative overflow-hidden rounded-2xl border border-border bg-background/60 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+                relative overflow-hidden rounded-2xl border border-border bg-background/60 p-5 sm:p-6
+                shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
                 transition-transform duration-300 hover:-translate-y-0.5
               "
             >
@@ -182,10 +185,11 @@ export default function FundingSection() {
               </ul>
             </div>
 
-            {/* Kachel: Compliance */}
+            {/* Kachel: Sicher & konform */}
             <div
               className="
-                relative overflow-hidden rounded-2xl border border-border bg-background/60 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+                relative overflow-hidden rounded-2xl border border-border bg-background/60 p-5 sm:p-6
+                shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
                 transition-transform duration-300 hover:-translate-y-0.5
               "
             >
@@ -208,14 +212,14 @@ export default function FundingSection() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
-                  <span>Nachweisführung für Förderstelle</span>
+                  <span>Nachweisführung für die Förderstelle</span>
                 </li>
               </ul>
             </div>
           </div>
 
           {/* CTA */}
-          <div className="mx-auto mt-10 flex max-w-3xl flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <div className="mx-auto mt-8 flex w-full max-w-[56rem] flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
             <Button
               size="lg"
               className="
@@ -240,13 +244,13 @@ export default function FundingSection() {
           </div>
 
           {/* Fußnote */}
-          <p className="mx-auto mt-4 max-w-3xl text-center text-xs text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-3xl text-center text-balance text-xs text-muted-foreground">
             Hinweis: Förderkonditionen variieren je nach Unternehmensgröße,
             Region und Programmstand. Die endgültige Bewilligung und Auszahlung
             von Fördermitteln erfolgt ausschließlich durch die jeweilige
-            Förderstelle (z. B. BAFA). Wir übernehmen keine Garantie für die
-            Förderfähigkeit oder Bewilligung, unterstützen Sie jedoch
-            bestmöglich bei der Antragsvorbereitung und Umsetzung.
+            Förderstelle (z. B. BAFA). Wir übernehmen keine Garantie für
+            Förderfähigkeit oder Bewilligung, unterstützen dich jedoch
+            bestmöglich bei Antrag und Umsetzung.
           </p>
         </Card>
       </div>
