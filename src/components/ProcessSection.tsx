@@ -167,7 +167,7 @@ export default function ProcessSection() {
                       {step.number}
                     </div>
 
-                    {/* Icon */}
+                    {/* Icon (immer CI-Rot) */}
                     <div
                       className={[
                         "grid place-content-center rounded-xl w-11 h-11 md:w-12 md:h-12 transition-colors",
@@ -177,7 +177,9 @@ export default function ProcessSection() {
                       <Icon
                         className={[
                           "w-5 h-5 md:w-6 md:h-6 transition-transform",
-                          isActive ? "text-primary scale-110" : "text-primary",
+                          isActive ? "scale-110" : "",
+                          // Light: --secondary (Rot), Dark: --primary (Rot)
+                          "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]",
                         ].join(" ")}
                       />
                     </div>
@@ -220,7 +222,8 @@ export default function ProcessSection() {
                         {/* Dauer + Deliverables */}
                         <div className="space-y-4">
                           <div className="flex items-start gap-3">
-                            <Clock className="w-5 h-5 text-accent mt-0.5" />
+                            {/* Clock in Rot */}
+                            <Clock className="w-5 h-5 mt-0.5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                             <div>
                               <h5 className="font-semibold text-foreground">
                                 Dauer
@@ -232,7 +235,8 @@ export default function ProcessSection() {
                           </div>
 
                           <div className="flex items-start gap-3">
-                            <Zap className="w-5 h-5 text-primary mt-0.5" />
+                            {/* Zap in Rot */}
+                            <Zap className="w-5 h-5 mt-0.5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                             <div>
                               <h5 className="font-semibold text-foreground mb-1">
                                 Ergebnis
@@ -247,7 +251,8 @@ export default function ProcessSection() {
                         {/* Konkrete Beispiele */}
                         <div>
                           <div className="flex items-start gap-3 mb-3">
-                            <Users className="w-5 h-5 text-accent mt-0.5" />
+                            {/* Users in Rot */}
+                            <Users className="w-5 h-5 mt-0.5 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]" />
                             <h5 className="font-semibold text-foreground">
                               Was wir konkret machen
                             </h5>
