@@ -86,7 +86,8 @@ export default function AboutSection() {
                 className="text-balance text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl"
               >
                 Dein Partner auf Augenhöhe für den{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">
+                {/* Statt alter Gradient-Text: sauberes CI-Rot (Light/Dark) */}
+                <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
                   digitalen Mittelstand
                 </span>
               </h2>
@@ -111,6 +112,7 @@ export default function AboutSection() {
                         {description}
                       </p>
                     </div>
+                    {/* Fokusring in CI-Rot */}
                     <span className="pointer-events-none absolute inset-0 rounded-xl ring-0 ring-[hsl(var(--secondary))] ring-offset-0 group-focus-within:ring-2 dark:ring-[hsl(var(--primary))]" />
                   </div>
                 </li>
@@ -121,6 +123,7 @@ export default function AboutSection() {
               <Button size="lg" asChild className="group">
                 <Link to="/ueber-uns">
                   Lerne uns kennen
+                  {/* Pfeil in CI-Rot (Light/Dark) */}
                   <ArrowRight className="ml-3 h-5 w-5 text-[hsl(var(--secondary))] transition-transform duration-200 group-hover:translate-x-1 dark:text-[hsl(var(--primary))]" />
                 </Link>
               </Button>

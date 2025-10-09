@@ -16,31 +16,31 @@ type ServiceItem = {
 const SERVICES: Readonly<ServiceItem[]> = [
   {
     icon: Target,
-    title: "Strategie, die trägt",
+    title: "Klare Strategie",
     description:
-      "Von Quick Wins zur Roadmap – messbar, machbar, in deiner Sprache.",
-    ariaLabel: "Strategische Entwicklung von Quick Wins zur Roadmap",
+      "Wir zeigen dir, wo Digitalisierung wirklich lohnt und wie du Schritt für Schritt dorthin kommst.",
+    ariaLabel: "Strategie und Plan für eine sinnvolle Digitalisierung",
   },
   {
     icon: Bot,
-    title: "KI als Helfer",
+    title: "Digitale Helfer",
     description:
-      "Bots & Automatisierung für Tickets, Dokumente und Termine – dort, wo es wirkt.",
-    ariaLabel: "Automatisierung für Tickets, Dokumente und Termin-Management",
+      "Routinearbeiten laufen automatisch: E-Mails, Termine und Dokumente werden für dich erledigt.",
+    ariaLabel: "Automatisierte Abläufe für E-Mails, Termine und Dokumente",
   },
   {
     icon: Shield,
-    title: "DSGVO in Deutschland",
+    title: "Datenschutz nach deutschem Recht",
     description:
-      "Hosting & Verarbeitung in DE. Nachvollziehbar, auditierbar, sicher.",
-    ariaLabel: "DSGVO-konforme Verarbeitung und Hosting in Deutschland",
+      "Deine Daten bleiben in Deutschland – transparent, geprüft und sicher verarbeitet.",
+    ariaLabel: "Datenschutzkonforme Verarbeitung und Hosting in Deutschland",
   },
   {
     icon: DollarSign,
-    title: "Förderung ohne Aufwand",
+    title: "Fördermittel nutzen",
     description:
-      "Wir identifizieren Programme, übernehmen Anträge – du erhältst Zuschüsse.",
-    ariaLabel: "Staatliche Förderung: Programme & Anträge",
+      "Wir finden passende Zuschüsse, kümmern uns um die Anträge und du sparst bares Geld.",
+    ariaLabel: "Förderprogramme und Zuschüsse für Unternehmen",
   },
 ] as const;
 
@@ -170,22 +170,22 @@ function HeroSectionBase() {
       />
 
       {/* Inhalt */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 py-14 md:py-20">
-        <div className="grid items-center gap-10 lg:gap-14 xl:gap-20 lg:grid-cols-5">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 /* py-14 md:py-20 */ py-fluid-16">
+        <div className="grid items-center /* gap-10 lg:gap-14 xl:gap-20 */ gap-fluid-10 lg:grid-cols-5">
           {/* Headline & Copy (links) */}
           <div className="lg:col-span-3 text-center lg:text-left">
             <div className="mx-auto lg:mx-0 max-w-3xl">
-              <h1 className="font-bold tracking-tight leading-tight text-4xl md:text-5xl xl:text-6xl">
-                <span className="block">Dein Unternehmen,</span>
-                <span className="block">erfolgreich durch:</span>
+              <h1 className="font-bold tracking-tight /* leading-tight */ leading-snugger /* text-4xl md:text-5xl xl:text-6xl */ text-fluid-h1 text-balance">
+                <span className="block">Weniger verwalten.</span>
+                <span className="block">Mehr gestalten:</span>
                 <span
-                  className="mt-4 inline-block rounded-2xl border px-4 py-2.5
-                  border-[hsl(var(--secondary)/0.45)] text-[hsl(var(--secondary))]
-                  bg-[hsl(var(--secondary)/0.12)] backdrop-blur-[2px]
-                  shadow-button
-                  dark:border-[hsl(var(--primary)/0.45)] dark:text-[hsl(var(--primary))]
-                  dark:bg-[hsl(var(--primary)/0.15)]
-                "
+                  className="/* mt-4 */ mt-3 md:mt-4 xl:mt-5 inline-block rounded-2xl border px-4 py-2.5
+            border-[hsl(var(--secondary)/0.45)] text-[hsl(var(--secondary))]
+            bg-[hsl(var(--secondary)/0.12)] backdrop-blur-[2px]
+            shadow-button
+            dark:border-[hsl(var(--primary)/0.45)] dark:text-[hsl(var(--primary))]
+            dark:bg-[hsl(var(--primary)/0.15)]
+          "
                 >
                   Digitalisierung &amp; KI
                 </span>
@@ -193,16 +193,15 @@ function HeroSectionBase() {
 
               <div className="mt-5 md:mt-7 space-y-4 md:space-y-5 max-w-[62ch] mx-auto lg:mx-0">
                 <p className="text-lg md:text-xl leading-relaxed">
-                  KI & Digitalisierung wirken erst, wenn sie deinen Alltag
-                  entlasten.{" "}
+                  Deine Zeit ist zu wertvoll für repetitive Aufgaben.{" "}
                   <strong className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
-                    Wir bringen beides zusammen
+                    Wir automatisieren deine Prozesse von A bis Z,
                   </strong>{" "}
-                  – pragmatisch, sicher, messbar.
+                  damit du wieder Zeit für Wachstum und Strategie hast.
                 </p>
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
                   Strategie, Umsetzung und Betreuung aus einer Hand: klare
-                  Ziele, schnelle Go-Lives, sichtbarer ROI.
+                  Ziele, schnelle Inbetriebnahme, sichtbarer Mehrwert.
                 </p>
               </div>
 
@@ -213,7 +212,7 @@ function HeroSectionBase() {
                   onClick={() => window.open(CALENDLY_URL, "_blank")}
                   aria-label="Kostenloses Beratungsgespräch vereinbaren"
                 >
-                  Kostenloses Beratungsgespräch →
+                  Dein kostenloses Strategiegespräch →
                 </Button>
               </div>
             </div>

@@ -161,7 +161,8 @@ export default function ProcessSection() {
                       className={[
                         "grid place-content-center rounded-full text-white font-bold text-base md:text-lg w-12 h-12 md:w-14 md:h-14 shadow-button transition-transform duration-300",
                         isActive ? "scale-110" : "",
-                        "bg-[linear-gradient(135deg,hsl(var(--primary))_0%,hsl(215_28%_18%)_100%)]",
+                        "bg-[linear-gradient(135deg,hsl(var(--secondary))_0%,hsl(var(--secondary))_100%)]",
+                        "dark:bg-[linear-gradient(135deg,hsl(var(--primary))_0%,hsl(var(--primary-hover))_100%)]",
                       ].join(" ")}
                     >
                       {step.number}
@@ -286,7 +287,9 @@ export default function ProcessSection() {
           <Button
             variant="cta"
             size="lg"
-            className="px-7 py-6 text-base md:text-lg shadow-button hover:shadow-elegant transition-all duration-300"
+            className="px-7 py-6 text-base md:text-lg shadow-button hover:shadow-elegant transition-all duration-300
+             bg-[linear-gradient(135deg,hsl(var(--secondary))_0%,hsl(var(--secondary))_100%)]
+             dark:bg-[linear-gradient(135deg,hsl(var(--primary))_0%,hsl(var(--primary-hover))_100%)]"
             onClick={() => window.open("https://cal.com/paxup", "_blank")}
           >
             Jetzt mit KI im Unternehmen starten

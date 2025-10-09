@@ -306,7 +306,9 @@ export default function Services() {
               <Button
                 variant="cta"
                 size="lg"
-                className="px-7 py-6 text-base md:text-lg shadow-button hover:shadow-elegant transition-all duration-300"
+                className="px-7 py-6 text-base md:text-lg shadow-button hover:shadow-elegant transition-all duration-300
+             bg-[linear-gradient(135deg,hsl(var(--secondary))_0%,hsl(var(--secondary))_100%)]
+             dark:bg-[linear-gradient(135deg,hsl(var(--primary))_0%,hsl(var(--primary-hover))_100%)] text-white"
                 onClick={() => window.open(CAL_URL, "_blank")}
               >
                 Jetzt mit KI im Unternehmen starten
@@ -316,7 +318,12 @@ export default function Services() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="py-16 md:py-20 bg-gradient-primary text-white">
+        <section
+          className="py-16 md:py-20
+             text-white
+             bg-[linear-gradient(135deg,hsl(var(--secondary))_0%,hsl(var(--secondary))_100%)]
+             dark:bg-[linear-gradient(135deg,hsl(var(--primary))_0%,hsl(var(--primary-hover))_100%)]"
+        >
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold">
@@ -325,18 +332,21 @@ export default function Services() {
               <p className="mt-3 text-lg opacity-90">
                 Wir bringen Ihre Prozesse auf Kurs pragmatisch, sicher, messbar.
               </p>
+
               <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
                 <Button
-                  variant="outline"
                   size="lg"
-                  className="bg-white text-primary hover:bg-white/90 border-white"
+                  className="bg-white text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]
+                     hover:bg-white/90 border-white shadow-button"
                   onClick={() => window.open(CAL_URL, "_blank")}
                 >
                   Kostenlose Erstberatung
                 </Button>
+
                 <Button
-                  variant="secondary"
                   size="lg"
+                  className="bg-[hsl(var(--secondary)/0.15)] dark:bg-[hsl(var(--primary)/0.15)]
+                     text-white border border-white/30 hover:bg-[hsl(var(--secondary)/0.25)] dark:hover:bg-[hsl(var(--primary)/0.25)] shadow-button"
                   onClick={() => (window.location.href = "/foerderung")}
                 >
                   Fördermöglichkeiten entdecken

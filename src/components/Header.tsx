@@ -232,7 +232,8 @@ export default function Header() {
             </Button>
             <Button
               size="sm"
-              className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+              className="text-secondary-foreground hover:opacity-90 transition-all duration-300
+             bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]"
               onClick={() => window.open(calendlyUrl, "_blank")}
             >
               <Sparkles className="mr-2 h-4 w-4" />

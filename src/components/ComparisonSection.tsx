@@ -102,8 +102,9 @@ export default function ComparisonSection() {
         </div>
 
         <div className="mx-auto grid max-w-[1500px] 2xl:max-w-[1800px] gap-6 lg:grid-cols-2 2xl:gap-8">
+          {/* NEGATIV: Light=--secondary (Rot), Dark=--primary (Rot) */}
           <TableBlock
-            colorVar="--destructive"
+            tone="negative"
             title="Ohne Begleitung"
             lead="Was dich bremst, wenn KI ohne Strategie und Umsetzung eingeführt wird."
             rows={rows.map(({ icon, title, without: text }) => ({
@@ -113,8 +114,9 @@ export default function ComparisonSection() {
             }))}
             HeaderIcon={X}
           />
+          {/* POSITIV: immer --success (Grün) */}
           <TableBlock
-            colorVar="--success"
+            tone="positive"
             title="Mit PAXUP"
             lead="Was du mit uns bekommst: klare Roadmap, messbare Ergebnisse und Ruhe im Kopf."
             rows={rows.map(({ icon, title, with: text }) => ({
@@ -131,20 +133,38 @@ export default function ComparisonSection() {
 }
 
 function TableBlock({
-  colorVar,
+  tone,
   title,
   lead,
   rows,
   HeaderIcon,
 }: {
-  colorVar: "--success" | "--destructive";
+  tone: "negative" | "positive";
   title: string;
   lead: string;
   rows: { icon: IconType; title: string; text: string }[];
   HeaderIcon: IconType;
 }) {
-  const chipBg = `bg-[hsl(var(${colorVar})/0.16)]`;
-  const sideGrad = `linear-gradient(180deg, hsl(var(${colorVar})), hsl(var(${colorVar})/0.65))`;
+  const isNeg = tone === "negative";
+
+  // Chips / Ringe (light & dark getrennt, damit Rot korrekt wechselt)
+  const chipBg = isNeg
+    ? "bg-[hsl(var(--secondary)/0.16)] dark:bg-[hsl(var(--primary)/0.16)]"
+    : "bg-[hsl(var(--success)/0.16)] dark:bg-[hsl(var(--success)/0.16)]";
+  const chipRing = isNeg
+    ? "ring-[hsl(var(--secondary)/0.22)] dark:ring-[hsl(var(--primary)/0.22)]"
+    : "ring-[hsl(var(--success)/0.22)] dark:ring-[hsl(var(--success)/0.22)]";
+  const iconColor = isNeg
+    ? "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]"
+    : "text-[hsl(var(--success))] dark:text-[hsl(var(--success))]";
+
+  // Seitenleisten: wir rendern je Seite separate light/dark-Layer für sauberen Verlauf
+  const sideLight = isNeg
+    ? "bg-[linear-gradient(180deg,hsl(var(--secondary)),hsl(var(--secondary)/0.65))]"
+    : "bg-[linear-gradient(180deg,hsl(var(--success)),hsl(var(--success)/0.65))]";
+  const sideDark = isNeg
+    ? "bg-[linear-gradient(180deg,hsl(var(--primary)),hsl(var(--primary)/0.65))]"
+    : "bg-[linear-gradient(180deg,hsl(var(--success)),hsl(var(--success)/0.65))]";
 
   return (
     <Card
@@ -154,32 +174,46 @@ function TableBlock({
       )}
       aria-label={title}
     >
+      {/* Linke & rechte farbige Seitenleiste (Light & Dark getrennt) */}
       <span
         aria-hidden
-        className="absolute inset-y-0 left-0 w-[7px]"
-        style={{ background: sideGrad, filter: "blur(0.4px)" }}
+        className={cn(
+          "absolute inset-y-0 left-0 w-[7px] blur-[0.4px] block dark:hidden",
+          sideLight
+        )}
       />
       <span
         aria-hidden
-        className="absolute inset-y-0 right-0 w-[7px]"
-        style={{ background: sideGrad, filter: "blur(0.4px)" }}
+        className={cn(
+          "absolute inset-y-0 left-0 w-[7px] blur-[0.4px] hidden dark:block",
+          sideDark
+        )}
+      />
+      <span
+        aria-hidden
+        className={cn(
+          "absolute inset-y-0 right-0 w-[7px] blur-[0.4px] block dark:hidden",
+          sideLight
+        )}
+      />
+      <span
+        aria-hidden
+        className={cn(
+          "absolute inset-y-0 right-0 w-[7px] blur-[0.4px] hidden dark:block",
+          sideDark
+        )}
       />
 
       <div className="px-5 py-5 sm:px-7 sm:py-7">
         <div className="mx-auto max-w-[75ch] text-center">
           <div
             className={cn(
-              "mx-auto mb-3 grid h-14 w-14 place-content-center rounded-full",
-              chipBg
+              "mx-auto mb-3 grid h-14 w-14 place-content-center rounded-full ring-1",
+              chipBg,
+              chipRing
             )}
-            style={{
-              boxShadow: `0 0 0 1px hsl(var(${colorVar}) / 0.22) inset`,
-            }}
           >
-            <HeaderIcon
-              className="h-7 w-7"
-              style={{ color: `hsl(var(${colorVar}))` }}
-            />
+            <HeaderIcon className={cn("h-7 w-7", iconColor)} />
           </div>
           <h3 className="text-white text-xl md:text-2xl font-bold">{title}</h3>
           <p className="mt-2 text-white/85 text-sm md:text-base">{lead}</p>
@@ -193,18 +227,12 @@ function TableBlock({
               <div className="flex items-start gap-4 p-4">
                 <div
                   className={cn(
-                    "grid h-11 w-11 flex-shrink-0 place-content-center rounded-lg",
+                    "grid h-11 w-11 flex-shrink-0 place-content-center rounded-lg ring-1 transform-gpu",
                     chipBg,
-                    "transform-gpu"
+                    chipRing
                   )}
-                  style={{
-                    boxShadow: `0 0 0 1px hsl(var(${colorVar}) / 0.22) inset`,
-                  }}
                 >
-                  <Icon
-                    className="h-5 w-5"
-                    style={{ color: `hsl(var(${colorVar}))` }}
-                  />
+                  <Icon className={cn("h-5 w-5", iconColor)} />
                 </div>
 
                 <div className="min-w-0">

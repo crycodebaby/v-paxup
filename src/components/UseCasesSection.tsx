@@ -1,5 +1,4 @@
 // src/components/UseCasesSection.tsx
-
 import { useState, useId, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -309,11 +308,15 @@ export default function UseCasesSection() {
             id="usecases-heading"
             className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
           >
-            Anwendungsfälle aus der Praxis
+            Anwendungsfälle aus der Praxis{" "}
+            {/* Konsistenter Rot-Ton statt Gradient-Text */}
+            <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
+              klar & messbar
+            </span>
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Entdecke konkrete Digitalisierungslösungen je Branche – klar
-            visualisiert, mit messbaren Vorteilen.
+            Konkrete Digitalisierungslösungen: je Branche klar visualisiert, mit
+            messbaren Vorteilen.
           </p>
         </div>
 
@@ -520,10 +523,13 @@ export default function UseCasesSection() {
               size="lg"
               onClick={() => window.open("https://cal.com/paxup", "_blank")}
               className="
-                shadow-button transition-transform duration-300 hover:scale-[1.02]
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-                focus-visible:ring-[hsl(var(--secondary))] dark:focus-visible:ring-[hsl(var(--primary))]
-              "
+    shadow-button transition-transform duration-300 hover:scale-[1.02]
+    bg-[hsl(var(--secondary))] hover:bg-[hsl(var(--secondary)/0.9)]
+    dark:bg-[hsl(var(--primary))] dark:hover:bg-[hsl(var(--primary)/0.9)]
+    text-white
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+    focus-visible:ring-[hsl(var(--secondary))] dark:focus-visible:ring-[hsl(var(--primary))]
+  "
             >
               Individuelle Beratung anfragen
             </Button>

@@ -48,7 +48,9 @@ const Footer = () => {
       {/* sanfter Übergang in den Footer */}
       <div
         aria-hidden="true"
-        className="absolute top-0 left-0 w-full h-32 bg-background -skew-y-2 origin-top-left"
+        className="absolute top-0 left-0 w-full
+             h-20 sm:h-24 md:h-32
+             bg-background -skew-y-2 origin-top-left"
       />
 
       <div className="relative container mx-auto px-4 lg:px-8 z-10">
