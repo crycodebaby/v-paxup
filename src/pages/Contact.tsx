@@ -277,7 +277,7 @@ ${data.message}
                     <div>
                       <h3 className="text-lg font-semibold">Telefon</h3>
                       <p className="text-sm text-muted-foreground">
-                        MoFr, 09:0017:00 Uhr
+                        Mo - Fr, 09:00 - 17:00 Uhr
                       </p>
                     </div>
                   </div>
@@ -285,7 +285,7 @@ ${data.message}
                     href="tel:+4964120107130"
                     className="inline-flex items-center gap-2 text-[hsl(var(--secondary))] underline-offset-4 hover:underline dark:text-[hsl(var(--primary))]"
                   >
-                    +49 641 20107130
+                    +49 641 2010 7130
                   </a>
                 </Card>
 
