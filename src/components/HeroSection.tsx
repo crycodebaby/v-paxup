@@ -32,7 +32,7 @@ const SERVICES: Readonly<ServiceItem[]> = [
     icon: Shield,
     title: "Datenschutz nach deutschem Recht",
     description:
-      "Deine Daten bleiben in Deutschland – transparent, geprüft und sicher verarbeitet.",
+      "Deine Daten bleiben in Deutschland: transparent, geprüft und sicher verarbeitet.",
     ariaLabel: "Datenschutzkonforme Verarbeitung und Hosting in Deutschland",
   },
   {
@@ -135,7 +135,7 @@ function HeroSectionBase() {
         min-h-[calc(var(--vh,1vh)*100-var(--header-h,80px))]
         supports-[height:100dvh]:min-h-[calc(100dvh-var(--header-h,80px))]
       "
-      aria-label="PAXUP – Digitalisierung & KI für den Mittelstand"
+      aria-label="PAXUP Digitalisierung & KI für den Mittelstand"
     >
       {/* Hintergrundbild */}
       <div className="absolute inset-0 -z-20">

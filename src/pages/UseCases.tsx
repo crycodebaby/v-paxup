@@ -257,7 +257,7 @@ export default function UseCases() {
             </div>
           </section>
 
-          <section className="bg-gradient-primary text-white">
+          <section className="relative overflow-hidden bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))] text-white">
             <div className="container mx-auto px-4 lg:px-8 py-16 md:py-20">
               <div className="mx-auto max-w-4xl text-center">
                 <h2 className="text-3xl md:text-4xl font-bold">

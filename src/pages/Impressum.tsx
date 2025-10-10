@@ -16,8 +16,14 @@ export default function Impressum() {
           <div className="absolute inset-0 pointer-events-none">
             {/* sanfter Verlauf + Partikel-Glow */}
             <div className="absolute inset-0 bg-gradient-subtle" />
-            <div className="absolute -top-24 -left-24 w-[420px] h-[420px] bg-secondary/10 blur-3xl rounded-full" />
-            <div className="absolute -bottom-20 -right-20 w-[460px] h-[460px] bg-primary/15 blur-3xl rounded-full" />
+            <div
+              className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full blur-3xl
+                            bg-[hsl(var(--secondary)/0.12)] dark:bg-[hsl(var(--primary)/0.12)]"
+            />
+            <div
+              className="absolute -bottom-20 -right-20 w-[460px] h-[460px] rounded-full blur-3xl
+                            bg-[hsl(var(--secondary)/0.10)] dark:bg-[hsl(var(--primary)/0.14)]"
+            />
             <img
               src={UpSymbol}
               alt=""
@@ -27,12 +33,20 @@ export default function Impressum() {
 
           <div className="container relative mx-auto px-4 lg:px-8 py-16 md:py-24">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full bg-secondary/10 text-secondary px-4 py-1.5 mb-6">
+              {/* Kontraststarke Pill – Light: secondary, Dark: primary */}
+              <div
+                className="
+                  inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6
+                  text-secondary-foreground hover:opacity-90 transition-all duration-300
+                  bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]
+                "
+              >
                 <ShieldCheck className="w-4 h-4" />
                 <span className="text-xs font-semibold tracking-wide">
                   Rechtliche Angaben
                 </span>
               </div>
+
               <h1 className="text-3xl md:text-5xl font-bold leading-tight">
                 Impressum
               </h1>
@@ -58,16 +72,24 @@ export default function Impressum() {
                     <p className="font-medium text-foreground">
                       Theodore Rudolph
                     </p>
+
                     <p className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-primary mt-0.5" />
+                      <MapPin
+                        className="w-5 h-5 mt-0.5
+                                         text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]"
+                      />
                       <span>
                         Grünberger Straße 143
                         <br />
                         35394 Gießen
                       </span>
                     </p>
+
                     <p className="flex items-center gap-3">
-                      <Mail className="w-5 h-5 text-primary" />
+                      <Mail
+                        className="w-5 h-5
+                                       text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]"
+                      />
                       <a
                         className="hover:underline"
                         href="mailto:support@paxup.de"
@@ -75,8 +97,12 @@ export default function Impressum() {
                         support@paxup.de
                       </a>
                     </p>
+
                     <p className="flex items-center gap-3">
-                      <Phone className="w-5 h-5 text-primary" />
+                      <Phone
+                        className="w-5 h-5
+                                        text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]"
+                      />
                       <a className="hover:underline" href="tel:+4964120107130">
                         +49 641 20107130
                       </a>
@@ -110,7 +136,8 @@ export default function Impressum() {
                       href="https://ec.europa.eu/consumers/odr/"
                       target="_blank"
                       rel="noreferrer"
-                      className="text-primary hover:underline inline-flex items-center gap-1"
+                      className="inline-flex items-center gap-1 hover:underline
+                                 text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]"
                     >
                       https://ec.europa.eu/consumers/odr/
                       <ExternalLink className="w-4 h-4" />
@@ -124,41 +151,36 @@ export default function Impressum() {
 
               {/* Kontakt/CTA-Karte rechts */}
               <aside className="space-y-6">
-                <div className="bg-gradient-primary text-white rounded-2xl p-6 md:p-8 shadow-elegant">
+                <div
+                  className="
+                    rounded-2xl p-6 md:p-8 text-secondary-foreground shadow-elegant
+                    bg-[linear-gradient(135deg,hsl(var(--secondary))_0%,hsl(var(--secondary)/0.92)_50%,hsl(var(--secondary)/0.85)_100%)]
+                    dark:bg-[linear-gradient(135deg,hsl(var(--primary))_0%,hsl(var(--primary)/0.95)_40%,hsl(var(--primary)/0.88)_100%)]
+                  "
+                >
                   <h3 className="text-xl font-bold mb-2">Haben Sie Fragen?</h3>
                   <p className="text-white/90 mb-4">
                     Unser Team hilft Ihnen gerne weiter. Wir melden uns in der
                     Regel innerhalb von 24 Stunden.
                   </p>
+
+                  {/* Weißer Button auf roter Fläche, CI-konform; Fokus sichtbar */}
                   <a
-                    href="https://calendly.com/paxup"
+                    href="https://cal.com/paxup"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-md bg-white text-primary px-4 py-2 font-medium hover:bg-white/90 transition-colors"
+                    className="
+                      inline-flex items-center justify-center rounded-md
+                      bg-white text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]
+                      hover:bg-white/90
+                      px-4 py-2 font-semibold transition-colors
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70
+                      focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--secondary))]
+                      dark:focus-visible:ring-offset-[hsl(var(--primary))]
+                    "
                   >
                     Termin vereinbaren
                   </a>
-                </div>
-
-                <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-soft">
-                  <h3 className="text-lg font-semibold mb-3">Schnellkontakt</h3>
-                  <ul className="space-y-3 text-sm">
-                    <li className="flex items-center gap-3">
-                      <Mail className="w-4 h-4 text-secondary" />
-                      <a
-                        className="hover:underline"
-                        href="mailto:support@paxup.de"
-                      >
-                        support@paxup.de
-                      </a>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <Phone className="w-4 h-4 text-secondary" />
-                      <a className="hover:underline" href="tel:+4964120107130">
-                        +49 641 20107130
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </aside>
             </div>
