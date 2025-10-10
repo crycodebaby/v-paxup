@@ -534,8 +534,8 @@ export default function ImmobilienLandingPage() {
               <div className="mt-8 pt-8 border-t border-accent-foreground/20 space-y-4">
                 {[
                   "Analyse deiner größten Zeitfresser",
-                  "3 Quick Wins mit sofortigem ROI",
-                  "90-Tage-Blueprint bis zum Go-Live",
+                  "3 sofortige Errungenschaften mit Mehrwert",
+                  "90-Tage-Blaupause bis zur Inbetriebnahme",
                 ].map((line) => (
                   <div key={line} className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 mt-1 flex-shrink-0 text-secondary dark:text-primary" />
