@@ -356,24 +356,24 @@ export default function ImmobilienLandingPage() {
                 </Card>
               ))}
 
-              {/* CTA-Card mit edlem Doppel-Gradient (Light/Dark betont CI) */}
+              {/* CTA-Card mit korrektem CI-Rot (einheitlich Light/Dark) */}
               <Card
                 className="md:col-span-2 lg:col-span-1 border-0 text-primary-foreground relative overflow-hidden"
                 style={{
                   background: `
-                    linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%),
-                    radial-gradient(30rem 18rem at 70% -10%, hsl(var(--secondary)/0.35), transparent 60%)
-                  `,
+      linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary)) 100%),
+      radial-gradient(30rem 18rem at 70% -10%, hsl(var(--secondary)/0.35), transparent 60%)
+    `,
                 }}
               >
                 <CardContent className="relative p-8 h-full grid place-content-center text-center">
-                  {/* softer Lichtkegel für Tiefe */}
+                  {/* softer Lichtkegel in Rot */}
                   <div
                     aria-hidden
                     className="absolute inset-0"
                     style={{
                       background:
-                        "radial-gradient(16rem 10rem at 50% 0%, hsl(0 0% 100%/0.10), transparent 60%)",
+                        "radial-gradient(16rem 10rem at 50% 0%, hsl(var(--secondary)/0.2), transparent 60%)",
                       mixBlendMode: "screen",
                     }}
                   />
@@ -387,7 +387,7 @@ export default function ImmobilienLandingPage() {
                   <Button
                     onClick={() => window.open(CAL_URL, "_blank")}
                     size="lg"
-                    className="mt-6 w-full sm:w-auto bg-white text-primary hover:bg-white/90"
+                    className="mt-6 w-full sm:w-auto bg-white text-[hsl(var(--secondary))] hover:bg-white/90 dark:text-[hsl(var(--primary))]"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     Jetzt Termin buchen
