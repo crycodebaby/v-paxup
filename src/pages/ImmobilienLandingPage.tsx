@@ -39,21 +39,21 @@ const PROBLEMS = [
     icon: <Users className="w-8 h-8 text-primary" />,
     title: "Bewerberflut, aber wenig Qualität?",
     description:
-      "KI filtert vor, automatisiert Absagen, sammelt fehlende Infos – freundlich, strukturiert, durchgängig.",
+      "KI filtert vor, automatisiert Absagen, sammelt fehlende Infos: freundlich, strukturiert, durchgängig.",
     result: "Qualifiziertere Anfragen, weniger Back-and-Forth.",
   },
   {
     icon: <Building2 className="w-8 h-8 text-primary" />,
     title: "Schadensmeldungen chaotisch?",
     description:
-      "Geführte Meldung inkl. Foto/Video-Upload, automatische Zuordnung zum Objekt, Ticket & Handwerker – ohne Medienbruch.",
+      "Geführte Meldung inkl. Foto/Video-Upload, automatische Zuordnung zum Objekt, Ticket & Handwerker: ohne Medienbruch.",
     result: "95% vollständige Meldungen, schnellere Reaktion.",
   },
   {
     icon: <TrendingUp className="w-8 h-8 text-primary" />,
     title: "Vermietung zieht sich?",
     description:
-      "Standardprozesse werden automatisiert (Terminierung, Unterlagen, Nachfassen). Du gewinnst Tempo – und Umsatz.",
+      "Standardprozesse werden automatisiert (Terminierung, Unterlagen, Nachfassen). Du gewinnst Tempo: und Umsatz.",
     result: "Kürzere Leerstandszeiten, planbarer Cashflow.",
   },
   {
@@ -486,7 +486,7 @@ export default function ImmobilienLandingPage() {
                                 {[
                                   "Kostenlose 30-Min-Analyse deiner Prozesse",
                                   "3 sofort umsetzbare Maßnahmen für mehr Effizienz",
-                                  "Roadmap & Fahrplan bis zum Go-Live (60-90 Tage)",
+                                  "Fahrplan bis zur Inbetriebnahme (60 - 90 Tage)",
                                 ].map((line) => (
                                   <li
                                     key={line}
@@ -529,7 +529,7 @@ export default function ImmobilienLandingPage() {
               </h2>
               <p className="mt-4 text-fluid-body opacity-90 text-balance">
                 In 30 Minuten klären wir deinen Status, dein Potenzial und die
-                ersten konkreten Schritte – klar, ehrlich und direkt umsetzbar.
+                ersten konkreten Schritte: klar, ehrlich und direkt umsetzbar.
               </p>
               <div className="mt-8 pt-8 border-t border-accent-foreground/20 space-y-4">
                 {[
