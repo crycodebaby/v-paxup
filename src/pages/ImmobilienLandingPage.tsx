@@ -124,31 +124,31 @@ const CHECK_QUESTIONS: Readonly<Question[]> = [
 function getCheckResult(score: number) {
   if (score <= 5)
     return {
-      level: "Großes Potenzial – sofort anpacken",
+      level: "Großes Potenzial; sofort anpacken!",
       description:
         "Viel manuell, viele Unterbrechungen. Du hast die Chance, sehr schnell spürbar Zeit & Nerven zu sparen.",
       tone: {
         box: "bg-destructive/10 border-destructive/30",
-        heading: "text-destructive",
+        heading: "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]",
       },
     };
   if (score <= 10)
     return {
-      level: "Guter Start – jetzt skalieren",
+      level: "Guter Start, skaliere jetzt!",
       description:
         "Die Basis stimmt. Mit KI-Bots & Integrationen hebst du die Effizienz auf das nächste Level.",
       tone: {
         box: "bg-secondary/10 border-secondary/30",
-        heading: "text-secondary",
+        heading: "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]",
       },
     };
   return {
-    level: "Sehr gut – Feinschliff & ROI",
+    level: "Sehr gut. Feinschliff & der Mehrwert wird kommen",
     description:
-      "Du bist schon weit. Feintuning & Reporting machen Erfolge sichtbar – und multiplizieren den ROI.",
+      "Du bist schon weit. Feintuning & Reporting machen Erfolge sichtbar und multiplizieren den Mehrwert.",
     tone: {
       box: "bg-success/10 border-success/30",
-      heading: "text-success-foreground",
+      heading: "text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]",
     },
   };
 }
@@ -219,7 +219,7 @@ export default function ImmobilienLandingPage() {
 
               <p className="mt-4 text-fluid-body text-muted-foreground text-balance">
                 Schluss mit Bewerberflut, Termin-Ping-Pong und Standardfragen.
-                Unsere Kommunikations-KI übernimmt die Routine – du gewinnst
+                Unsere Kommunikations-KI übernimmt die Routine und du gewinnst
                 Ruhe und planbares Wachstum.
               </p>
 
@@ -328,8 +328,8 @@ export default function ImmobilienLandingPage() {
                 lösen kannst
               </h2>
               <p className="mt-3 text-lg text-muted-foreground text-balance">
-                Wir automatisieren die Routinen – dein Team fokussiert sich aufs
-                Wesentliche.
+                Wir automatisieren die Routinen und dein Team fokussiert sich
+                aufs Wesentliche.
               </p>
             </div>
 
