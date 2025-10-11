@@ -1,5 +1,5 @@
 // src/components/LeadPopup.tsx
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,103 +11,235 @@ import {
 } from "@/components/ui/select";
 import { X, ShieldCheck, CheckCircle2, CalendarDays } from "lucide-react";
 
-const STORAGE_KEY = "leadPopupClosedUntil"; // ISO-Date bis wann nicht mehr zeigen
+const STORAGE_KEYS = {
+  closedUntil: "leadPopup.closedUntil", // ISO-Date
+  successUntil: "leadPopup.successUntil", // ISO-Date
+  lastOpenAt: "leadPopup.lastOpenAt", // ISO-Date (optional)
+} as const;
+
+const COOLDOWN_DAYS_CLOSE = 7;
+const COOLDOWN_DAYS_SUCCESS = 30;
+const GRACE_DELAY_MS = 12000; // 12 s
+const SCROLL_THRESHOLD = 0.6; // 60%
+
+function addDays(date: Date, days: number) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+function isBeforeNow(iso?: string | null) {
+  return !iso || new Date(iso) <= new Date();
+}
 
 export default function LeadPopup() {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [hasOpenedThisSession, setHasOpenedThisSession] = useState(false);
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [branche, setBranche] = useState("");
 
-  // --- Popup-Frequenz: nur alle 7 Tage erneut anzeigen ---
+  const timers = useRef<number[]>([]);
+  const listenersAttached = useRef(false);
+
+  // --- safe localStorage helpers (SSR/Privacy robust) ---
+  const getLS = useCallback((k: string): string | null => {
+    try {
+      if (typeof window === "undefined") return null;
+      return window.localStorage.getItem(k);
+    } catch (err) {
+      console.debug("[LeadPopup] getLS failed:", err);
+      return null;
+    }
+  }, []);
+
+  const setLS = useCallback((k: string, v: string): void => {
+    try {
+      if (typeof window === "undefined") return;
+      window.localStorage.setItem(k, v);
+    } catch (err) {
+      console.debug("[LeadPopup] setLS failed:", err);
+    }
+  }, []);
+
+  // --- frequency capping ---
+  const suppressedByCooldown = useCallback((): boolean => {
+    const closedUntil = getLS(STORAGE_KEYS.closedUntil);
+    const successUntil = getLS(STORAGE_KEYS.successUntil);
+    if (!isBeforeNow(successUntil)) return true;
+    if (!isBeforeNow(closedUntil)) return true;
+    return false;
+  }, [getLS]);
+
+  // --- scroll lock while open ---
+  const lockBodyScroll = useCallback((lock: boolean) => {
+    if (typeof document === "undefined") return;
+    const body = document.body;
+    body.style.overflow = lock ? "hidden" : "";
+  }, []);
+
+  // --- triggers cleanup (no 'any' casts) ---
+  const onScroll = useCallback(() => {
+    if (hasOpenedThisSession || suppressedByCooldown()) return;
+    const scrolled = window.scrollY + window.innerHeight;
+    const total = document.documentElement.scrollHeight || 1;
+    const percent = scrolled / total;
+    if (percent >= SCROLL_THRESHOLD) openPopup();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasOpenedThisSession, suppressedByCooldown]);
+
+  const onMouseMoveExit = useCallback(
+    (e: MouseEvent) => {
+      if (hasOpenedThisSession || suppressedByCooldown()) return;
+      if (e.clientY <= 10) openPopup();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [hasOpenedThisSession, suppressedByCooldown]
+  );
+
+  const cleanupTriggers = useCallback(() => {
+    timers.current.forEach((tId) => window.clearTimeout(tId));
+    timers.current = [];
+    if (listenersAttached.current) {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("mousemove", onMouseMoveExit);
+      listenersAttached.current = false;
+    }
+  }, [onMouseMoveExit, onScroll]);
+
+  // --- open/close ---
+  const openPopup = useCallback(() => {
+    if (hasOpenedThisSession || suppressedByCooldown()) return;
+    setHasOpenedThisSession(true);
+    setIsOpen(true);
+    setLS(STORAGE_KEYS.lastOpenAt, new Date().toISOString());
+    lockBodyScroll(true);
+    cleanupTriggers(); // disable all triggers after first open
+  }, [
+    cleanupTriggers,
+    hasOpenedThisSession,
+    lockBodyScroll,
+    setLS,
+    suppressedByCooldown,
+  ]);
+
+  const closeWithCooldown = useCallback(
+    (days: number) => {
+      setIsOpen(false);
+      lockBodyScroll(false);
+      const until = addDays(new Date(), days).toISOString();
+      setLS(STORAGE_KEYS.closedUntil, until);
+    },
+    [lockBodyScroll, setLS]
+  );
+
+  const markSuccessAndClose = useCallback(() => {
+    setIsOpen(false);
+    lockBodyScroll(false);
+    const until = addDays(new Date(), COOLDOWN_DAYS_SUCCESS).toISOString();
+    setLS(STORAGE_KEYS.successUntil, until);
+  }, [lockBodyScroll, setLS]);
+
+  // --- mount: install triggers if not suppressed ---
   useEffect(() => {
-    const until = localStorage.getItem(STORAGE_KEY);
-    if (until && new Date(until) > new Date()) return;
+    setMounted(true);
+    if (suppressedByCooldown()) return;
 
-    // zeigen nach 12s oder bei 60% Scroll
-    const timer = setTimeout(() => setIsOpen(true), 12000);
+    // time trigger
+    const tId = window.setTimeout(openPopup, GRACE_DELAY_MS);
+    timers.current.push(tId);
 
-    const onScroll = () => {
-      const scrolled = window.scrollY + window.innerHeight;
-      const percent = scrolled / document.documentElement.scrollHeight;
-      if (percent > 0.6) setIsOpen(true);
-    };
-
+    // scroll
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+    // exit intent on desktop/fine pointer
+    if (window.matchMedia?.("(pointer:fine)").matches) {
+      window.addEventListener("mousemove", onMouseMoveExit);
+    }
+    listenersAttached.current = true;
 
-  // ESC zum Schließen
+    return () => {
+      cleanupTriggers();
+      lockBodyScroll(false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once
+
+  // --- ESC close ---
   useEffect(() => {
     if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeWithCooldown(COOLDOWN_DAYS_CLOSE);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [isOpen]);
-
-  const closeAndCooldown = useCallback(() => {
-    const in7days = new Date();
-    in7days.setDate(in7days.getDate() + 7);
-    localStorage.setItem(STORAGE_KEY, in7days.toISOString());
-    setIsOpen(false);
-  }, []);
+  }, [isOpen, closeWithCooldown]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: An dein Backend / Form-Service anbinden
-    console.log("Lead:", { email, name, branche });
-    closeAndCooldown();
+    // TODO: API call
+    markSuccessAndClose();
   };
 
-  if (!isOpen) return null;
+  if (!mounted || !isOpen) return null;
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4 bg-black/60 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Kostenloses Gespräch vereinbaren"
       onClick={(e) => {
-        // Klick auf Overlay schließt
-        if (e.target === e.currentTarget) closeAndCooldown();
+        if (e.target === e.currentTarget)
+          closeWithCooldown(COOLDOWN_DAYS_CLOSE);
       }}
     >
-      <div className="relative w-full max-w-5xl overflow-hidden rounded-2xl bg-background text-foreground shadow-2xl">
-        {/* Close */}
-        <button
-          onClick={closeAndCooldown}
-          aria-label="Popup schließen"
-          className="absolute right-4 top-4 z-10 grid h-9 w-9 place-content-center rounded-full bg-background/90 shadow-md ring-1 ring-border hover:bg-muted transition-colors"
-        >
-          <X className="h-4 w-4" />
-        </button>
+      {/* Mobile close (always visible) */}
+      <button
+        onClick={() => closeWithCooldown(COOLDOWN_DAYS_CLOSE)}
+        aria-label="Popup schließen"
+        className="md:hidden fixed right-4 top-[max(env(safe-area-inset-top),1rem)] z-[110] grid h-10 w-10 place-content-center rounded-full
+                   bg-background/90 shadow-md ring-1 ring-border hover:bg-muted transition-colors"
+      >
+        <X className="h-5 w-5" />
+      </button>
+
+      {/* Sheet mobile / centered modal desktop */}
+      <div className="relative w-full max-w-5xl overflow-hidden rounded-t-2xl md:rounded-2xl bg-background text-foreground shadow-2xl">
+        {/* Sticky close bar on mobile */}
+        <div className="sticky top-0 z-10 flex items-center justify-end px-4 py-3 md:hidden bg-background/95 backdrop-blur border-b border-border/50">
+          <button
+            onClick={() => closeWithCooldown(COOLDOWN_DAYS_CLOSE)}
+            className="grid h-9 w-9 place-content-center rounded-full bg-muted hover:bg-muted/80 transition-colors"
+            aria-label="Popup schließen"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
 
         <div className="grid gap-0 lg:grid-cols-5">
-          {/* Visuelle Seite (3/5) */}
+          {/* Visual side */}
           <div className="lg:col-span-3 bg-gradient-subtle p-5 sm:p-8 lg:p-10">
             <div className="mx-auto max-w-xl text-left">
               <div
                 className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold
-                  text-secondary-foreground bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]"
+                           text-secondary-foreground bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]"
               >
                 <CalendarDays className="h-4 w-4" />
                 Kostenloses Gespräch
               </div>
 
               <h3 className="mt-4 text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
-                Starte mit Deiner{" "}
+                Starte mit deiner{" "}
                 <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
                   Potenzialanalyse
                 </span>
               </h3>
 
               <p className="mt-3 text-base sm:text-lg text-muted-foreground">
-                In 30 Minuten zeigen wir Dir die drei wirksamsten Schritte für
-                Deinen Einstieg: klar, messbar und auf Deine Branche
+                In 30 Minuten zeigen wir dir die drei wirksamsten Schritte für
+                deinen Einstieg: klar, messbar und auf deine Branche
                 zugeschnitten.
               </p>
 
@@ -131,7 +263,7 @@ export default function LeadPopup() {
             </div>
           </div>
 
-          {/* Formular (2/5) */}
+          {/* Form side */}
           <div className="lg:col-span-2 p-6 sm:p-8 lg:p-10">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -185,7 +317,7 @@ export default function LeadPopup() {
                 </Select>
               </div>
 
-              {/* Primäre Aktion: Rot in Light & Dark (nutzt Deinen CTA-Variant) */}
+              {/* Primäre Aktion – CI-Rot Light/Dark */}
               <Button
                 type="submit"
                 variant="cta"
@@ -196,12 +328,12 @@ export default function LeadPopup() {
                 Kostenloses Gespräch sichern
               </Button>
 
-              {/* Alternative: Direkt Termin buchen (ohne Formular) */}
+              {/* Alternative: Direkt Termin buchen */}
               <Button
                 type="button"
                 variant="outline"
                 className="w-full h-11"
-                onClick={() => window.open("https://cal.com/paxup", "_blank")}
+                onClick={markSuccessAndClose}
               >
                 Direkt Termin buchen
               </Button>

@@ -311,9 +311,9 @@ export default function ImmobilienLandingPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <div className="text-center mb-12">
-              <h2 className="text-fluid-h2 font-bold text-balance">
+              <h2 className="text-fluid-h2 font-bold text-balance relative">
                 5 Zeitfresser, die du{" "}
-                <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
+                <span className="relative text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
                   heute
                   <span
                     aria-hidden

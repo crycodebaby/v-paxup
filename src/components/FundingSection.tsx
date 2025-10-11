@@ -204,7 +204,9 @@ export default function FundingSection() {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">
                   <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
-                  <span>DSGVO & Audit-Trails</span>
+                  <span>
+                    <strong>DSGVO</strong> & <strong>Audit-Trails</strong>
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
@@ -212,7 +214,10 @@ export default function FundingSection() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
-                  <span>Nachweisführung für die Förderstelle</span>
+                  <span>
+                    <strong>Nachweisführung</strong> für die{" "}
+                    <strong>Förderstelle</strong>
+                  </span>
                 </li>
               </ul>
             </div>
