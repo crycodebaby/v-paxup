@@ -100,14 +100,14 @@ export default function FundingSection() {
             >
               Bis zu{" "}
               <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
-                80 % Zuschuss
+                80 % Förderung
               </span>{" "}
               für Strategie & Umsetzung
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Wir prüfen die Förderfähigkeit, bereiten die Unterlagen vor und
-              setzen dein Vorhaben förderkonform um:{" "}
-              <span className="font-medium">schnell, sicher, messbar</span>.
+              Bis zu 80&nbsp;% Förderung möglich: Wir kümmern uns um den
+              Papierkram. BAFA-zertifiziert, DSGVO-geprüft, Hosting in
+              Deutschland – schnell, sicher, messbar.
             </p>
           </div>
 
@@ -133,7 +133,8 @@ export default function FundingSection() {
                 <li className="flex items-start gap-2">
                   <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
                   <span>
-                    Bis zu <strong>80 %</strong> Zuschuss (Beratung/Strategie)
+                    Bis zu <strong>80&nbsp;%</strong> Zuschuss
+                    (Beratung/Strategie)
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -144,7 +145,9 @@ export default function FundingSection() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--secondary))] dark:bg-[hsl(var(--primary))]" />
-                  <span>Regionale Sätze & Bedingungen möglich</span>
+                  <span>
+                    Regionale Sätze & Bedingungen je nach Programmstand
+                  </span>
                 </li>
               </ul>
             </div>
@@ -235,7 +238,7 @@ export default function FundingSection() {
               "
               onClick={() => window.open(CAL_URL, "_blank")}
             >
-              BAFA-Fördercheck starten
+              Förderfähigkeit prüfen lassen
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button

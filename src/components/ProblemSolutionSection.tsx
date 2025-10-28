@@ -43,7 +43,7 @@ const problemSolutionPairs = [
     },
     solution: {
       icon: ShieldCheck,
-      text: "100% DSGVO-konforme Lösungen, gehostet in Deutschland.",
+      text: "100 % DSGVO-konforme Lösungen, gehostet in Deutschland.",
     },
   },
 ] as const;
@@ -56,12 +56,12 @@ export default function ProblemSolutionSection() {
       <div className="container mx-auto px-4 lg:px-8">
         {/* Headline */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Vom digitalen Chaos zur klaren Ordnung
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">Warum PAXUP</h2>
           <p className="text-lg md:text-xl text-muted-foreground">
-            Du kennst die Komplexität. Wir schaffen Synergien. Entdecke deinen
-            direkten Weg zur digitalen Effizienz.
+            Deine Zeit ist zu wertvoll für Aufgaben, die heute schon von KI
+            übernommen werden können. Wir entwickeln und implementieren
+            individuelle KI-Lösungen, die wirklich Arbeit abnehmen und sofort
+            funktionieren.
           </p>
         </div>
 
@@ -138,8 +138,9 @@ export default function ProblemSolutionSection() {
             size="lg"
             className="px-8 py-6 text-lg group"
             onClick={() => window.open(calendlyUrl, "_blank")}
+            aria-label="Jetzt Prozess prüfen lassen"
           >
-            Starte deine Transformation
+            Jetzt Prozess prüfen lassen
             <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>

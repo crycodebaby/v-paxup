@@ -23,7 +23,7 @@ const rows: Readonly<Row[]> = [
     icon: Clock,
     title: "Zeitaufwand",
     without: "Stundenlanges Recherchieren und Testen",
-    with: "1× pro Monat 60 Minuten Strategiemeeting",
+    with: "60 Min Strategiemeeting pro Monat",
   },
   {
     icon: Shield,
@@ -35,7 +35,7 @@ const rows: Readonly<Row[]> = [
     icon: TrendingUp,
     title: "Erfolg",
     without: "Keine messbare Wirkung im Alltag",
-    with: "Klare KPIs: Kosteneinsparungen & Prozessnutzen",
+    with: "Klare KPIs: Kosten, Durchlaufzeiten, Fehlerquote",
   },
   {
     icon: Settings,
@@ -97,7 +97,7 @@ export default function ComparisonSection() {
             Der Unterschied auf einen Blick
           </h2>
           <p className="mt-3 text-base md:text-lg text-white/80">
-            Klar, kontrastreich, ohne visuelles Rauschen.
+            Ohne Buzzwords, mit klaren Ergebnissen.
           </p>
         </div>
 
@@ -118,7 +118,7 @@ export default function ComparisonSection() {
           <TableBlock
             tone="positive"
             title="Mit PAXUP"
-            lead="Was du mit uns bekommst: klare Roadmap, messbare Ergebnisse und Ruhe im Kopf."
+            lead="Was du mit uns bekommst: klare Roadmap, messbare Wirkung und Ruhe im Kopf."
             rows={rows.map(({ icon, title, with: text }) => ({
               icon,
               title,

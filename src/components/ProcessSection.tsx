@@ -32,36 +32,36 @@ const STEPS: Readonly<Step[]> = [
   {
     number: "01",
     icon: Search,
-    title: "Analyse & Bestandsaufnahme",
+    title: "Prozess-Check (kostenlos)",
     description:
-      "Wir prüfen, wo du stehst: Abläufe, Systeme und Daten  verständlich aufbereitet und klar bewertet.",
+      "Wir wählen gemeinsam einen Prozess, der sofort Wirkung zeigt und geringe Einstiegskosten hat.",
     detailedDescription:
-      "Gemeinsam erfassen wir den aktuellen Stand deiner Abläufe und Systeme: Wie laufen Prozesse wirklich ab? Wo gibt es doppelte Arbeit, unnötige Klicks oder Medienbrüche? Wir sprechen mit den Fachbereichen, prüfen eingesetzte Software und Datenschnittstellen und zeigen klar, wo Zeit und Geld verloren gehen  und wo sich Verbesserungen schnell lohnen.",
-    duration: "3 - 10 Tage",
+      "Im kostenlosen Prozess-Check schauen wir uns deinen Arbeitsalltag an und identifizieren den schnellsten Hebel für messbare Wirkung. Wir bewerten Aufwand, Nutzen und Umsetzbarkeit – mit Fokus auf einen klaren Startpunkt, der sich zügig rechnet.",
+    duration: "Kostenloser Check (30 – 60 Min)",
     examples: [
-      "Überblick über genutzte Systeme (E-Mail, Telefon, CRM, DMS usw.)",
-      "Darstellung der wichtigsten Arbeitsabläufe und Engpässe",
-      "Vergleich aktueller Kennzahlen (z. B. Bearbeitungszeiten, Fehlerquoten)",
-      "Datenschutz-Check nach DSGVO",
-      "Liste mit ersten Verbesserungsmöglichkeiten und Nutzenabschätzung",
+      "Gemeinsame Auswahl eines geeigneten Startprozesses",
+      "Schnelle Nutzenabschätzung (Zeit/Einsparungen)",
+      "Abgleich mit bestehenden Systemen & Verantwortlichkeiten",
+      "Prüfung: geringer Einstieg, schnelle Wirkung",
+      "Vorab-Check Datenschutz & Hosting in DE",
     ],
     deliverables:
-      "Kurzer Analysebericht mit Prioritäten, Einsparpotenzialen und klaren Handlungsempfehlungen",
+      "Kurzprotokoll mit Empfehlung für den Startprozess inkl. Nutzen- und Aufwandseinschätzung",
   },
   {
     number: "02",
     icon: Target,
     title: "Fahrplan & Konzept",
     description:
-      "Wir entwickeln deinen individuellen Umsetzungsplan  mit klaren Zielen, Verantwortlichkeiten und Schritten.",
+      "Du bekommst einen klaren Fahrplan mit Zielen, Aufwand, ROI und Umsetzungsschritten.",
     detailedDescription:
-      "Auf Basis der Analyse entsteht ein konkreter Plan, wie du digitale Abläufe Schritt für Schritt verbessern kannst. Wir legen fest, welche Themen zuerst umgesetzt werden, welche Software passt, wer im Team wofür verantwortlich ist und wie das Ganze finanziell und zeitlich machbar bleibt. Auf Wunsch prüfen wir auch Fördermöglichkeiten.",
-    duration: "3 - 5 Tage",
+      "Auf Basis des Prozess-Checks entsteht ein umsetzbarer Blueprint: Ziele, Verantwortlichkeiten, Meilensteine und die passende Systemlandschaft. Wir priorisieren, planen realistisch und berücksichtigen Förderfähigkeit.",
+    duration: "3 – 5 Tage",
     examples: [
-      "Klares Zielbild und Zuständigkeiten",
-      "Vorschläge für geeignete Tools und Schnittstellen",
-      "Plan für die nächsten 90 Tage (inkl. Zeitplan und Budgetrahmen)",
-      "Ideen für den Einsatz von KI in passenden Bereichen",
+      "Klares Zielbild, KPIs und Zuständigkeiten",
+      "Passende Tools & Schnittstellen definiert",
+      "90-Tage-Plan mit Zeitleiste und Budgetrahmen",
+      "Konkrete KI-Einsatzpunkte im Prozess",
       "Prüfung möglicher Förderprogramme",
     ],
     deliverables:
@@ -70,21 +70,21 @@ const STEPS: Readonly<Step[]> = [
   {
     number: "03",
     icon: Cog,
-    title: "Umsetzung & Automatisierung",
+    title: "Umsetzung & Go-Live",
     description:
-      "Wir setzen gemeinsam um  einfach, sicher und so, dass es im Alltag wirklich funktioniert.",
+      "Wir setzen deinen ersten Prozess um, testen ihn und machen ihn alltagstauglich; in nur 30 Tagen.",
     detailedDescription:
-      "Wir richten Systeme, Schnittstellen und Automatisierungen ein  zum Beispiel für E-Mails, Termine oder Dokumente. Alles wird getestet, erklärt und im Team geschult. Anschließend begleiten wir den Start, überwachen die Ergebnisse und sorgen dafür, dass alles stabil und datenschutzkonform läuft.",
-    duration: "4 - 12 Wochen",
+      "Wir integrieren Systeme, richten Schnittstellen und Automatisierungen ein; z. B. für E-Mails, Termine oder Dokumente. Alles wird getestet, erklärt und dein Team geschult. Anschließend begleiten wir den Go-Live, überwachen Ergebnisse und stellen den stabilen, DSGVO-konformen Betrieb sicher.",
+    duration: "30 Tage",
     examples: [
-      "Automatische E-Mail-Verarbeitung und Aufgabenverteilung",
-      "Telefonnotizen und Termine automatisch im System hinterlegt",
-      "Einheitliche Abläufe zwischen Kalender, CRM und Dokumentenablage",
-      "Weniger manuelle Arbeit durch Automatisierung wiederkehrender Aufgaben",
-      "Automatische Dokumentenerkennung und -verarbeitung",
+      "Automatische E-Mail-Verarbeitung & Aufgabenverteilung",
+      "Termine & Telefonnotizen automatisch im System",
+      "Durchgängige Abläufe zwischen Kalender, CRM & DMS",
+      "Weniger Handarbeit durch wiederkehrende Automatisierungen",
+      "Dokumentenerkennung & -verarbeitung im Regelbetrieb",
     ],
     deliverables:
-      "Laufende Automatisierungen mit klaren Ergebnissen, Schulung des Teams und Übergabe in den Regelbetrieb",
+      "Laufende Automatisierungen mit klaren Ergebnissen, geschultes Team und Übergabe in den Regelbetrieb",
   },
 ];
 
@@ -118,12 +118,11 @@ export default function ProcessSection() {
             id={`${sectionId}-title`}
             className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white"
           >
-            So digitalisieren wir&nbsp;Ihr Unternehmen
+            So läuft dein Projekt ab
           </h2>
           <p className="mt-4 text-lg md:text-xl text-white/80 max-w-3xl mx-auto">
-            Potenzialanalyse&nbsp;→&nbsp;Blueprint&nbsp;→&nbsp;Implementierung.
+            Prozess-Check → Fahrplan → Umsetzung &amp; Go-Live.{" "}
             <span className="hidden sm:inline">
-              {" "}
               Alles messbar, sicher, förderfähig.
             </span>
           </p>
@@ -291,9 +290,14 @@ export default function ProcessSection() {
              bg-[linear-gradient(135deg,hsl(var(--secondary))_0%,hsl(var(--secondary))_100%)]
              dark:bg-[linear-gradient(135deg,hsl(var(--primary))_0%,hsl(var(--primary-hover))_100%)]"
             onClick={() => window.open("https://cal.com/paxup", "_blank")}
+            aria-label="Jetzt Prozess prüfen lassen"
           >
-            Jetzt mit KI im Unternehmen starten
+            Jetzt Prozess prüfen lassen
           </Button>
+          <p className="mt-3 text-sm text-white/80">
+            Ergebnis: Eine funktionierende KI-Lösung in 30 Tagen, mit
+            Geld-zurück-Garantie.
+          </p>
         </div>
       </div>
     </section>

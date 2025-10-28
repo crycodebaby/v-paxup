@@ -72,8 +72,8 @@ const INDUSTRIES: Readonly<IndustryEntry[]> = [
 
 const USE_CASES: Record<IndustryId, IndustryData> = {
   immobilien: {
-    title: "Digitalisierung in der Immobilienverwaltung",
-    subtitle: "Verwaltungsprozesse automatisieren & Mieterservice verbessern",
+    title: "KI in der Immobilienverwaltung",
+    subtitle: "Mieterservice verbessern & Verwaltungsprozesse automatisieren",
     cases: [
       {
         title: "Automatische Mieterkommunikation 24/7",
@@ -89,11 +89,11 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
       {
         title: "Vermietungsprozess automatisieren",
         description:
-          "Absagen & Terminplanung laufen automatisiert schneller zum Mietvertrag.",
+          "Absagen & Terminplanung laufen automatisiert – schneller zum Mietvertrag.",
         benefits: [
           "Automatische Absagen",
-          "Auto-Termine",
-          "50% schnellere Vermietung",
+          "Automatische Termine",
+          "50 % schnellere Vermietung",
         ],
         icon: BarChart3,
       },
@@ -111,7 +111,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
     ],
   },
   grosshandel: {
-    title: "Digitalisierung im Großhandel",
+    title: "KI im Großhandel",
     subtitle: "B2B-Prozesse optimieren & Lieferketten automatisieren",
     cases: [
       {
@@ -121,7 +121,7 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
         benefits: [
           "Weniger Admin",
           "Schnellere Abwicklung",
-          "95% weniger Fehler",
+          "95 % weniger Fehler",
         ],
         icon: Clock,
       },
@@ -150,24 +150,24 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
     ],
   },
   dienstleistung: {
-    title: "Digitalisierung in der Dienstleistung",
+    title: "KI in der Dienstleistung",
     subtitle: "Beratungsqualität steigern, Prozesse verschlanken",
     cases: [
       {
         title: "KI-gestützte Report- & Präsentationserstellung",
         description:
-          "Reports & Slides entstehen aus Unternehmensdaten + KI-Analyse.",
+          "Reports & Slides entstehen aus Unternehmensdaten plus KI-Analyse.",
         benefits: [
-          "Pro-Slides in Minuten",
+          "Profi-Slides in Minuten",
           "Fundierte Insights",
           "CI-Konsistenz",
         ],
         icon: Clock,
       },
       {
-        title: "Angebots- & Verträge automatisieren",
+        title: "Angebote & Verträge automatisieren",
         description:
-          "Vorlagen befüllen sich aus CRM-/Kundendaten fehlerarm & schnell.",
+          "Vorlagen befüllen sich aus CRM-/Kundendaten fehlerarm und schnell.",
         benefits: [
           "Schnellere Angebote",
           "Weniger Fehler",
@@ -188,20 +188,20 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
     ],
   },
   pflege: {
-    title: "Digitalisierung in der Pflege",
+    title: "KI in der Pflege",
     subtitle: "Pflegequalität steigern, Doku vereinfachen",
     cases: [
       {
         title: "Digitale Doku per Sprachaufnahme",
         description:
-          "Pflegedoku per Sprache strukturiert & automatisch im System.",
-        benefits: ["−70% Doku-Zeit", "Hands-free", "Nahtlose Integration"],
+          "Pflegedoku per Sprache strukturiert und automatisch im System.",
+        benefits: ["−70 % Doku-Zeit", "Hands-free", "Nahtlose Integration"],
         icon: BarChart3,
       },
       {
         title: "Standardfragen automatisch beantworten",
         description:
-          "Mail & Telefon-Anfragen werden per KI automatisch beantwortet.",
+          "Mail- & Telefon-Anfragen werden per KI automatisch beantwortet.",
         benefits: [
           "24/7 erreichbar",
           "Team entlastet",
@@ -222,15 +222,15 @@ const USE_CASES: Record<IndustryId, IndustryData> = {
     ],
   },
   handwerk: {
-    title: "Digitalisierung im Handwerk",
+    title: "KI im Handwerk",
     subtitle: "Auftragsabwicklung modernisieren, Kundenbindung stärken",
     cases: [
       {
-        title: "Automatische Angebotserstellung (60% der Fälle)",
+        title: "Automatische Angebotserstellung (60 % der Fälle)",
         description:
-          "Standardaufträge werden KI-gestützt schneller & konsistent erstellt.",
+          "Standardaufträge werden KI-gestützt schneller und konsistent erstellt.",
         benefits: [
-          "−60% Aufwand",
+          "−60 % Aufwand",
           "Schnellere Angebote",
           "Standardisierte Qualität",
         ],
@@ -308,15 +308,15 @@ export default function UseCasesSection() {
             id="usecases-heading"
             className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
           >
-            Anwendungsfälle aus der Praxis{" "}
+            Wo KI im Mittelstand wirkt{" "}
             {/* Konsistenter Rot-Ton statt Gradient-Text */}
             <span className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
               klar & messbar
             </span>
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            Konkrete Digitalisierungslösungen: je Branche klar visualisiert, mit
-            messbaren Vorteilen.
+            Egal ob am digitalen Empfang, im Vertrieb, im Backoffice oder in der
+            Dokumentation – KI rechnet sich, wenn sie funktioniert.
           </p>
         </div>
 

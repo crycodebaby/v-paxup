@@ -13,23 +13,24 @@ type ValueProp = {
 const VALUE_PROPS: Readonly<ValueProp[]> = [
   {
     icon: ShieldCheck,
-    title: "DSGVO-Konformität",
-    description: "Sicherheit und Vertrauen nach deutschen Standards.",
+    title: "100 % DSGVO & DE-Hosting",
+    description: "Sicherheit ohne Diskussion – geprüft und transparent.",
   },
   {
     icon: Zap,
-    title: "Praxisnahe Umsetzung",
-    description: "Wir reden nicht – wir liefern spürbare Ergebnisse.",
+    title: "Ergebnisse statt Folienschlachten",
+    description:
+      "Wir liefern spürbare Wirkung – schnell, pragmatisch, messbar.",
   },
   {
     icon: Handshake,
-    title: "Persönliche Betreuung",
-    description: "Ein fester Ansprechpartner begleitet dich auf Augenhöhe.",
+    title: "Fester Ansprechpartner",
+    description: "Begleitung auf Augenhöhe – Architektur, Umsetzung, Betrieb.",
   },
   {
     icon: Gem,
     title: "Fördermittel-Expertise",
-    description: "Wir maximieren Zuschüsse für deine Vorhaben.",
+    description: "Wir maximieren Zuschüsse und übernehmen den Antrag.",
   },
 ];
 
@@ -92,8 +93,10 @@ export default function AboutSection() {
                 </span>
               </h2>
               <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
-                Strategie, Umsetzung und persönliche Betreuung aus einer Hand –
-                pragmatisch, messbar und auf deine Organisation zugeschnitten.
+                Wir denken wie Unternehmer und kennen deine Herausforderungen
+                aus der Praxis. Unser Ziel: dir in 30 Tagen zu zeigen, was KI in
+                deinem Unternehmen wirklich leisten kann – sicher, effizient,
+                verständlich. Versprochen: kein Hype. Nur Ergebnisse.
               </p>
             </header>
 
@@ -122,7 +125,7 @@ export default function AboutSection() {
             <div className="pt-2">
               <Button size="lg" asChild className="group">
                 <Link to="/ueber-uns">
-                  Lerne uns kennen
+                  Bereit für Veränderung?
                   {/* Pfeil in CI-Rot (Light/Dark) */}
                   <ArrowRight className="ml-3 h-5 w-5 text-[hsl(var(--secondary))] transition-transform duration-200 group-hover:translate-x-1 dark:text-[hsl(var(--primary))]" />
                 </Link>

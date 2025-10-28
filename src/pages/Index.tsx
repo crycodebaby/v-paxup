@@ -24,7 +24,6 @@ const Index = () => {
         <ProcessSection />
         <UseCasesSection />
         <ComparisonSection />
-
         <AboutSection />
         <FundingSection />
         <Footer />

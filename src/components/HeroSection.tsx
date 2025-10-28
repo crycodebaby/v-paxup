@@ -16,31 +16,27 @@ type ServiceItem = {
 const SERVICES: Readonly<ServiceItem[]> = [
   {
     icon: Target,
-    title: "Klare Strategie",
-    description:
-      "Wir zeigen dir, wo Digitalisierung wirklich lohnt und wie du Schritt für Schritt dorthin kommst.",
-    ariaLabel: "Strategie und Plan für eine sinnvolle Digitalisierung",
+    title: "Erste Lösung in 30 Tagen",
+    description: "Funktionsfähig – nicht nur Konzept.",
+    ariaLabel: "Erste funktionsfähige KI-Lösung in 30 Tagen",
   },
   {
     icon: Bot,
-    title: "Digitale Helfer",
-    description:
-      "Routinearbeiten laufen automatisch: E-Mails, Termine und Dokumente werden für dich erledigt.",
-    ariaLabel: "Automatisierte Abläufe für E-Mails, Termine und Dokumente",
+    title: "8-facher Mehrwert",
+    description: "Binnen 12 Monaten – sonst packen wir’s nicht an.",
+    ariaLabel: "Achtfacher Mehrwert innerhalb von zwölf Monaten",
   },
   {
     icon: Shield,
-    title: "Datenschutz nach deutschem Recht",
-    description:
-      "Deine Daten bleiben in Deutschland: transparent, geprüft und sicher verarbeitet.",
-    ariaLabel: "Datenschutzkonforme Verarbeitung und Hosting in Deutschland",
+    title: "100 % DSGVO & DE-Hosting",
+    description: "Sicherheit ohne Diskussion.",
+    ariaLabel: "Datenschutzkonform mit Hosting in Deutschland",
   },
   {
     icon: DollarSign,
-    title: "Fördermittel nutzen",
-    description:
-      "Wir finden passende Zuschüsse, kümmern uns um die Anträge und du sparst bares Geld.",
-    ariaLabel: "Förderprogramme und Zuschüsse für Unternehmen",
+    title: "Förderung bis 80 %",
+    description: "Wir übernehmen den Antrag.",
+    ariaLabel: "Förderfähigkeit bis zu 80 Prozent – Antrag durch uns",
   },
 ] as const;
 
@@ -169,15 +165,13 @@ function HeroSectionBase() {
         aria-hidden="true"
       />
 
-      {/* Inhalt */}
       <div className="relative z-10 container mx-auto px-4 lg:px-8 /* py-14 md:py-20 */ py-fluid-16">
         <div className="grid items-center /* gap-10 lg:gap-14 xl:gap-20 */ gap-fluid-10 lg:grid-cols-5">
-          {/* Headline & Copy (links) */}
           <div className="lg:col-span-3 text-center lg:text-left">
             <div className="mx-auto lg:mx-0 max-w-3xl">
               <h1 className="font-bold tracking-tight /* leading-tight */ leading-snugger /* text-4xl md:text-5xl xl:text-6xl */ text-fluid-h1 text-balance">
-                <span className="block">Weniger verwalten.</span>
-                <span className="block">Mehr gestalten:</span>
+                <span className="block">In 30 Tagen läuft deine KI.</span>
+                <span className="block">Ohne Risiko.</span>
                 <span
                   className="/* mt-4 */ mt-3 md:mt-4 xl:mt-5 inline-block rounded-2xl border px-4 py-2.5
             border-[hsl(var(--secondary)/0.45)] text-[hsl(var(--secondary))]
@@ -187,21 +181,20 @@ function HeroSectionBase() {
             dark:bg-[hsl(var(--primary)/0.15)]
           "
                 >
-                  Digitalisierung &amp; KI
+                  In 30 Tagen live
                 </span>
               </h1>
 
               <div className="mt-5 md:mt-7 space-y-4 md:space-y-5 max-w-[62ch] mx-auto lg:mx-0">
                 <p className="text-lg md:text-xl leading-relaxed">
-                  Deine Zeit ist zu wertvoll für repetitive Aufgaben.{" "}
+                  Schluss mit Prozessen aus der Steinzeit.{" "}
                   <strong className="text-[hsl(var(--secondary))] dark:text-[hsl(var(--primary))]">
-                    Wir automatisieren deine Prozesse von A bis Z,
+                    Wir bringen Struktur, Tempo und Automatisierung
                   </strong>{" "}
-                  damit du wieder Zeit für Wachstum und Strategie hast.
+                  in deine Abläufe.
                 </p>
                 <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-                  Strategie, Umsetzung und Betreuung aus einer Hand: klare
-                  Ziele, schnelle Inbetriebnahme, sichtbarer Mehrwert.
+                  Schnelle Umsetzung. Geld-zurück-Garantie. Sogar förderfähig.
                 </p>
               </div>
 
@@ -210,9 +203,9 @@ function HeroSectionBase() {
                   size="lg"
                   className="px-7 py-5 text-lg shadow-button transition-transform duration-300 hover:scale-[1.02]"
                   onClick={() => window.open(CALENDLY_URL, "_blank")}
-                  aria-label="Kostenloses Beratungsgespräch vereinbaren"
+                  aria-label="Jetzt Prozess prüfen lassen"
                 >
-                  Dein kostenloses Strategiegespräch →
+                  Jetzt Prozess prüfen lassen →
                 </Button>
               </div>
             </div>
